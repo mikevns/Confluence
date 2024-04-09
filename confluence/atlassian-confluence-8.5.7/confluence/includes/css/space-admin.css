@@ -1,0 +1,363 @@
+/* space-admin.css */
+
+/* Global Space Admin */
+
+/* these ought to be headings so AUI magic is applied */
+.steptitle,
+.formtitle,
+.form-element-large {
+    font-size: 20px;
+    font-weight: normal;
+    line-height: 1.5;
+}
+
+.stepdesc {
+    color: #707070;
+}
+
+.stepdesc,
+.buttons-container,
+.form-block {
+    margin: 10px 0;
+}
+
+.static-menu {
+    padding-left: 0;
+    list-style: none;
+}
+
+.static-menu li {
+    display: inline;
+    margin-left:5px;
+}
+
+/* Space permissions */
+.static-menu li::before {
+    content: "\b7";
+    margin-right: 5px;
+}
+
+.static-menu li:first-child {
+    margin-left: 0;
+}
+
+.static-menu li:first-child::before {
+    display: none;
+}
+
+/* Space Labels */
+
+.edit-space-details {
+    overflow: visible;
+}
+
+.edit-space-details-done-button,
+.edit-space-details .editor-title {
+    clear: both;
+}
+
+.edit-space-details .editor-title:first-child {
+    margin-top: 10px;
+}
+
+.edit-space-details .homePageTitle-value .aui-dropdown {
+    min-width: 248px;
+    max-width: 300px;
+}
+
+.edit-space-details .homePageTitle-value .aui-dropdown li a span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+form.aui .space-inputs .field-group {
+    width: auto;
+    float: left;
+    padding-left: 0;
+    clear: none;
+}
+
+.space-inputs label {
+    display: none;
+}
+
+form.aui .space-inputs .buttons-container {
+    width: auto;
+    float: left;
+    clear: none;
+    padding-left: 10px;
+}
+
+.available-display {
+    clear: both;
+    margin: 10px 0;
+}
+
+/* Permissions */
+
+/* This page could definitely do with a redesign. */
+
+/* This page is littered with a lot of table markup.
+We should have it removed. */
+
+/* There is [align='right'] in the source. Should be culled.
+ Then we can remove the next selector. */
+form[name='editspacepermissions'] {
+    text-align: left;
+}
+
+#space-admin-body form[name='editspacepermissions'] .primary-button-container {
+    float: none;
+}
+
+.permissions tr:nth-child(2) th {
+    font-weight: normal;
+}
+
+.permissions tr:nth-child(even) {
+    background: #f5f5f5;
+}
+
+.permissions tr td:first-child {
+    width: 100%;
+}
+
+.permissions .permissions-group-start {
+    border-left: 1px solid #ccc;
+}
+
+.permissions .permissionCell {
+    text-align: center;
+}
+
+.permissions .dropdown-perm-actions {
+    padding: 3px;
+}
+
+.permissions .row-selector {
+    float:right;
+    padding-top:2px;
+}
+
+#space-admin-body .permissions .perms-dropdown-trigger {
+    color: #999999;
+}
+
+.permissionCell.dropdown-perm-actions .aui-icon {
+    color: #707070;
+}
+
+/* Restricted Pages */
+
+/* We should move the "no pages" out of the table */
+.list-permission-pages td[colspan='6'] {
+    color: #707070;
+}
+
+/* Mail Accounts */
+.view-space-administration .static-menu {
+    margin-bottom: 10px;
+}
+
+/* Mailbox Import */
+
+/* Remove this stuff from HTML */
+.view-space-administration ul[type='square'] {
+    list-style: none;
+    margin-left: 0 !important;
+}
+
+/* Themes */
+
+form[name='choosethemeform'] label {
+    font-weight: bold;
+}
+
+/* This are hacks until we get rid of table markup on this page */
+form[name='choosethemeform'] table,
+form[name='choosethemeform'] table tr,
+form[name='choosethemeform'] table td,
+form[name='choosethemeform'] table th {
+    border: 0 !important;
+}
+
+/* Layout */
+
+.decorators .layouts-container {
+    margin-top: 10px;
+}
+
+/* Stylesheet */
+
+#view-stylesheet {
+    padding-top: 10px;
+}
+
+.edit-stylesheet textarea.textarea {
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Space Logo */
+
+.configure-logo p {
+    margin-bottom: 10px;
+}
+
+.configure-logo .space-logo {
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    margin: 10px 0;
+}
+
+#enable-disable-space-logo {
+    display: inline-block;
+    background-color: #ebecf0;
+    padding: 5px;
+    border: 1px solid #cccccc;
+}
+
+/* Import */
+
+/* Override this as it ruins the form layout */
+.import-pages div[align] {
+
+}
+
+#space-admin-body {
+    padding: 0 20px;
+}
+
+.space-admin-input-container {
+	margin-top: 10px;
+}
+
+.primary-button-container,
+#space-admin-body .steptitle {
+	margin-top: 20px;
+}
+
+#space-admin-body .primary-button-container {
+	float: right;
+}
+
+.space-admin-input-container .userpicker.button,
+.space-admin-input-container .add.button {
+    margin-left: 10px;
+}
+
+#content.space-administration .aui-message {
+	margin-bottom: 10px;
+}
+
+table.permissions tbody tr:first-child th {
+	border: 0;
+}
+
+.spacetools.aui-theme-default #content .spacetools-nav-secondary.aui-tabs {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 30px;
+}
+
+/** On the Space Labels screen, display the "Done" the same colour as other buttons */
+.space-administration .aui-button.done {
+    color: #333;
+}
+
+.spacetools .aui-navgroup-horizontal {
+    margin-left: -20px;
+    margin-right: -20px;
+}
+
+.spacetools.with-space-sidebar #main-header {
+    margin: -20px -20px 0 -20px;
+    padding: 20px;
+}
+
+.list-content-tree-mode.spacetools.with-space-sidebar #main-header,
+.list-recently-updated-mode.spacetools.with-space-sidebar #main-header,
+.list-alphabetically-mode.spacetools.with-space-sidebar #main-header,
+.view-blogposts-mode.spacetools.with-space-sidebar #main-header,
+.pages-collector-mode.spacetools.with-space-sidebar #main-header,
+.collector-mode.spacetools.with-space-sidebar #main-header {
+    background-color: transparent;
+}
+
+
+#sidebar-help-tip {
+    clear: right;
+    float: right;
+    width: 19em;
+}
+
+/** On the Space Tools screen only, fix the interaction between the menu with clear:both and the floating sidebar */
+.spacetools.with-space-sidebar #sidebar-help-tip {
+    top: 185px;
+    position: absolute;
+    right: 20px;
+}
+
+.with-space-sidebar #content.space #space-tools-body
+{
+    padding: 20px;
+}
+
+.with-space-sidebar .has-sidebar #space-tools-body {
+    margin-right: 20em;
+}
+
+.with-space-sidebar #main.has-sidebar #content.space {
+    margin-right: 0;
+}
+
+.with-space-sidebar #main #content.space {
+    margin-top: -10px;
+}
+
+.view-space-details form.aui .field-value {
+    font-weight: normal;
+}
+
+.info-text {
+    max-width: 700px;
+}
+
+/* CSS for page banner, display when additional permissions are remotely enabled by Jira Service Management */
+.any-user-view-perm-info-banner {
+    position: relative;
+    padding: 0 0 20px 40px;
+    border-bottom: solid 1px #ccc;
+    margin-bottom: 20px;
+}
+
+.padlock-open-large {
+    position: absolute;
+    left: -10px;
+    top: 0;
+    color: #707070;
+}
+
+/*
+CONFSRVDEV-18505 - Fixes for secondary tab menu focus rings
+:after - AUI 8
+:before - AUI 9
+*/
+#space-tools-tabs.spacetools-nav-secondary li.active-tab a:after,
+#space-tools-tabs.spacetools-nav-secondary li.active-tab a:before {
+    bottom: -2px;
+}
+
+#space-tools-tabs.spacetools-nav-secondary > ul.tabs-menu:after,
+#space-tools-tabs.spacetools-nav-secondary > ul.tabs-menu:before {
+    z-index: 0;
+}
+
+#space-tools-tabs.spacetools-nav-secondary li {
+    z-index: 1;
+}
+
+#space-tools-tabs.spacetools-nav-secondary > ul.tabs-menu {
+    padding: 2px 0px 2px 2px;
+}

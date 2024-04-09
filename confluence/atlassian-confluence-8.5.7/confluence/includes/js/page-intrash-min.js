@@ -1,0 +1,1 @@
+define("confluence/page-intrash",["jquery"],function(a){return{initialize:function(){a("#page-intrash-container").length&&(a("#breadcrumbs").hide(),a("#title-text.with-breadcrumbs").hide())}}});require("confluence/module-exporter").safeRequire("confluence/page-intrash",function(a){require("ajs").toInit(a.initialize)});

@@ -1,0 +1,47 @@
+<html>
+<head>
+    <title>$action.getText("setup.evallicense.title")</title>
+    $webResourceManager.requireResourcesForContext("setup.eval-license")
+</head>
+
+<body>
+    #parse ("/setup/analytics-data.vm")
+    #parse ("/setup/setup-button.vm")
+    #parse ("/setup/setup-progress-indicator.vm" )
+
+    #parse ("/template/includes/actionerrors.vm")
+    #renderMetadatum("dev-mode" $action.devMode.toString())
+
+    <form id="importLicenseForm" method="POST" action="doevallicense.action" class="aui license-form">
+        <input type="hidden" id="selectedPluginKeys" name="selectedPluginKeys" value="$action.getSelectedPluginKeys()"></input>
+        #form_xsrfToken()
+
+
+        <!-- License for Confluence -->
+        #set ($evalLicenseUrl = $action.getText("url.atlassian.generate.eval.license", ['Confluence','confLicenseString',$generalUtil.versionNumber, $generalUtil.buildNumber, $action.serverId, "$generalUtil.lookupDomainName($req)/setup/evallicense.action"]))
+
+        <div class="import-confluence-license">
+             <div class="field-group">
+                <label id="serverId-label" for="serverId">$i18n.getText('server.id')</label>
+                <input type="text" name="serverId" id="serverId" value=$!serverId disabled="disabled" class="text ">
+            </div>
+            <div class="field-group">
+                <label id="confLicenseString-label" for="confLicenseString">
+                    $i18n.getText('license.confluence.key')
+                </label>
+                <textarea id="confLicenseString" name="confLicenseString" cols="" rows="3" placeholder="" style="" class="monospaceInput textarea aui textarea long-field">$!action.confLicenseString</textarea>
+                #fielderrorAUI("confLicenseString")
+            </div>
+            <div class="field-group">
+                $action.getText('license.confluence.generate.link',[$evalLicenseUrl])
+            </div>
+        </div>
+
+        <div class="buttons-container setup-progress-spinner-container">
+            <div class="buttons">
+                #setupSubmitButton("setup-next-button", "setup-next-button", "$action.getText('setup.next')", "setup-next-button", false)
+            </div>
+        </div>
+    </form>
+</body>
+</html>

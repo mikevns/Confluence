@@ -1,0 +1,9 @@
+04-Apr-2024 22:41:45.441 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8090"]
+04-Apr-2024 22:41:45.455 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [327] milliseconds
+04-Apr-2024 22:41:45.461 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Tomcat-Standalone]
+04-Apr-2024 22:41:45.461 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/9.0.83]
+04-Apr-2024 22:41:46.124 INFO [Catalina-utility-2] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+04-Apr-2024 22:41:46.242 INFO [Catalina-utility-2] org.apache.catalina.core.ApplicationContext.log 1 Spring WebApplicationInitializers detected on classpath
+04-Apr-2024 22:41:46.365 INFO [Catalina-utility-2] org.apache.catalina.core.ApplicationContext.log Initializing Spring DispatcherServlet 'dispatcher'
+04-Apr-2024 22:41:53.570 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8090"]
+04-Apr-2024 22:41:53.580 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [8123] milliseconds

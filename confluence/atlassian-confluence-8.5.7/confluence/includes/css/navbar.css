@@ -1,0 +1,10 @@
+/* pdl version of navbar.css */
+
+/* Overriding AUI styles in aui-page-layout.css for aui-theme-default*/
+/* Keep eye on: https://ecosystem.atlassian.net/browse/AUI-1207*/
+#header .aui-header a:focus,
+#header .aui-header a:hover,
+#header .aui-header a:active{
+    text-decoration: none;
+    outline: none;  /* AUI-4160 Highlighting outlines of elements have large width in Safari */
+}

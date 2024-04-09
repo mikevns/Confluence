@@ -1,0 +1,383 @@
+{namespace Confluence.Templates.Pagelist}
+
+/**
+ * @param? mytitle
+ * @param? showmore
+ * @param? showless
+ * @param? showrss
+ * @param? baseUrl
+ * @param? staticResourceUrlPrefix
+ * @param? spacekey
+ */
+{template .generalpagelisttabletitle}
+    {let $textShowLess: getText('show-less') /}
+    {let $textShowMore: getText('show-more') /}
+    {let $tableWidth: '99%' /}
+    {let $labelValue: $mytitle ? $mytitle : '' /}
+    {if $labelValue != ''}
+        <div class="tabletitle" style="width: {$tableWidth}">{\n}
+            {if $showmore or $showless or $showrss}
+                <div style="float:right;" valign="bottom" class="tabletitleops">{\n}
+                    {if $showrss}
+                        <a href="{$baseUrl}/spaces/rss.action?key={$spacekey}"><img src="{$staticResourceUrlPrefix}/images/icons/rss.gif" title="RSS"></a>{\n}
+                    {/if}
+                    {if $showless}
+                        <a href="{$showless}"><img src="{$staticResourceUrlPrefix}/images/icons/subtract_12.gif" title="{$textShowLess}"></a>{\n}
+                    {/if}
+                    {if $showmore}
+                        <a href="{$showmore}"><img src="{$staticResourceUrlPrefix}/images/icons/add_12.png" title="{$textShowMore}"></a>{\n}
+                    {/if}
+                </div>
+            {/if}
+            <h2>{$labelValue|noAutoescape}</h2>{\n}
+        </div>
+    {/if}
+{/template}
+
+/**
+ * @param? pageList
+ * @param? pageListSize
+ * @param? thereAreNoPages
+ * @param? statusMessage
+ * @param? pageListDescription
+ */
+{template .generalpagelisttable}
+    {let $tableWidth: '99%' /}
+    {let $thereAreNoPages: not $thereAreNoPages ? getText('there.are.no.pages') : $thereAreNoPages /}
+    <table class="aui tableview" style="width: {$tableWidth}">{\n}
+    {if not $pageList or $pageListSize == 0}
+            <tr>
+                <td colspan="3">
+                    {$thereAreNoPages}
+                </td>
+            </tr>
+    {else}
+        {if $statusMessage}
+                <tr>
+                    <td>{$statusMessage}</td>
+                </tr>
+        {/if}
+        {if $pageListDescription}
+                <tr>
+                    <td>{$pageListDescription}</td>
+                </tr>
+        {/if}
+    {/if}
+{/template}
+
+/**
+ * @param? pageList
+ * @param? pageListSize
+ * @param? previousLoginDate
+ * @param? lastModificationDateafter
+ * @param? isNew
+ * @param? baseUrl
+ * @param? lastModificationDate
+ * @param? page
+ * @param? contentUiSupportGetContentTypeI18NKey
+ * @param? contentUiSupportGetIconCssClass
+ * @param? htmlEscapeQuotesPageSpaceKey
+ * @param? htmlEscapeQuotesPageTitle
+ * @param? htmlEncodePageDisplayTitle
+ * @param? pageGetDatePath
+ * @param? htmlEncodeTrimDownStringToWordPageDisplayTitle
+ * @param? displayChangeComments
+ * @param? isVersionCommentAvailable
+ * @param? getComment
+ * @param? renderedVersionComment
+ * @param? showModifier
+ * @param? rightIcon
+ * @param? parentWindow
+ * @param? urlEncodeUserName
+ * @param? htmlEncodeUserFullName
+ * @param? isUnknownUser
+ * @param? isDeletedUser
+ * @param? ariaLabel
+ * @param? permissionHelperCanView
+ * @param? htmlEncodeUserName
+ * @param? isInLastDays
+ * @param? friendlyDateFormatPageLastModificationDate
+ * @param? getFormatDateSimplePageLastModificationDate
+ * @param? contentOther
+ * @param? insertLink
+ * @param? fileExtension
+ */
+{template .generalpagelisttableLoop}
+    {let $showModifier: not $showModifier ? true : $showModifier /}
+    {if not $pageList or $pageListSize > 0}
+        {let $colorHtml: $previousLoginDate and $lastModificationDateafter and ($isNew or $lastModificationDate) ? 'style="color: var(--ds-background-accent-green-bolder, #008800)"' : '' /}
+            <tr>
+                <td>
+        {let $linkHref: $baseUrl + $page.urlPath /}
+
+        {call .contentIcon2}
+            {param page : $page /}
+            {param colorHtml : $colorHtml /}
+            {param linkHref : $linkHref /}
+            {param contentUiSupportGetContentTypeI18NKey : $contentUiSupportGetContentTypeI18NKey /}
+            {param contentUiSupportGetIconCssClass : $contentUiSupportGetIconCssClass /}
+            {param fileExtension : $fileExtension /}
+        {/call}
+
+        {if $parentWindow}
+            {\n}<a {$colorHtml} href="{$baseUrl}{$page.urlPath}" onClick="javascript:window.location=this.href">{$htmlEncodePageDisplayTitle}</a>{\n}
+        {else}
+            {if $insertLink}
+                {if $page.type == 'blogpost'}
+                        <a {$colorHtml} href="#" onClick="populateDestinationLinkField('{$htmlEscapeQuotesPageSpaceKey}:/{$pageGetDatePath}/{$htmlEscapeQuotesPageTitle}')">{$htmlEncodePageDisplayTitle}</a>
+                {elseif $page.type == 'mail'}
+                        <a {$colorHtml} href="#" onClick="populateDestinationLinkField('{$page.id}')">{$htmlEncodePageDisplayTitle}</a>
+                {elseif $page.type == 'attachment'}
+                        <a {$colorHtml} href="#" onClick="populateDestinationLinkField('{$htmlEscapeQuotesPageSpaceKey}:{$page.content.title}^{$page.displayTitle}')">{$htmlEncodePageDisplayTitle}</a>
+                {else}
+                        <a {$colorHtml} href="#" onClick="populateDestinationLinkField('{$htmlEscapeQuotesPageSpaceKey}:{$htmlEscapeQuotesPageTitle}')">{$htmlEncodePageDisplayTitle}</a>
+                {/if}
+            {else}
+                {if $page.type == 'status'}
+                        <a {$colorHtml} href="{$baseUrl}{$page.urlPath}" title="{$htmlEncodePageDisplayTitle}">{$htmlEncodePageDisplayTitle}</a>
+                {else}
+                        <a {$colorHtml} href="{$baseUrl}{$page.urlPath}" title="{$htmlEncodePageDisplayTitle}">{$htmlEncodeTrimDownStringToWordPageDisplayTitle}</a>
+                {/if}
+            {/if}
+        {/if}
+        {if $contentOther}
+                <span class="smalltext">
+                    {call .contentOther}
+                        {param content : $page /}
+                    {/call}
+                </span>
+        {/if}
+        {if $displayChangeComments and $displayChangeComments == true}
+            {if $isVersionCommentAvailable == true}
+                    <div class="smalltext" style="padding: 3px 0 0 22px;">{$renderedVersionComment}</div>
+            {/if}
+            {if $getComment}
+                    <div class="smalltext" style="padding: 3px 0 0 22px;">{$getComment}</div>
+            {/if}
+        {/if}
+        {if $showModifier == true}
+            {if $rightIcon}
+                {\n} <span class="smalltext">{\n}
+            {else}
+                {\n}<div style="float:right;" class="smalltext">{\n}
+            {/if}
+            {\n}{getText('recently.updated.by')}{\n}
+            {if $parentWindow}
+                {call .userLinkParentWindow}
+                    {param user : $page.lastModifier /}
+                    {param baseUrl : $baseUrl /}
+                    {param urlEncodeUserName : $urlEncodeUserName /}
+                    {param htmlEncodeUserFullName : $htmlEncodeUserFullName /}
+                {/call}
+            {else}
+                {\n}{call .userLink}
+                    {param user : $page.lastModifier /}
+                    {param baseUrl : $baseUrl /}
+                    {param isUnknownUser : $isUnknownUser /}
+                    {param isDeletedUser : $isDeletedUser /}
+                    {param urlEncodeUserName : $urlEncodeUserName /}
+                    {param ariaLabel : $ariaLabel /}
+                    {param htmlEncodeUserFullName : $htmlEncodeUserFullName /}
+                    {param permissionHelperCanView : $permissionHelperCanView /}
+                    {param htmlEncodeUserName : $htmlEncodeUserName /}
+                {/call}{\n}
+            {/if}
+            {if $isInLastDays}
+                {\n}  ({$friendlyDateFormatPageLastModificationDate}) {\n}
+            {else}
+                {\n} ({$getFormatDateSimplePageLastModificationDate}) {\n}
+            {/if}
+            {if $rightIcon}
+                </span>
+            {else}
+                </div>
+            {/if}
+        {/if}
+        {if $rightIcon}
+            {let $pageEntityId: $page.type == 'spacedesc' or $page.type == 'personalspacedesc' ? $page.space.key : $page.id /}
+            {let $pageEntityType: $page.type == 'spacedesc' or $page.type == 'personalspacedesc' ? 'space' : $page.type == 'blogpost' ? 'page' : $page.type /}
+
+                <div style="float:right;" class="entity-favourites" data-entity-id="{$pageEntityId}" data-entity-type="{$pageEntityType}">
+                    <a class="aui-icon aui-icon-small aui-iconfont-star-filled" title="{getText('favourite.remove.space.short', [$htmlEncodePageDisplayTitle])}" href="#">{getText('favourite.remove.space.short', [$htmlEncodePageDisplayTitle])}</a>
+                    <a class="aui-icon aui-icon-small aui-iconfont-new-star hidden" title="{getText('favourite.add.space.short', [$htmlEncodePageDisplayTitle])}" href="#">{getText('favourite.add.space.short', [$htmlEncodePageDisplayTitle])}</a>
+                    <span class="icon icon-wait hidden">{getText('loading.name')}</span>
+                </div>
+        {/if}
+                </td>
+            </tr>
+    {/if}
+{/template}
+
+/**
+ * @param? page
+ * @param? colorHtml
+ * @param? linkHref
+ * @param? contentUiSupportGetContentTypeI18NKey
+ * @param? contentUiSupportGetIconCssClass
+ * @param? fileExtension
+ */
+{template .contentIcon2}
+    {if $page.type == 'attachment'}
+        {if $fileExtension == '.pdf' or $page.mediaType == 'application/pdf'}
+                <span class="aui-icon content-type-attachment-pdf" title="{getText('pdf.file')}">{getText('pdf.file')}</span>
+        {elseif $page.mediaType == 'image/gif' or $fileExtension == '.gif'}
+                <span class="aui-icon content-type-attachment-image" title="{getText('gif.file')}">{getText('gif.file')}</span>
+        {elseif $page.mediaType == 'image/jpeg' or $fileExtension == '.jpeg'}
+                <span class="aui-icon content-type-attachment-image" title="{getText('jpeg.file')}">{getText('jpeg.file')}</span>
+        {elseif $page.mediaType == 'image/jpeg' or $fileExtension == '.jpg'}
+                <span class="aui-icon content-type-attachment-image" title="{getText('jpeg.file')}">{getText('jpeg.file')}</span>
+        {elseif $page.mediaType == 'image/png' or $fileExtension == '.png'}
+                <span class="aui-icon content-type-attachment-image" title="{getText('png.file')}">{getText('png.file')}</span>
+        {elseif $page.mediaType == 'text/xml' or $fileExtension == '.xml'}
+                <span class="aui-icon content-type-attachment-xml" title="{getText('xml.file')}">{getText('xml.file')}</span>
+        {elseif $page.mediaType == 'text/html' or $fileExtension == '.html'}
+                <span class="aui-icon content-type-attachment-html" title="{getText('html.file')}">{getText('html.file')}</span>
+        {elseif $page.mediaType == 'application/javascript' or $page.mediaType == 'text/javascript' or $page.mediaType == 'application/x-javascript' or $fileExtension == '.js'}
+                <span class="aui-icon content-type-attachment-js" title="{getText('js.file')}">{getText('js.file')}</span>
+        {elseif $page.mediaType == 'text/css' or $fileExtension == '.css'}
+                <span class="aui-icon content-type-attachment-css" title="{getText('css.file')}">{getText('css.file')}</span>
+        {elseif $fileExtension == '.java'}
+                <span class="aui-icon content-type-attachment-java" title="{getText('java.file')}">{getText('java.file')}</span>
+        {elseif $page.mediaType == 'application/java-archive' or $fileExtension == '.jar' or $fileExtension == '.war' or $fileExtension == '.ear'}
+                <span class="aui-icon content-type-attachment-jar" title="{getText('jar.file')}">{getText('jar.file')}</span>
+        {elseif $page.mediaType == 'text/plain'}
+                <span class="aui-icon content-type-attachment-text" title="{getText('text.file')}">{getText('text.file')}</span>
+        {elseif $page.mediaType == 'application' and strContains($page.mediaType, 'zip')}
+                <span class="aui-icon content-type-attachment-zip" title="{getText('zip.file')}">{getText('zip.file')}</span>
+        {elseif $fileExtension == '.xlt'}
+                <span class="aui-icon content-type-attachment-excel97-template" title="{getText('excel97.template.file')}">{getText('excel97.template.file')}</span>
+        {elseif $fileExtension == '.pot'}
+                <span class="aui-icon content-type-attachment-powerpoint97-template" title="{getText('powerpoint97.template.file')}">{getText('powerpoint97.template.file')}</span>
+        {elseif $fileExtension == '.dot'}
+                <span class="aui-icon content-type-attachment-word97-template" title="{getText('word97.template.file')}">{getText('word97.template.file')}</span>
+        {elseif $fileExtension == '.xls' or $page.mediaType == 'application/vnd.ms-excel'}
+                <span class="aui-icon content-type-attachment-excel97" title="{getText('excel97.file')}">{getText('excel97.file')}</span>
+        {elseif $fileExtension == '.ppt' or $page.mediaType == 'application/vnd.ms-powerpoint'}
+                <span class="aui-icon content-type-attachment-powerpoint97" title="{getText('powerpoint97.file')}">{getText('powerpoint97.file')}</span>
+        {elseif $fileExtension == '.doc' or $page.mediaType == 'application/msword'}
+                <span class="aui-icon content-type-attachment-word97" title="{getText('word97.file')}">{getText('word97.file')}</span>
+        {elseif $fileExtension == '.xlsm'}
+                <span class="aui-icon content-type-attachment-excel-macro" title="{getText('excel.macro.file')}">{getText('excel.macro.file')}</span>
+        {elseif $fileExtension == '.xlsx' or $page.mediaType == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}
+                <span class="aui-icon content-type-attachment-excel" title="{getText('excel.file')}">{getText('excel.file')}</span>
+        {elseif $fileExtension == '.xlst' or $page.mediaType == 'application/vnd.openxmlformats-officedocument.spreadsheetml.template'}
+                <span class="aui-icon content-type-attachment-excel-template" title="{getText('excel.template.file')}">{getText('excel.template.file')}</span>
+        {elseif $fileExtension == '.pptm'}
+                <span class="aui-icon content-type-attachment-powerpoint-macro" title="{getText('powerpoint.macro.file')}">{getText('powerpoint.macro.file')}</span>
+        {elseif $fileExtension == '.pptx' or $page.mediaType == 'application/vnd.openxmlformats-officedocument.presentationml.presentation'}
+                <span class="aui-icon content-type-attachment-powerpoint" title="{getText('powerpoint.file')}">{getText('powerpoint.file')}</span>
+        {elseif $fileExtension == '.ppsx' or $page.mediaType == 'application/vnd.openxmlformats-officedocument.presentationml.slideshow'}
+                <span class="aui-icon content-type-attachment-powerpoint-slideshow" title="{getText('powerpoint.slideshow.file')}">{getText('powerpoint.slideshow.file')}</span>
+        {elseif $fileExtension == '.potx' or $page.mediaType == 'application/vnd.openxmlformats-officedocument.presentationml.template'}
+                <span class="aui-icon content-type-attachment-powerpoint-template" title="{getText('powerpoint.template.file')}">{getText('powerpoint.template.file')}</span>
+        {elseif $fileExtension == '.docx' or $page.mediaType == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'}
+                <span class="aui-icon content-type-attachment-word" title="{getText('word.file')}">{getText('word.file')}</span>
+        {elseif $fileExtension == '.dotx' or $page.mediaType == 'application/vnd.openxmlformats-officedocument.wordprocessingml.template'}
+                <span class="aui-icon content-type-attachment-word-template" title="{getText('word.template.file')}">{getText('word.template.file')}</span>
+        {elseif $fileExtension == '.swf' or $page.mediaType == 'application/x-shockwave-flash'}
+                <span class="aui-icon content-type-attachment-multimedia" title="{getText('multimedia.file')}">{getText('multimedia.file')}</span>
+        {elseif $fileExtension == '.mov' or $page.mediaType == 'video/quicktime'}
+                <span class="aui-icon content-type-attachment-multimedia" title="{getText('multimedia.file')}">{getText('multimedia.file')}</span>
+        {elseif $fileExtension == '.wma' or $page.mediaType == 'audio/x-ms-wma'}
+                <span class="aui-icon content-type-attachment-multimedia" title="{getText('multimedia.file')}">{getText('multimedia.file')}</span>
+        {elseif $fileExtension == '.wmv' or $page.mediaType == 'audio/x-ms-wmv'}
+                <span class="aui-icon content-type-attachment-multimedia" title="{getText('multimedia.file')}">{getText('multimedia.file')}</span>
+        {elseif $fileExtension == '.mpeg' or $page.mediaType == 'video/mpeg'}
+                <span class="aui-icon content-type-attachment-multimedia" title="{getText('multimedia.file')}">{getText('multimedia.file')}</span>
+        {elseif $fileExtension == '.mpg' or $page.mediaType == 'video/mpeg'}
+                <span class="aui-icon content-type-attachment-multimedia" title="{getText('multimedia.file')}">{getText('multimedia.file')}</span>
+        {elseif $fileExtension == '.ram' or $page.mediaType == 'audio/x-pn-realaudio'}
+                <span class="aui-icon content-type-attachment-multimedia" title="{getText('multimedia.file')}">{getText('multimedia.file')}</span>
+        {elseif $fileExtension == '.rm' or $page.mediaType == 'application/vnd.rn-realmedia'}
+                <span class="aui-icon content-type-attachment-multimedia" title="{getText('multimedia.file')}">{getText('multimedia.file')}</span>
+        {elseif $fileExtension == '.mp3' or $page.mediaType == 'audio/mpeg'}
+                <span class="aui-icon content-type-attachment-multimedia" title="{getText('multimedia.file')}">{getText('multimedia.file')}</span>
+        {elseif $fileExtension == '.mp4' or $page.mediaType == 'video/mp4' or $page.mediaType == 'audio/mp4'}
+                <span class="aui-icon content-type-attachment-multimedia" title="{getText('multimedia.file')}">{getText('multimedia.file')}</span>
+        {elseif $fileExtension == '.avi' or $page.mediaType == 'video/x-msvideo'}
+                <span class="aui-icon content-type-attachment-multimedia" title="{getText('multimedia.file')}">{getText('multimedia.file')}</span>
+        {else}
+                <span class="aui-icon content-type-attachment-unknown" title="{getText('unknown.file')}">{getText('unknown.file')}</span>
+        {/if}
+    {else}
+        {\n} <a {$colorHtml} href="{$linkHref}" title="{$contentUiSupportGetContentTypeI18NKey}">
+            {\n} <span class="icon {$contentUiSupportGetIconCssClass}">{$contentUiSupportGetContentTypeI18NKey}:</span>{\n}
+            </a>{\n}
+    {/if}
+{/template}
+
+/**
+ * @param? content
+ */
+{template .contentOther}
+    {if $content.type == 'page' or $content.type == 'blogpost'}
+        {if $content.latestVersion}
+            <span class="smalltext">({$content.space.name})</span>
+        {else}
+            <span class="smalltext">v. {$content.version} ({$content.latestVersion.space.name})</span>
+        {/if}
+    {elseif $content.type == 'comment'}
+        <span class="smalltext">({$content.container.space.name})</span>
+    {elseif $content.type == 'userinfo'}
+        <span class="smalltext">({$content.username})</span>
+    {elseif $content.type == 'status'}
+        <span class="smalltext">({if $content.creator and $content.creator.fullName}{$content.creator.fullName}{else}{getText('anonymous.name')}){/if}</span>
+    {elseif $content.type == 'attachment' and $content.container.type == 'userinfo'}
+        <span class="smalltext">({$content.container.username})</span>
+    {elseif $content.type == 'attachment'}
+        <span class="smalltext">({$content.container.space.name})</span>
+    {/if}
+{/template}
+
+/**
+ * @param? user
+ * @param? baseUrl
+ * @param? urlEncodeUserName
+ * @param? htmlEncodeUserFullName
+ */
+{template .userLinkParentWindow}
+    {if $user}
+            <a href="javascript:window.location=\{$baseUrl}/display/~{$urlEncodeUserName}\;">{$htmlEncodeUserFullName}</a>
+    {else}
+        {getText('anonymous.name')}
+    {/if}
+{/template}
+
+/**
+ * @param? user
+ * @param? baseUrl
+ * @param? isUnknownUser
+ * @param? isDeletedUser
+ * @param? urlEncodeUserName
+ * @param? htmlEncodeUserFullName
+ * @param? ariaLabel
+ * @param? permissionHelperCanView
+ * @param? htmlEncodeUserName
+ */
+{template .userLink}
+    {if $user}
+        {if $isUnknownUser or $isDeletedUser}
+                <span class="unknown-user">{$htmlEncodeUserFullName}</span>
+        {elseif $user.fullName}
+            {\n}<a href="{$baseUrl}/display/~{$urlEncodeUserName}"
+                {if $ariaLabel}aria-label="$ariaLabel"{/if}
+                {if $permissionHelperCanView}
+                   class="url fn confluence-userlink" data-username="{$htmlEncodeUserName}"
+                {else}
+                   class="url fn"
+                {/if}
+                >{$htmlEncodeUserFullName}</a>{\n}
+        {else}
+            {\n} <a href="{$baseUrl}/display/~{$urlEncodeUserName}">{$htmlEncodeUserName}</a>{\n}
+        {/if}
+    {else}
+            <span class="anonymous-user">{getText('anonymous.name')}</span>
+    {/if}
+{/template}
+
+/**
+ *
+ */
+{template .tableClose}
+    </table>
+{/template}

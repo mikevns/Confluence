@@ -1,0 +1,1 @@
+define("confluence-mobile/legacy",function(){return ConfluenceMobile});

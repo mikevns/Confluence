@@ -1,0 +1,46 @@
+/* Overrides for css from aui-experimental features */
+
+/* AUI-1074 temporary adjustments to the search field width to cater for Confluence OnDemand common navigation config
+   ... when the doc theme is enabled (so we have an extra Browse menu and sidebar icon). */
+.aui-header .aui-quicksearch input[type='text'] {
+    width: 135px; /* this is the default minimum width for this field, to leave room for placeholder in shipped translations */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+
+    -webkit-transition: width 100ms linear;
+    transition: width 100ms linear;
+}
+@media screen and (min-width : 1280px) {
+    .aui-header .aui-quicksearch input[type='text'] {
+        width: 220px;
+    }
+}
+/* end AUI-1074 changes */
+
+/* Necessary override for CONFDEV-14585 / AUI-1348. Setting an explicit line-height seems borked on Chrome. */
+.aui-header .aui-quicksearch input[type='text'] {
+    line-height: normal;
+}
+
+/* AUI-1319 serve default logo with twice the normal resolution to allow high dpi screens to display better images */
+.aui-header .aui-header-logo img {
+    max-height: 24px; /* AUI has 30px */
+    padding: 8px 0; /* AUI has 5px */
+}
+/* end AUI-1319 changes */
+
+/*
+* CONFDEV-24416: Top arrow of date-picker inline-dialog
+*/
+.aui-datepicker-dialog .arrow.aui-css-arrow:after {
+    top: 1.6px;
+}
+
+.aui-header,
+#footer {
+    clear: both;
+    float: left;
+    width: 100%;
+ }

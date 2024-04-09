@@ -1,0 +1,2142 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.atlassian.confluence</groupId>
+        <artifactId>confluence-build</artifactId>
+        <version>8.5.7</version>
+    </parent>
+
+    <artifactId>confluence-bundled-plugins-external-library</artifactId>
+    <packaging>war</packaging>
+    <name>Confluence Bundled Plugins External Library</name>
+    <description>Builds the bundled plugins WAR for all the plugins that are outside the core repo</description>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.atlassian.platform.dependencies</groupId>
+                <artifactId>platform-bundled-plugins</artifactId>
+                <version>${platform.dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!-- Bundled plugins located as modules under the confluence-bundled-plugins dir,
+             in alphabetical order. -->
+
+        <dependency>
+            <groupId>com.atlassian.activeobjects</groupId>
+            <artifactId>activeobjects-plugin</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.activeobjects</groupId>
+            <artifactId>activeobjects-confluence-spi</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.plugins</groupId>
+            <artifactId>atlassian-plugins-webresource-plugin</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.plugins</groupId>
+            <artifactId>atlassian-plugins-webresource-rest</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.plugin</groupId>
+            <artifactId>atlassian-spring-scanner-annotation</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <!-- Nothing depends on this directly since 2.0 version:
+                 it's "provided", and is triggered via the scan-indexes elements in plugin's spring xml. -->
+            <groupId>com.atlassian.plugin</groupId>
+            <artifactId>atlassian-spring-scanner-runtime</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.plugins</groupId>
+            <artifactId>atlassian-help-tips</artifactId>
+            <version>${atlassian.help-tips.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.plugins</groupId>
+            <artifactId>cleanup-hub-plugin</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.querylang</groupId>
+            <artifactId>confluence-cql-plugin</artifactId>
+            <version>${cql.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-avatar-plugin</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-email-gateway</artifactId>
+            <version>${inbound-email.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-email-to-page</artifactId>
+            <version>${inbound-email.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-expand-macro</artifactId>
+            <version>${expand-macro.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins.gadgets</groupId>
+            <artifactId>gadgets-plugin</artifactId>
+            <version>${confluence.gadgets.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins.gadgets</groupId>
+            <artifactId>gadgets-plugin-spi</artifactId>
+            <version>${confluence.gadgets.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-mail-archiving</artifactId>
+            <version>${confluence.mail-archiving.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-reply-to-email</artifactId>
+            <version>${inbound-email.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-portfolio-server-macro</artifactId>
+            <version>${jpos.macro.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.soy</groupId>
+            <artifactId>soy-template-plugin</artifactId>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.inject</groupId>
+                    <artifactId>javax.inject</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.sonatype.sisu</groupId>
+                    <artifactId>sisu-guice</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-whats-new</artifactId>
+            <version>${confluence.whats-new.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-view-storage-format</artifactId>
+            <version>${confluence-view-storage-format.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-mobile</artifactId>
+            <version>${confluence.mobile.web.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-mobile-plugin</artifactId>
+            <version>${confluence.mobile.plugin.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-daily-summary-email</artifactId>
+            <version>${daily-summary.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-ui-components</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Other plugins - some can be moved into confluence-bundled-plugins dir -->
+
+        <!-- atlassian-instrumentation-expose-jmx  -->
+        <dependency>
+            <groupId>com.atlassian.instrumentation</groupId>
+            <artifactId>atlassian-instrumentation-expose-jmx</artifactId>
+            <version>${atlassian.instrumentation.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.atlassian.bundles</groupId>
+                    <artifactId>jsr305</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- Atlassian Authentication (SSO) Plugin -->
+        <dependency>
+            <groupId>com.atlassian.plugins.authentication</groupId>
+            <artifactId>atlassian-authentication-plugin</artifactId>
+            <version>${atlassian.authentication.plugin.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Server Playbook Blueprints Macros -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>atlassian-playbook-blueprints</artifactId>
+            <version>${atlassian.playbook.blueprints.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Advanced Macros -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-advanced-macros</artifactId>
+            <version>${confluence-advanced-macros.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Attachment Extractors -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-attachment-extractors</artifactId>
+            <version>${confluence-attachment-extractors.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Attachments Plugin -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-attachments-plugin</artifactId>
+            <version>${confluence-attachments-plugin.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Axis-SOAP, when this is removed also remove wsdl4j dependency from confluence-core/confluence/pom.xml -->
+        <dependency>
+            <groupId>com.atlassian.confluence.rpc</groupId>
+            <artifactId>confluence-axis-soap-plugin</artifactId>
+            <version>${axis-soap-plugin.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <!-- jcl-over-slf4j instead -->
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>commons-discovery</groupId>
+                    <artifactId>commons-discovery</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- Confluence Denormalised Permissions -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-denormalised-permissions</artifactId>
+            <version>${confluence-denormalised-permissions.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Confluence Retention Rules -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-retention-rules</artifactId>
+            <version>${confluence-retention-rules.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Confluence Webhooks -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-webhooks</artifactId>
+            <version>${confluence-webhooks.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Confluence PULP -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-post-upgrade-landing-page-plugin</artifactId>
+            <version>${confluence-pulp.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Confluence Rebuild Index -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-rebuild-index</artifactId>
+            <version>${confluence-rebuild-index.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Backup and Restore UI -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-backup-and-restore-ui</artifactId>
+            <version>${confluence-backup-and-restore-ui.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Basic Macros -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-basic-macros</artifactId>
+            <version>${confluence-basic-macros.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Browser Fix Placeholder plugin -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-browser-fixes</artifactId>
+            <version>2.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Cache Management plugin -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-cache-management-plugin</artifactId>
+            <version>${cache.management.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Cache Analytics plugin -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins.cacheanalytics</groupId>
+            <artifactId>cache-analytics-plugin</artifactId>
+            <version>${cache-analytics.plugin.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Blogging RPC -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins.xmlrpc.bloggingrpc</groupId>
+            <artifactId>bloggingrpc</artifactId>
+            <version>${bloggingrpc.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Charts -->
+        <dependency>
+            <groupId>com.atlassian.confluence.extra.chart</groupId>
+            <artifactId>chart-plugin</artifactId>
+            <version>${chart.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Code Macro -->
+        <dependency>
+            <groupId>com.atlassian.confluence.ext</groupId>
+            <artifactId>newcode-macro-plugin</artifactId>
+            <version>${newcode-macro.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Content Report Macro -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-content-report-plugin</artifactId>
+            <version>${content-report-plugin.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Contributors -->
+        <dependency>
+            <groupId>com.atlassian.confluence.contributors</groupId>
+            <artifactId>contributors</artifactId>
+            <version>${contributors.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Dashboard -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-dashboard</artifactId>
+            <version>${confluence-dashboard.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Dynamic Task List 2 -->
+        <dependency>
+            <groupId>com.atlassian.confluence.extra</groupId>
+            <artifactId>dynamictasklist2</artifactId>
+            <version>${dynamic-tasklist.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Whitelist plugin -->
+        <dependency>
+            <groupId>com.atlassian.plugins</groupId>
+            <artifactId>atlassian-whitelist-core-plugin</artifactId>
+            <version>${whitelist.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.plugins</groupId>
+            <artifactId>atlassian-whitelist-ui-plugin</artifactId>
+            <version>${whitelist.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.plugins</groupId>
+            <artifactId>avatar-plugin</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- HTML Macros -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-html-macros</artifactId>
+            <version>${html-macros.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Information Plugin: contains info/warning/note/tip macros -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-information-plugin</artifactId>
+            <version>${information-plugin.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- IM Presence 2 -->
+        <dependency>
+            <groupId>com.atlassian.confluence.extra.impresence2</groupId>
+            <artifactId>impresence-plugin</artifactId>
+            <version>${impresence.plugin.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Czech Translations -->
+        <dependency>
+            <groupId>com.atlassian.translations</groupId>
+            <artifactId>confluence-language-pack-cs_CZ</artifactId>
+            <version>${confluence.language.czech.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Danish Translations -->
+        <dependency>
+            <groupId>com.atlassian.translations</groupId>
+            <artifactId>confluence-language-pack-da_DK</artifactId>
+            <version>${confluence.language.danish.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Hungary Translations -->
+        <dependency>
+            <groupId>com.atlassian.translations</groupId>
+            <artifactId>confluence-language-pack-hu_HU</artifactId>
+            <version>${confluence.language.hungary.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Dutch Translations -->
+        <dependency>
+            <groupId>com.atlassian.translations</groupId>
+            <artifactId>confluence-language-pack-sv_SE</artifactId>
+            <version>${confluence.language.swedish.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Dutch Translations -->
+        <dependency>
+            <groupId>com.atlassian.translations</groupId>
+            <artifactId>confluence-language-pack-nl_NL</artifactId>
+            <version>${confluence.language.dutch.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Polish Translations -->
+        <dependency>
+            <groupId>com.atlassian.translations</groupId>
+            <artifactId>confluence-language-pack-pl_PL</artifactId>
+            <version>${confluence.language.polish.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- German Translations -->
+        <dependency>
+            <groupId>com.atlassian.translations</groupId>
+            <artifactId>confluence-language-pack-de_DE</artifactId>
+            <version>${confluence.language.german.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- French Translations -->
+        <dependency>
+            <groupId>com.atlassian.translations</groupId>
+            <artifactId>confluence-language-pack-fr_FR</artifactId>
+            <version>${confluence.language.french.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Japanese Translations -->
+        <dependency>
+            <groupId>com.atlassian.translations</groupId>
+            <artifactId>confluence-language-pack-ja_JP</artifactId>
+            <version>${confluence.language.japanese.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Russian Translations -->
+        <dependency>
+            <groupId>com.atlassian.translations</groupId>
+            <artifactId>confluence-language-pack-ru_RU</artifactId>
+            <version>${confluence.language.russian.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Estonian Translations -->
+        <dependency>
+            <groupId>com.atlassian.translations</groupId>
+            <artifactId>confluence-language-pack-et_EE</artifactId>
+            <version>${confluence.language.estonian.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Icelandic Translations -->
+        <dependency>
+            <groupId>com.atlassian.translations</groupId>
+            <artifactId>confluence-language-pack-is_IS</artifactId>
+            <version>${confluence.language.icelandic.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Slovak Translations -->
+        <dependency>
+            <groupId>com.atlassian.translations</groupId>
+            <artifactId>confluence-language-pack-sk_SK</artifactId>
+            <version>${confluence.language.slovak.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Chinese Translations -->
+        <dependency>
+            <groupId>com.atlassian.translations</groupId>
+            <artifactId>confluence-language-pack-zh_CN</artifactId>
+            <version>${confluence.language.chinese.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Italian Translations -->
+        <dependency>
+            <groupId>com.atlassian.translations</groupId>
+            <artifactId>confluence-language-pack-it_IT</artifactId>
+            <version>${confluence.language.italian.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Norwegian Translations -->
+        <dependency>
+            <groupId>com.atlassian.translations</groupId>
+            <artifactId>confluence-language-pack-no_NO</artifactId>
+            <version>${confluence.language.norwegian.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Finnish Translations -->
+        <dependency>
+            <groupId>com.atlassian.translations</groupId>
+            <artifactId>confluence-language-pack-fi_FI</artifactId>
+            <version>${confluence.language.finnish.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Romanian Translations -->
+        <dependency>
+            <groupId>com.atlassian.translations</groupId>
+            <artifactId>confluence-language-pack-ro_RO</artifactId>
+            <version>${confluence.language.romanian.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Korean Translations -->
+        <dependency>
+            <groupId>com.atlassian.translations</groupId>
+            <artifactId>confluence-language-pack-ko_KR</artifactId>
+            <version>${confluence.language.korean.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Portuguese Translations -->
+        <dependency>
+            <groupId>com.atlassian.translations</groupId>
+            <artifactId>confluence-language-pack-pt_BR</artifactId>
+            <version>${confluence.language.portuguese.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Spanish Translations -->
+        <dependency>
+            <groupId>com.atlassian.translations</groupId>
+            <artifactId>confluence-language-pack-es_ES</artifactId>
+            <version>${confluence.language.spanish.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- US English Translations -->
+        <dependency>
+            <groupId>com.atlassian.translations</groupId>
+            <artifactId>confluence-language-pack-en_US</artifactId>
+            <version>${confluence.language.us.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- JIRA Plugin -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-jira-plugin</artifactId>
+            <version>${confluence-jira-plugin.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-software-project</artifactId>
+            <version>${confluence.software.project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Inline Comments -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-inline-comments</artifactId>
+            <version>${inline-comments.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Collaborative Editor -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-collaborative-editor-plugin</artifactId>
+            <version>${collaborative-editor.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>collaborative-editing-feedback-plugin</artifactId>
+            <version>${collaborative-editor-feedback.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- JSON-RPC Support -->
+        <dependency>
+            <groupId>com.atlassian.confluence.rpc</groupId>
+            <artifactId>confluence-json-rpc-plugin</artifactId>
+            <version>${json-rpc.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Confluence Macro Usage Admin Plugin -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-macro-usage-admin-plugin</artifactId>
+            <version>${macro-usage-admin.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Layout Plugin -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-layout-plugin</artifactId>
+            <version>${layout.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Live Search Plugin -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-livesearch-plugin</artifactId>
+            <version>${livesearch.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Master-Detail Plugin, aka Tabular MetaData Macros plugin -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-masterdetail-plugin</artifactId>
+            <version>${masterdetail.plugin.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Universal plugin manager -->
+        <dependency>
+            <groupId>com.atlassian.upm</groupId>
+            <artifactId>atlassian-universal-plugin-manager-plugin</artifactId>
+            <version>${upm.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <!-- jcl-over-slf4j instead -->
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.bouncycastle</groupId>
+                    <artifactId>bcpkix-jdk15on</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.bouncycastle</groupId>
+                    <artifactId>bcprov-jdk15on</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>profile-picture</artifactId>
+            <version>${profile.picture.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Image Effects plugin -->
+        <dependency>
+            <groupId>com.atlassian.confluence.image.effects</groupId>
+            <artifactId>ImageEffectsPlugin</artifactId>
+            <version>${image-effects.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.atlassian.bundles</groupId>
+                    <artifactId>jsr305</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.troubleshooting</groupId>
+            <artifactId>plugin-confluence</artifactId>
+            <version>${atlassian-troubleshooting-and-support-tools.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.diagnostics</groupId>
+            <artifactId>atlassian-diagnostics-plugin</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.zdu</groupId>
+            <artifactId>confluence-zdu-plugin</artifactId>
+            <version>${zdu.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Confluence License Banner -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-license-banner</artifactId>
+            <version>${license-banner.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Confluence Cluster Monitoring-->
+        <dependency>
+            <groupId>com.atlassian.cluster.monitoring</groupId>
+            <artifactId>cluster-monitoring-plugin</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Table of Contents -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins.toc</groupId>
+            <artifactId>toc-plugin</artifactId>
+            <version>${table-of-contents.plugin.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- User Lister Plugin -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-userlister-plugin</artifactId>
+            <version>${userlister.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- WebDAV -->
+        <dependency>
+            <groupId>com.atlassian.confluence.extra.webdav</groupId>
+            <artifactId>webdav-plugin</artifactId>
+            <version>${webdav.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>jcl104-over-slf4j</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- Confluence Page Tree Plugin-->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>pagetree</artifactId>
+            <version>${confluence-page-tree.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Confluence Page Hierarchy Plugin -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-page-hierarchy-plugin</artifactId>
+            <version>${page-hierarchy.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Confluence Base Url Plugin -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-baseurl-plugin</artifactId>
+            <version>${confluence-baseurl.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Doc theme -->
+
+        <!-- Keyboard Shortcuts-->
+        <dependency>
+            <groupId>com.atlassian.plugins.shortcuts</groupId>
+            <artifactId>atlassian-shortcuts-plugin</artifactId>
+            <version>${atlassian.keyboard.shortcuts.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Office Connector -->
+        <dependency>
+            <groupId>com.atlassian.confluence.officeconnector</groupId>
+            <artifactId>OfficeConnector</artifactId>
+            <version>${officeconnector.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>confluence.xmlrpcwrapper</groupId>
+                    <artifactId>xmlrpcwrapper</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.atlassian.confluence.officeconnector</groupId>
+                    <artifactId>webdavloader</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.atlassian.confluence.officeconnector</groupId>
+                    <artifactId>Slides</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.atlassian.confluence.officeconnector</groupId>
+                    <artifactId>fontmanager</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.atlassian.confluence.officeconnector</groupId>
+                    <artifactId>JavaPpt</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.bouncycastle</groupId>
+                    <artifactId>bcprov-jdk16</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.aspose</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- Widget Connector -->
+        <dependency>
+            <groupId>com.atlassian.confluence.extra.widgetconnector</groupId>
+            <artifactId>widgetconnector</artifactId>
+            <version>${widgetconnector.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- AUI Plugin -->
+        <dependency>
+            <groupId>com.atlassian.plugins</groupId>
+            <artifactId>jquery</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.aui</groupId>
+            <artifactId>auiplugin</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Client-side Extensions -->
+        <dependency>
+            <groupId>com.atlassian.plugins</groupId>
+            <artifactId>atlassian-clientside-extensions-runtime</artifactId>
+            <version>${atlassian.cse.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-simple</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.plugins</groupId>
+            <artifactId>atlassian-clientside-extensions-page-bootstrapper</artifactId>
+            <version>${atlassian.cse.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>atlassian-clientside-extensions-discovery</artifactId>
+            <version>${clientside-extensions-discovery.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- New PDF Export -->
+        <dependency>
+            <groupId>com.atlassian.confluence.extra</groupId>
+            <artifactId>confluence-flyingpdf-plugin</artifactId>
+            <version>${confluence.pdfexport.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.plugins</groupId>
+            <artifactId>atlassian-nav-links-plugin</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.plugins</groupId>
+            <artifactId>confluence-project-creation</artifactId>
+            <version>${project-creation.plugin.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.felix</groupId>
+                    <artifactId>org.apache.felix.framework</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.plugins</groupId>
+            <artifactId>atlassian-project-creation-plugin</artifactId>
+            <version>${project-creation.plugin.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Embedded Crowd Admin -->
+        <dependency>
+            <groupId>com.atlassian.crowd</groupId>
+            <artifactId>embedded-crowd-admin-plugin</artifactId>
+            <version>${crowd.embedded.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>velocity-tools</groupId>
+                    <artifactId>velocity-tools</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.activation</groupId>
+                    <artifactId>javax.activation-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.xml.bind</groupId>
+                    <artifactId>jaxb-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.validation</groupId>
+                    <artifactId>validation-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.servicemix.bundles</groupId>
+            <artifactId>org.apache.servicemix.bundles.spring-jdbc</artifactId>
+            <version>${confluence.project.servicemix.bundles.spring.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.servicemix.bundles</groupId>
+            <artifactId>org.apache.servicemix.bundles.spring-tx</artifactId>
+            <version>${confluence.project.servicemix.bundles.spring.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.webhooks</groupId>
+            <artifactId>atlassian-webhooks-plugin</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.httpclient</groupId>
+            <artifactId>atlassian-httpclient-plugin</artifactId>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.plugins</groupId>
+            <artifactId>atlassian-spring-interceptor-adapter-plugin</artifactId>
+            <version>${atlassian.spring.interceptor.adapter.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.gadgets</groupId>
+            <artifactId>atlassian-gadgets-api</artifactId>
+            <version>${atlassian.gadgets.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.gadgets</groupId>
+            <artifactId>atlassian-gadgets-spi</artifactId>
+            <version>${atlassian.gadgets.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>net.sourceforge.findbugs</groupId>
+                    <artifactId>jsr305</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.gadgets</groupId>
+            <artifactId>atlassian-gadgets-publisher-plugin</artifactId>
+            <version>${atlassian.gadgets.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.gadgets</groupId>
+            <artifactId>atlassian-gadgets-directory-plugin</artifactId>
+            <version>${atlassian.gadgets.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.gadgets</groupId>
+            <artifactId>atlassian-gadgets-opensocial-plugin</artifactId>
+            <version>${atlassian.gadgets.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.collections</groupId>
+                    <artifactId>google-collections</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.hamcrest</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.inject</groupId>
+                    <artifactId>javax.inject</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.gadgets</groupId>
+            <artifactId>atlassian-gadgets-embedded-plugin</artifactId>
+            <version>${atlassian.gadgets.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.gadgets</groupId>
+            <artifactId>atlassian-gadgets-oauth-service-provider-plugin</artifactId>
+            <version>${atlassian.gadgets.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.templaterenderer</groupId>
+            <artifactId>atlassian-template-renderer-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.templaterenderer</groupId>
+            <artifactId>atlassian-template-renderer-velocity16-plugin</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.platform</groupId>
+            <artifactId>spring-velocity-support</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.oauth</groupId>
+            <artifactId>atlassian-oauth-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.oauth</groupId>
+            <artifactId>atlassian-oauth-consumer-spi</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.oauth</groupId>
+            <artifactId>atlassian-oauth-consumer-sal-plugin</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.oauth</groupId>
+            <artifactId>atlassian-oauth-consumer-plugin</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.oauth</groupId>
+            <artifactId>atlassian-oauth-service-provider-spi</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.oauth</groupId>
+            <artifactId>atlassian-oauth-service-provider-plugin</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.oauth</groupId>
+            <artifactId>atlassian-oauth-service-provider-sal-plugin</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.oauth2</groupId>
+            <artifactId>oauth2-client-plugin</artifactId>
+            <version>${oauth2.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.oauth2</groupId>
+            <artifactId>oauth2-scopes-plugin</artifactId>
+            <version>${oauth2.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.oauth2</groupId>
+            <artifactId>oauth2-provider-plugin</artifactId>
+            <version>${oauth2.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- END Required for Gadgets -->
+
+        <dependency>
+            <groupId>com.atlassian.prettyurls</groupId>
+            <artifactId>atlassian-pretty-urls-plugin</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Atlassian REST Plugin-->
+        <dependency>
+            <groupId>com.atlassian.plugins.rest</groupId>
+            <artifactId>atlassian-rest-module</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Atlassian GraphQL Plugin-->
+        <dependency>
+            <groupId>com.atlassian.plugins.graphql</groupId>
+            <artifactId>atlassian-graphql-module</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!--ual -->
+        <dependency>
+            <groupId>com.atlassian.applinks</groupId>
+            <artifactId>applinks-plugin</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.applinks</groupId>
+            <artifactId>applinks-basicauth-plugin</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.applinks</groupId>
+            <artifactId>applinks-cors-plugin</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.applinks</groupId>
+            <artifactId>applinks-oauth-plugin</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.applinks</groupId>
+            <artifactId>applinks-trustedapps-plugin</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-multimedia-macros</artifactId>
+            <version>${multimedia.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Activity Stream Plugins -->
+        <dependency>
+            <groupId>com.atlassian.streams</groupId>
+            <artifactId>streams-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.streams</groupId>
+            <artifactId>streams-spi</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.streams</groupId>
+            <artifactId>streams-aggregator-plugin</artifactId>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.xml.stream</groupId>
+                    <artifactId>stax-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.streams</groupId>
+            <artifactId>streams-core-plugin</artifactId>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.w3c.css</groupId>
+                    <artifactId>sac</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.streams</groupId>
+            <artifactId>streams-confluence-plugin</artifactId>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.hamcrest</groupId>
+                    <artifactId>hamcrest-all</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.streams</groupId>
+            <artifactId>streams-inline-actions-plugin</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.streams</groupId>
+            <artifactId>streams-confluence-inline-actions-plugin</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.streams</groupId>
+            <artifactId>streams-thirdparty-plugin</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian</groupId>
+            <artifactId>atlassian-failure-cache-plugin</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>share-page</artifactId>
+            <version>${atlassian.share-page.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-periodic-analytics-events</artifactId>
+            <version>${confluence-periodic-analytics-events.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>status-macro</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-email-tracker</artifactId>
+            <version>${email.tracker.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-mentions-plugin</artifactId>
+            <version>${confluence.mentions.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.labs</groupId>
+            <artifactId>atlassian-bot-killer</artifactId>
+            <version>1.7.2.1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.mywork</groupId>
+            <artifactId>mywork-common-plugin</artifactId>
+            <version>${mywork.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.mywork</groupId>
+            <artifactId>mywork-confluence-provider-plugin</artifactId>
+            <version>${mywork.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.mywork</groupId>
+            <artifactId>mywork-confluence-host-plugin</artifactId>
+            <version>${mywork.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>dialog-wizard</artifactId>
+            <version>${dialog-wizard.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-create-content-plugin</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-feature-discovery-plugin</artifactId>
+            <version>${feature.discovery.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.atlassian.confluence</groupId>
+                    <artifactId>confluence</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-remote-page-view-plugin</artifactId>
+            <version>${remote.page.view.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.atlassian.confluence</groupId>
+                    <artifactId>confluence</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-request-access-plugin</artifactId>
+            <version>${request.access.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.atlassian.confluence</groupId>
+                    <artifactId>confluence</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-previews</artifactId>
+            <version>${confluence-previews.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.atlassian.confluence</groupId>
+                    <artifactId>confluence</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-files</artifactId>
+            <version>${confluence-files.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.atlassian.confluence</groupId>
+                    <artifactId>confluence</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-file-notifications</artifactId>
+            <version>${confluence-file-notifications.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.atlassian.confluence</groupId>
+                    <artifactId>confluence</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-user-profile</artifactId>
+            <version>${user.profile.plugin.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.atlassian.confluence</groupId>
+                    <artifactId>confluence</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-default-space-content-plugin</artifactId>
+            <version>${confluence-default-space-content-plugin.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.atlassian.confluence</groupId>
+                    <artifactId>confluence</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-software-blueprints</artifactId>
+            <version>${confluence.software.blueprints.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-inline-tasks</artifactId>
+            <version>${inline-task.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.atlassian.confluence</groupId>
+                    <artifactId>confluence</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-business-blueprints</artifactId>
+            <version>${business-blueprints.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.atlassian.confluence</groupId>
+                    <artifactId>confluence</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-space-blueprints</artifactId>
+            <version>${space-blueprints.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.atlassian.confluence</groupId>
+                    <artifactId>confluence</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-knowledge-base</artifactId>
+            <version>${confluence-knowledge-base.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.atlassian.confluence</groupId>
+                    <artifactId>confluence</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>recently-viewed-plugin</artifactId>
+            <version>${recently.viewed.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>watch-button</artifactId>
+            <version>${watch.button.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.healthcheck</groupId>
+            <artifactId>atlassian-healthcheck</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.plugins</groupId>
+            <artifactId>less-transformer-plugin</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins.search</groupId>
+            <artifactId>confluence-search</artifactId>
+            <version>${search.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-space-ia</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-fixed-headers</artifactId>
+            <version>${confluence-fixed-headers.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-page-banner</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-jira-metadata</artifactId>
+            <version>${jira-metadata.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.plugins</groupId>
+            <artifactId>issue-status-plugin</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>sticky-table-headers</artifactId>
+            <version>${confluence-sticky-table-headers.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-highlight-actions</artifactId>
+            <version>${highlight-actions.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-jira-content</artifactId>
+            <version>${jira-content.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.integration.jira</groupId>
+            <artifactId>jira-integration-plugin</artifactId>
+            <version>${jira-integration-plugin.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.favicon</groupId>
+            <artifactId>confluence-custom-favicon-plugin</artifactId>
+            <version>${confluence.custom.favicon.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-content-notifications-plugin</artifactId>
+            <version>${confluence-notifications.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.atlassian.confluence</groupId>
+                    <artifactId>confluence</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-email-notifications-plugin</artifactId>
+            <version>${confluence-notifications.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.atlassian.confluence</groupId>
+                    <artifactId>confluence</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-notifications-spi-plugin</artifactId>
+            <version>${confluence-notifications.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.atlassian.confluence</groupId>
+                    <artifactId>confluence</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.atlassian.plugin.notifications</groupId>
+                    <artifactId>notifications-api-default-impl</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-notifications-batch-plugin</artifactId>
+            <version>${confluence-notifications.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.atlassian.confluence</groupId>
+                    <artifactId>confluence</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.plugin.notifications</groupId>
+            <artifactId>notifications-module</artifactId>
+            <version>${notifications.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.analytics</groupId>
+            <artifactId>analytics-client</artifactId>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>servlet-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.analytics</groupId>
+            <artifactId>analytics-whitelist</artifactId>
+            <version>${analytics.whitelist.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Confluence View File Macro -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-view-file-macro</artifactId>
+            <version>${confluence-view-file-macro.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Confluence Onboarding -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-onboarding</artifactId>
+            <version>${confluence-onboarding.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Confluence Roadmap Plugin -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-roadmap-plugin</artifactId>
+            <version>${confluence-roadmap-plugin.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <!-- jcl-over-slf4j instead -->
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- Conversion Libraries -->
+        <dependency>
+            <groupId>com.atlassian.plugins</groupId>
+            <artifactId>document-conversion-library</artifactId>
+            <version>${document.conversion.library.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <!-- jcl-over-slf4j instead -->
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.aspose</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-document-conversion-library</artifactId>
+            <version>${confluence.document.conversion.library.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <!-- jcl-over-slf4j instead -->
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.aspose</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.commons</groupId>
+                    <artifactId>commons-math3</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.plugins</groupId>
+            <artifactId>imageio-enabler</artifactId>
+            <version>0.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Browser metrics -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-browser-metrics</artifactId>
+            <version>${confluence.browser-metrics.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.plugins.browser.metrics</groupId>
+            <artifactId>dc-browser-metrics-plugin</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- JWT-->
+        <dependency>
+            <groupId>com.atlassian.jwt</groupId>
+            <artifactId>jwt-plugin</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Whisper -->
+        <dependency>
+            <groupId>com.atlassian.whisper</groupId>
+            <artifactId>atlassian-whisper-plugin</artifactId>
+            <version>${whisper.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-icons</artifactId>
+            <version>${confluence-icons.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Confluence Search UI -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-search-ui-plugin</artifactId>
+            <version>${confluence-search-ui-plugin.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Cloud Migration Assistant Agent -->
+        <dependency>
+            <groupId>com.atlassian.migration</groupId>
+            <artifactId>migration-agent</artifactId>
+            <version>${migration-agent-plugin.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.commons</groupId>
+                    <artifactId>commons-math3</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.spec.javax.transaction</groupId>
+                    <artifactId>jboss-transaction-api_1.2_spec</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.persistence</groupId>
+                    <artifactId>javax.persistence-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.activation</groupId>
+                    <artifactId>javax.activation-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.xml.bind</groupId>
+                    <artifactId>jaxb-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-simple</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.xml.bind</groupId>
+                    <artifactId>jaxb-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>cloud.atlassian.logmon</groupId>
+                    <artifactId>laas-logging-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- CDN Plugin -->
+        <dependency>
+            <groupId>com.atlassian.plugins</groupId>
+            <artifactId>static-assets-url</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- RateLimiting Plugin -->
+        <dependency>
+            <groupId>com.atlassian.ratelimiting</groupId>
+            <artifactId>rate-limiting-plugin</artifactId>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.servicemix.bundles</groupId>
+                    <artifactId>org.apache.servicemix.bundles.javax-inject</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- Personal Access Tokens Plugin -->
+        <dependency>
+            <groupId>com.atlassian.pats</groupId>
+            <artifactId>pats-plugin</artifactId>
+            <version>${personal.access.tokens.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Gatekeeper -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins.gatekeeper</groupId>
+            <artifactId>gatekeeper-plugin</artifactId>
+            <version>${gatekeeper-plugin.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Analytics for Confluence -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>analytics</artifactId>
+            <version>${afc.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Auditing -->
+        <dependency>
+            <groupId>com.atlassian.audit</groupId>
+            <artifactId>atlassian-audit-plugin</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-auditing-coverage</artifactId>
+            <version>${confluence-auditing-coverage.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Team Calendars -->
+        <dependency>
+            <groupId>com.atlassian.confluence.extra.team-calendars</groupId>
+            <artifactId>team-calendars</artifactId>
+            <version>${atlassian.team.calendars.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.servicemix.bundles</groupId>
+                    <artifactId>org.apache.servicemix.bundles.javax-inject</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- Restore Unknown Attachments Plugin -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>reconcile-unknown-attachments</artifactId>
+            <version>${restore-unknown-attachments.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Data Pipeline -->
+        <dependency>
+            <groupId>com.atlassian.business.insights</groupId>
+            <artifactId>confluence-plugin</artifactId>
+            <version>${atlassian-business-insights.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.business.insights</groupId>
+            <artifactId>core-plugin</artifactId>
+            <version>${atlassian-business-insights.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Atlassian Profiling Adaptor -->
+        <dependency>
+            <groupId>com.atlassian.profiling</groupId>
+            <artifactId>atlassian-profiling-adaptor-plugin</artifactId>
+            <version>${atlassian.profiling.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Confluence Editor Plugin -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-editor-plugin</artifactId>
+            <version>${confluence-editor.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Confluence Emoticons Plugin -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugins</groupId>
+            <artifactId>confluence-emoticons-plugin</artifactId>
+            <version>${confluence-emoticons.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Confluence Copy Space Plugin -->
+        <dependency>
+            <groupId>com.atlassian.confluence.plugin</groupId>
+            <artifactId>confluence-copyspace-plugin</artifactId>
+            <version>${confluence-copy-space.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>clean-bundled-plugins</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                        <configuration>
+                            <excludeDefaultDirectories>true</excludeDefaultDirectories>
+                            <filesets>
+                                <fileset>
+                                    <directory>${project.build.directory}/${project.build.finalName}/WEB-INF/atlassian-bundled-plugins</directory>
+                                    <includes>
+                                        <include>*</include>
+                                    </includes>
+                                </fileset>
+                            </filesets>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy dependencies</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/atlassian-bundled-plugins</outputDirectory>
+                            <includeScope>provided</includeScope>
+                            <excludeTransitive>true</excludeTransitive>
+                            <prependGroupId>true</prependGroupId>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <attachClasses>false</attachClasses>
+                    <archive>
+                        <!-- It's all jars anyway. Compressing takes ~5-6 seconds (of 13-14 second build) to drop 3 megs out of 93 -->
+                        <compress>false</compress>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>require_provided_dependencies</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <phase>validate</phase>
+                        <configuration>
+                            <rules>
+                                <bannedDependencies>
+                                    <searchTransitive>true</searchTransitive>
+                                    <message>Bundled plugins must have _provided_ scope to be properly bundled. Using
+                                        _compile_ or _runtime_ will end up in WEB-INF/lib
+                                    </message>
+                                    <excludes>
+                                        <!-- group:artifact:version:package:scope -->
+                                        <exclude>*:*:*:*:compile</exclude>
+                                        <exclude>*:*:*:*:runtime</exclude>
+                                    </excludes>
+                                    <includes>
+                                        <!-- Special rules for spring-scanner 1.x - see root pom enforce_spring_scanner_scope -->
+                                        <include>
+                                            com.atlassian.plugin:atlassian-spring-scanner-annotation:(,2.0):*:compile
+                                        </include>
+                                        <include>
+                                            com.atlassian.plugin:atlassian-spring-scanner-runtime:(,2.0):*:runtime
+                                        </include>
+                                    </includes>
+                                </bannedDependencies>
+                                <bannedDependencies>
+                                    <searchTransitive>true</searchTransitive>
+                                    <message>Plugins should not suck in dependencies on core Confluence classes
+                                    </message>
+                                    <excludes>
+                                        <exclude>com.atlassian.confluence:confluence</exclude>
+                                    </excludes>
+                                </bannedDependencies>
+                                <bannedDependencies>
+                                    <searchTransitive>false</searchTransitive> <!-- plugins seen by the above copy-dependencies -->
+                                    <message>Do not include the whitelist-api-plugin here: it's a confluence core
+                                        dependency,
+                                        its packages are exported out of the system bundle so must not also be deployed
+                                        as a bundle
+                                    </message>
+                                    <excludes>
+                                        <exclude>com.atlassian.plugins:atlassian-whitelist-api-plugin</exclude>
+                                    </excludes>
+                                </bannedDependencies>
+                                <requireSameVersions> <!-- We need to make sure that confluence-notifications references same version of notifications as bundled here -->
+                                    <dependencies>
+                                        <dependency>com.atlassian.plugin.notifications</dependency>
+                                    </dependencies>
+                                </requireSameVersions>
+                            </rules>
+                            <fail>true</fail>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>external_only_plugins</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <phase>validate</phase>
+                        <configuration>
+                            <rules>
+                                <banDynamicVersions />
+                            </rules>
+                            <fail>true</fail>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>eap</id>
+            <dependencies>
+                <dependency>
+                    <groupId>com.atlassian.confluence.plugins</groupId>
+                    <artifactId>confluence-feedback-plugin</artifactId>
+                    <version>${confluence-feedback.version}</version>
+                    <scope>provided</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>with-quickreload</id>
+            <dependencies>
+                <dependency>
+                    <groupId>com.atlassian.labs.plugins</groupId>
+                    <artifactId>quickreload</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+
+        <profile>
+            <id>disable-war</id>
+            <activation>
+                <property>
+                    <name>disable.war</name>
+                </property>
+            </activation>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-war-plugin</artifactId>
+                            <executions>
+                                <execution>
+                                    <id>default-war</id>
+                                    <phase>none</phase>
+                                </execution>
+                            </executions>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-install-plugin</artifactId>
+                            <executions>
+                                <execution>
+                                    <id>default-install</id>
+                                    <phase>none</phase>
+                                </execution>
+                            </executions>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+    </profiles>
+
+    <properties>
+        <pluginBundleDirectory>
+            ../../confluence-core/confluence-webapp/src/main/resources/com/atlassian/confluence/setup
+        </pluginBundleDirectory>
+    </properties>
+
+</project>

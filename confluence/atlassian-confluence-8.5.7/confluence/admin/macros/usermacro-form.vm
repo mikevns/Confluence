@@ -1,0 +1,199 @@
+#requireResource("confluence.web.resources:user-macro-admin")
+<html>
+	<head>
+		<title>$i18n.getText("title.user.macros.$mode")</title>
+		<meta name="help-path" content="/admin/macros/help/usermacro-form.vm"/>
+        <content tag="selectedWebItem">usermacros</content>
+	</head>
+	<body>
+    #requireResource("confluence.web.resources:aui-forms")
+    #requireResource("confluence.web.resources:user-macro-admin")
+
+    #parse ( "/template/includes/actionerrors.vm" )
+
+    <form id="user-macro-form" method="POST" class="aui" name="${mode}usermacro" action="${mode}usermacro.action">
+        #form_xsrfToken()
+        <h3>$i18n.getText("sub.title.user.macro.browser.information")</h3>
+        #if ($mode == "update")
+            $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.input.soy", {
+                                                    "type": "hidden",
+                                                    "name": "originalName",
+                                                    "id": "originalName",
+                                                    "value": $!originalName})
+        #end
+        #set($_params = {
+            "labelContent":"$i18n.getText('user.macro.name')",
+            "name":"userMacro.name",
+            "id":"userMacro.name",
+            "value":$!userMacro.name,
+            "size":"10",
+            "descriptionContent":"$i18n.getText('user.macro.name.desc')",
+            "isRequired":"$i18n.getText('required.field')",
+            "isAutofocus":true,
+            "type":"text",
+            "isDisabled":false,
+            "errorTexts": $!fieldErrors.get('userMacro.name')})
+        $soyTemplateRendererHelper.getRenderedTemplateHtml(
+            "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+        #set($visibleTypesList = [])
+        #foreach( $option in $visibleTypes )
+            #set($label = "user.macro.visible.option." + $option + ".label")
+            #set($labeldescription = "user.macro.visible.option." + $option + ".desc")
+            #set($tempLabel = "#if ($i18n.getText($label) != $label)$i18n.getText($label)#end")
+            #set($tempLabeldescription = "#if ($i18n.getText($labeldescription) != $labeldescription)$i18n.getText($labeldescription)#end")
+            #set($temp = $visibleTypesList.add({
+                "option": "$i18n.getText($option)",
+                "label": $tempLabel,
+                "labeldescription": $tempLabeldescription}))
+        #end
+        #set($tempDescriptionMessage = "#if ($i18n.getText('user.macro.visible.desc') != 'user.macro.visible.desc')$i18n.getText('user.macro.visible.desc')#end")
+        $soyTemplateRendererHelper.getRenderedTemplateHtml("confluence.web.resources:shared-templates", "Confluence.Templates.Radiolist.auii18nConventionRadiolist.soy",{
+            "editMode": $editMode,
+            "name": "showInMacroBrowser",
+            "value": $showInMacroBrowser,
+            "list": $visibleTypesList,
+            "labelContent": "$i18n.getText('user.macro.visible.label')",
+            "descriptionMessage": $tempDescriptionMessage
+        })
+        #set($_params = {
+            "labelContent":"$i18n.getText('user.macro.title')",
+            "name":"userMacro.title",
+            "id":"userMacro.title",
+            "value":$!userMacro.title,
+            "size":"10",
+            "isRequired":"$i18n.getText('required.field')",
+            "type":"text",
+            "isDisabled":false,
+            "maxLength":"64",
+            "errorTexts": $!fieldErrors.get('userMacro.title')})
+        $soyTemplateRendererHelper.getRenderedTemplateHtml(
+            "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+        #set($templateParameters = {
+            "type": "textarea",
+            "labelContent": "$i18n.getText('user.macro.description')",
+            "name": "userMacro.description",
+            "id": "userMacro_description",
+            "value": $!userMacro.description,
+            "rows": "3",
+            "cols": "80"})
+        $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $templateParameters)
+        #set($categoriesList = [])
+        #foreach( $option in $categories )
+            #set($temp = $categoriesList.add({"value": "$!option.value", "key": "$!option.key", "selected": $userMacro.categories.contains($!option.key) }))
+        #end
+        $soyTemplateRendererHelper.getRenderedTemplateHtml("confluence.web.resources:shared-templates", "Confluence.Templates.Select.auiSelect.soy",{
+            "labelValue": "$i18n.getText('user.macro.categories')",
+            "editMode": $editMode,
+            "name": "userMacro.categories",
+            "value": $userMacro.categories,
+            "isMultiple": true,
+            "size":"5",
+            "listKey": "key",
+            "listValue": "value",
+            "list": $categoriesList
+        })
+        #set($_params = {
+            "labelContent":"$i18n.getText('user.macro.iconLocation')",
+            "name":"userMacro.iconLocation",
+            "id":"userMacro.iconLocation",
+            "value":$!userMacro.iconLocation,
+            "size":"10",
+            "descriptionContent":"$i18n.getText('user.macro.iconLocation.desc')",
+            "type":"text",
+            "isDisabled":false,
+            "errorTexts": $!fieldErrors.get('userMacro.iconLocation')})
+        $soyTemplateRendererHelper.getRenderedTemplateHtml(
+            "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+        #set($_params = {
+            "labelContent":"$i18n.getText('user.macro.documentationUrl')",
+            "name":"userMacro.documentationUrl",
+            "id":"userMacro.documentationUrl",
+            "value":$!userMacro.documentationUrl,
+            "size":"10",
+            "type":"text",
+            "isDisabled":false,
+            "errorTexts": $!fieldErrors.get('userMacro.documentationUrl')})
+        $soyTemplateRendererHelper.getRenderedTemplateHtml(
+            "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+
+        <h3>$i18n.getText("sub.title.user.macro.input")</h3>
+        #set($bodyTypesList = [])
+        #foreach( $option in $bodyTypes )
+            #set($label = "user.macro.body.type.option." + $option + ".label")
+            #set($labeldescription = "user.macro.body.type.option." + $option + ".desc")
+            #set($tempLabel = "#if ($i18n.getText($label) != $label)$i18n.getText($label)#end")
+            #set($tempLabeldescription = "#if ($i18n.getText($labeldescription) != $labeldescription)$i18n.getText($labeldescription)#end")
+            #set($temp = $bodyTypesList.add({
+                "option": "$i18n.getText($option)",
+                "label": $tempLabel,
+                "labeldescription": $tempLabeldescription}))
+        #end
+        #set($tempDescriptionMessage = "#if ($i18n.getText('user.macro.visible.desc') != 'user.macro.visible.desc')$i18n.getText('user.macro.visible.desc')#end")
+        $soyTemplateRendererHelper.getRenderedTemplateHtml("confluence.web.resources:shared-templates", "Confluence.Templates.Radiolist.auii18nConventionRadiolist.soy",{
+            "editMode": $editMode,
+            "name": "userMacro.bodyType",
+            "value": $userMacro.bodyType,
+            "list": $bodyTypesList,
+            "labelContent": "$i18n.getText('user.macro.body.type.label')",
+            "descriptionMessage": $tempDescriptionMessage
+        })
+        #if ($action.getOutputTypes().size() > 0)
+            #set($outputTypesList = [])
+            #foreach( $option in $outputTypes )
+                #set($temp = $outputTypesList.add({"value": "$!option.value", "key": "$!option.key"}))
+            #end
+            $soyTemplateRendererHelper.getRenderedTemplateHtml("confluence.web.resources:shared-templates", "Confluence.Templates.Select.auiSelect.soy",{
+                "labelValue": "$i18n.getText('user.macro.output.type')",
+                "id": "user-macro-output-type",
+                "editMode": $editMode,
+                "name": "userMacro.outputType",
+                "value": $userMacro.outputType,
+                "listKey": "key",
+                "listValue": "value",
+                "list": $outputTypesList
+            })
+        #end
+        <div id="wiki-template-deprecated-warning" class="errorBox" style="display:none;">
+            <p>$action.getText("user.macro.output.type.wiki.warning")</p>
+            <p>$action.getText("user.macro.output.type.wiki.advice")</p>
+        </div>
+
+        ## Pre-populate the macro template field with an example when adding a new user macro
+        #if ($mode == "add" && $actionErrors.size() == 0 && $fieldErrors.size() == 0)
+            #set($templateParameters = {
+                "type": "textarea",
+                "labelContent": "$i18n.getText('user.macro.template')",
+                "name": "userMacro.template",
+                "id": "userMacro_template",
+                "value": $!templateHtml,
+                "rows": "20",
+                "cols": "80",
+                "extraFieldClasses": "max-textarea",
+                "description": "$i18n.getText('user.macro.template.desc', [$docBean.getLink('help.user.macro.templates')])",
+                "required": "$i18n.getText('required.field')"})
+            $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $templateParameters)
+        #else
+            #set($templateParameters = {
+                "type": "textarea",
+                "labelContent": "$i18n.getText('user.macro.template')",
+                "name": "userMacro.template",
+                "id": "userMacro_template",
+                "value": $!userMacro.template,
+                "rows": "20",
+                "cols": "80",
+                "extraFieldClasses": "max-textarea",
+                "description": "$i18n.getText('user.macro.template.desc', [$docBean.getLink('help.user.macro.templates')])",
+                "required": "$i18n.getText('required.field')"})
+            $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $templateParameters)
+        #end
+
+        #set ($submitText = $i18n.getText("${mode}.name"))
+        #ssubmit("theme='aui'"
+                 "editMode=true"
+                 "submitValue=$submitText"
+                 "cancelValue=$i18n.getText('cancel.name')")
+    </form>
+
+    #parse("/breadcrumbs.vm")
+	</body>
+</html>

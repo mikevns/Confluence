@@ -1,0 +1,49 @@
+<p>$action.getText('custom.page.content.description', [$docBean.getLink('help.insert.wiki.markup')])</p>
+
+#applyDecorator("form-aui")
+    #decoratorParam("formName" "configurecustompagecontent")
+    #decoratorParam("submitAction"  "docustompagecontent.action")
+    #decoratorParam("editAction" "docustompagecontent.action")
+    #decoratorParam("editMode" "true")
+    <fieldset>
+        #set ($templateParameters = {"value":$sidebarText,
+            "errorTexts":$action.fieldErrors.get("sidebarText"),
+            "id": "sidebarText",
+            "labelContent": "$i18n.getText('custom.page.content.sidebar.label')",
+            "name": "sidebarText",
+            "placeholderText": "$action.getText('custom.page.content.sidebar.placeholder')",
+            "isAutofocus": true,
+            "rows": "8",
+            "cols": "70"})
+        $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.textareaField.soy", $templateParameters)
+    </fieldset>
+    <fieldset>
+        #set ($templateParameters = {"value":$headerText,
+            "errorTexts":$action.fieldErrors.get("headerText"),
+            "id": "headerText",
+            "labelContent": "$i18n.getText('custom.page.content.header.label')",
+            "name": "headerText",
+            "placeholderText": "$action.getText('custom.page.content.header.placeholder')",
+            "rows": "8",
+            "cols": "70"})
+        $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.textareaField.soy", $templateParameters)
+        #set ($templateParameters = {"value":$footerText,
+            "errorTexts":$action.fieldErrors.get("footerText"),
+            "id": "footerText",
+            "labelContent": "$i18n.getText('custom.page.content.footer.label')",
+            "name": "footerText",
+            "placeholderText": "$action.getText('custom.page.content.footer.placeholder')",
+            "rows": "8",
+            "cols": "70"})
+        $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.textareaField.soy", $templateParameters)
+    </fieldset>
+    #form_xsrfToken()
+    $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.input.soy", {
+                                            "type": "hidden",
+                                            "name": "key",
+                                            "id": "key",
+                                            "value": $!key})
+    #ssubmit("theme='aui'"
+             "editMode=true"
+             "submitValue=$action.getText('save.name')")
+#end

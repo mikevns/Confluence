@@ -1,0 +1,101 @@
+{namespace Confluence.Templates.Select}
+
+/**
+ * @param? labelContent
+ * @param? name
+ * @param? isMultiple
+ * @param? errorTexts
+ * @param? descriptionText
+ * @param? noSpaceSelector
+ * @param? editMode
+ * @param? availableGlobalSpace
+ * @param? favouriteSpaces
+ * @param? aggregateOptions
+ * @param? omitAggregateOptions
+ * @param? descriptionContent
+ * @param? disabled
+ * @param? fieldClasses
+ * @param? id
+ * @param? isAutofocus
+ * @param? isDisabled
+ * @param? isRequired
+ * @param? size
+ * @param? value
+ *
+ */
+{template .spaceSelectVM}
+
+    <div class="field-group {call aui.renderExtraClasses data="all" /}"
+            {call aui.renderExtraAttributes data="all" /}>
+
+        {if $editMode == false}
+            <div class="viewMode">
+        {/if}
+
+        {if $labelContent}
+            {call aui.form.label}
+                {param forField : $id /}
+                {param isRequired : $isRequired /}
+                {param content : $labelContent /}
+            {/call}
+        {/if}
+
+        {if $editMode == false}
+            {call aui.form.value}
+                {param id: $id /}
+                {param content}{$value|escapeHtml}{/param}
+                {param extraClasses: $fieldClasses /}
+            {/call}
+        {else}
+            <select{if $id} id="{$id}"{/if} name="{if $name}{$name}{else}{$id}{/if}" class="{$isMultiple ? 'multi-select' : 'select'}{call aui.renderExtraClasses data="all" /}"
+                    {if $size} size="{$size}"{/if}{if $isDisabled} disabled{/if}{if $isAutofocus} autofocus{/if}{if $isMultiple} multiple{/if}
+                    {call aui.renderExtraAttributes data="all" /}
+                    {call aui.form.renderValidationArguments data="all"/}
+                    {call aui.form.renderInfoMessage data="all" /}
+                    {call aui.form.renderFieldComponentAttribute data="all" /}
+                    {call aui.form.renderTooltipArguments data="all" /}
+            >
+                {if $noSpaceSelector == true}
+                    <option value="" selected {if $disabled} disabled{/if}>{getText('rss.feed.spaces.none')}</option>
+                {/if}
+                {if $omitAggregateOptions == false}
+                    <optgroup label="" {if $disabled} disabled{/if}>
+                        {foreach $option in $aggregateOptions}
+                            <option value="{$option.key}" {if $option.key == 'conf_all'} selected{/if}{if $disabled} disabled{/if}>{$option.value}</option>
+                        {/foreach}
+                    </optgroup>
+                {/if}
+                <optgroup label="{getText('favourite.spaces')}"{if $disabled} disabled{/if}>
+                    {foreach $option in $favouriteSpaces}
+                        <option value="{$option.spaceKey}" {if $option.spaceKey == 'conf_all'} selected{/if}{if $disabled} disabled{/if}>{$option.spaceName}</option>
+                    {/foreach}
+                </optgroup>
+                <optgroup label="{getText('global.spaces')}"{if $disabled} disabled{/if}>
+                    {foreach $option in $availableGlobalSpace}
+                        <option value="{$option.spaceKey}" {if $option.spaceKey == 'conf_all'} selected{/if}{if $disabled} disabled{/if}>{$option.spaceName}</option>
+                    {/foreach}
+                </optgroup>
+            </select>
+        {/if}
+
+        {if $errorTexts}
+            {call aui.form.fieldError}
+                {param id: $id/}
+                {param message: $errorTexts /}
+            {/call}
+        {/if}
+        {if $descriptionText or $descriptionContent}
+            {call aui.form.fieldDescription}
+                {param id: $id/}
+                {param text: $descriptionText /}
+                {param content: $descriptionContent /}
+            {/call}
+        {/if}
+
+        {if $editMode == false}
+            </div>
+        {/if}
+
+    </div>
+
+{/template}

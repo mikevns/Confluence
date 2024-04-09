@@ -1,0 +1,297 @@
+09-Apr-2024 14:00:02.737 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8090"]
+09-Apr-2024 14:00:02.764 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [455] milliseconds
+09-Apr-2024 14:00:02.774 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Tomcat-Standalone]
+09-Apr-2024 14:00:02.774 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/9.0.83]
+09-Apr-2024 14:00:03.904 INFO [Catalina-utility-2] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+09-Apr-2024 14:00:04.116 INFO [Catalina-utility-2] org.apache.catalina.core.ApplicationContext.log 1 Spring WebApplicationInitializers detected on classpath
+09-Apr-2024 14:00:04.228 INFO [Catalina-utility-2] org.apache.catalina.core.ApplicationContext.log Initializing Spring DispatcherServlet 'dispatcher'
+09-Apr-2024 14:06:39.149 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8090"]
+09-Apr-2024 14:06:39.162 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [316] milliseconds
+09-Apr-2024 14:06:39.168 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Tomcat-Standalone]
+09-Apr-2024 14:06:39.168 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/9.0.83]
+09-Apr-2024 14:06:39.880 INFO [Catalina-utility-2] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+09-Apr-2024 14:06:39.999 INFO [Catalina-utility-2] org.apache.catalina.core.ApplicationContext.log 1 Spring WebApplicationInitializers detected on classpath
+09-Apr-2024 14:06:40.095 INFO [Catalina-utility-2] org.apache.catalina.core.ApplicationContext.log Initializing Spring DispatcherServlet 'dispatcher'
+09-Apr-2024 14:07:28.903 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8090"]
+09-Apr-2024 14:07:28.957 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [49794] milliseconds
+09-Apr-2024 14:07:30.035 INFO [http-nio-8090-exec-3 url: /rest/gadgets/1.0/g/messagebundle/und/gadget.common%2Cgadget.activity.stream] com.sun.jersey.server.impl.application.WebApplicationImpl._initiate Initiating Jersey application, version 'Jersey: 1.19.5-atlassian-9 0633a964d24ac0004ec5c087f3bed4120c3ed16f'
+09-Apr-2024 14:07:30.197 INFO [http-nio-8090-exec-3 url: /rest/gadgets/1.0/g/messagebundle/und/gadget.common%2Cgadget.activity.stream] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.sun.jersey.server.wadl.generators.WadlGeneratorApplicationDoc
+09-Apr-2024 14:07:30.202 INFO [http-nio-8090-exec-3 url: /rest/gadgets/1.0/g/messagebundle/und/gadget.common%2Cgadget.activity.stream] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.atlassian.plugins.rest.doclet.generators.grammars.WadlGrammarsAdaptor
+09-Apr-2024 14:07:30.203 INFO [http-nio-8090-exec-3 url: /rest/gadgets/1.0/g/messagebundle/und/gadget.common%2Cgadget.activity.stream] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.atlassian.plugins.rest.doclet.generators.resourcedoc.AtlassianRuntimeWadlGeneratorResourceDocSupport
+09-Apr-2024 14:08:14.698 INFO [http-nio-8090-exec-3 url: /rest/gadgets/1.0/g/messagebundle/und/gadget.common%2Cgadget.activity.stream] com.sun.jersey.server.impl.application.WebApplicationImpl._initiate Initiating Jersey application, version 'Jersey: 1.19.5-atlassian-9 0633a964d24ac0004ec5c087f3bed4120c3ed16f'
+09-Apr-2024 14:08:14.810 INFO [http-nio-8090-exec-3 url: /rest/gadgets/1.0/g/messagebundle/und/gadget.common%2Cgadget.activity.stream] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.sun.jersey.server.wadl.generators.WadlGeneratorApplicationDoc
+09-Apr-2024 14:08:14.810 INFO [http-nio-8090-exec-3 url: /rest/gadgets/1.0/g/messagebundle/und/gadget.common%2Cgadget.activity.stream] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.atlassian.plugins.rest.doclet.generators.grammars.WadlGrammarsAdaptor
+09-Apr-2024 14:08:14.810 INFO [http-nio-8090-exec-3 url: /rest/gadgets/1.0/g/messagebundle/und/gadget.common%2Cgadget.activity.stream] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.atlassian.plugins.rest.doclet.generators.resourcedoc.AtlassianRuntimeWadlGeneratorResourceDocSupport
+09-Apr-2024 14:08:16.023 INFO [http-nio-8090-exec-5 url: /rest/wrm/2.0/resources; user: admin] com.sun.jersey.server.impl.application.WebApplicationImpl._initiate Initiating Jersey application, version 'Jersey: 1.19.5-atlassian-9 0633a964d24ac0004ec5c087f3bed4120c3ed16f'
+09-Apr-2024 14:08:16.099 INFO [http-nio-8090-exec-9 url: /rest/shortcuts/latest/shortcuts/9012/1950e73439ed3a1509fce6c7092f90e3; user: admin] com.sun.jersey.server.impl.application.WebApplicationImpl._initiate Initiating Jersey application, version 'Jersey: 1.19.5-atlassian-9 0633a964d24ac0004ec5c087f3bed4120c3ed16f'
+09-Apr-2024 14:08:16.134 INFO [http-nio-8090-exec-1 url: /rest/dashboardmacros/1.0/updates; user: admin] com.sun.jersey.server.impl.application.WebApplicationImpl._initiate Initiating Jersey application, version 'Jersey: 1.19.5-atlassian-9 0633a964d24ac0004ec5c087f3bed4120c3ed16f'
+09-Apr-2024 14:08:16.163 INFO [http-nio-8090-exec-6 url: /rest/experimental/search; user: admin] com.sun.jersey.server.impl.application.WebApplicationImpl._initiate Initiating Jersey application, version 'Jersey: 1.19.5-atlassian-9 0633a964d24ac0004ec5c087f3bed4120c3ed16f'
+09-Apr-2024 14:08:16.176 INFO [http-nio-8090-exec-9 url: /rest/shortcuts/latest/shortcuts/9012/1950e73439ed3a1509fce6c7092f90e3; user: admin] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.sun.jersey.server.wadl.generators.WadlGeneratorApplicationDoc
+09-Apr-2024 14:08:16.177 INFO [http-nio-8090-exec-9 url: /rest/shortcuts/latest/shortcuts/9012/1950e73439ed3a1509fce6c7092f90e3; user: admin] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.atlassian.plugins.rest.doclet.generators.grammars.WadlGrammarsAdaptor
+09-Apr-2024 14:08:16.177 INFO [http-nio-8090-exec-9 url: /rest/shortcuts/latest/shortcuts/9012/1950e73439ed3a1509fce6c7092f90e3; user: admin] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.atlassian.plugins.rest.doclet.generators.resourcedoc.AtlassianRuntimeWadlGeneratorResourceDocSupport
+09-Apr-2024 14:08:16.221 INFO [http-nio-8090-exec-5 url: /rest/wrm/2.0/resources; user: admin] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.sun.jersey.server.wadl.generators.WadlGeneratorApplicationDoc
+09-Apr-2024 14:08:16.222 INFO [http-nio-8090-exec-5 url: /rest/wrm/2.0/resources; user: admin] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.atlassian.plugins.rest.doclet.generators.grammars.WadlGrammarsAdaptor
+09-Apr-2024 14:08:16.222 INFO [http-nio-8090-exec-5 url: /rest/wrm/2.0/resources; user: admin] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.atlassian.plugins.rest.doclet.generators.resourcedoc.AtlassianRuntimeWadlGeneratorResourceDocSupport
+09-Apr-2024 14:08:16.303 INFO [http-nio-8090-exec-4 url: /rest/troubleshooting/1.0/check/admin; user: admin] com.sun.jersey.server.impl.application.WebApplicationImpl._initiate Initiating Jersey application, version 'Jersey: 1.19.5-atlassian-9 0633a964d24ac0004ec5c087f3bed4120c3ed16f'
+09-Apr-2024 14:08:16.619 INFO [http-nio-8090-exec-10 url: /rest/mywork/latest/status/notification/count; user: admin] com.sun.jersey.server.impl.application.WebApplicationImpl._initiate Initiating Jersey application, version 'Jersey: 1.19.5-atlassian-9 0633a964d24ac0004ec5c087f3bed4120c3ed16f'
+09-Apr-2024 14:08:16.821 INFO [http-nio-8090-exec-8 url: /rest/analytics/1.0/publish/bulk; user: admin] com.sun.jersey.server.impl.application.WebApplicationImpl._initiate Initiating Jersey application, version 'Jersey: 1.19.5-atlassian-9 0633a964d24ac0004ec5c087f3bed4120c3ed16f'
+09-Apr-2024 14:08:16.882 INFO [http-nio-8090-exec-10 url: /rest/mywork/latest/status/notification/count; user: admin] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.sun.jersey.server.wadl.generators.WadlGeneratorApplicationDoc
+09-Apr-2024 14:08:16.883 INFO [http-nio-8090-exec-10 url: /rest/mywork/latest/status/notification/count; user: admin] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.atlassian.plugins.rest.doclet.generators.grammars.WadlGrammarsAdaptor
+09-Apr-2024 14:08:16.884 INFO [http-nio-8090-exec-10 url: /rest/mywork/latest/status/notification/count; user: admin] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.atlassian.plugins.rest.doclet.generators.resourcedoc.AtlassianRuntimeWadlGeneratorResourceDocSupport
+09-Apr-2024 14:08:17.039 INFO [http-nio-8090-exec-8 url: /rest/analytics/1.0/publish/bulk; user: admin] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.sun.jersey.server.wadl.generators.WadlGeneratorApplicationDoc
+09-Apr-2024 14:08:17.039 INFO [http-nio-8090-exec-8 url: /rest/analytics/1.0/publish/bulk; user: admin] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.atlassian.plugins.rest.doclet.generators.grammars.WadlGrammarsAdaptor
+09-Apr-2024 14:08:17.039 INFO [http-nio-8090-exec-8 url: /rest/analytics/1.0/publish/bulk; user: admin] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.atlassian.plugins.rest.doclet.generators.resourcedoc.AtlassianRuntimeWadlGeneratorResourceDocSupport
+09-Apr-2024 14:08:46.223 INFO [http-nio-8090-exec-9 url: /rest/shortcuts/latest/shortcuts/9012/1950e73439ed3a1509fce6c7092f90e3; user: admin] com.sun.jersey.server.impl.application.WebApplicationImpl._initiate Initiating Jersey application, version 'Jersey: 1.19.5-atlassian-9 0633a964d24ac0004ec5c087f3bed4120c3ed16f'
+09-Apr-2024 14:23:27.045 INFO [http-nio-8090-exec-2 url: /rest/create-dialog/1.0/storage/quick-create; user: admin] com.sun.jersey.server.impl.application.WebApplicationImpl._initiate Initiating Jersey application, version 'Jersey: 1.19.5-atlassian-9 0633a964d24ac0004ec5c087f3bed4120c3ed16f'
+09-Apr-2024 14:23:27.193 INFO [http-nio-8090-exec-4 url: /rest/troubleshooting/1.0/check/admin; user: admin] com.sun.jersey.server.impl.application.WebApplicationImpl._initiate Initiating Jersey application, version 'Jersey: 1.19.5-atlassian-9 0633a964d24ac0004ec5c087f3bed4120c3ed16f'
+09-Apr-2024 14:23:27.235 INFO [http-nio-8090-exec-2 url: /rest/create-dialog/1.0/storage/quick-create; user: admin] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.sun.jersey.server.wadl.generators.WadlGeneratorApplicationDoc
+09-Apr-2024 14:23:27.236 INFO [http-nio-8090-exec-2 url: /rest/create-dialog/1.0/storage/quick-create; user: admin] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.atlassian.plugins.rest.doclet.generators.grammars.WadlGrammarsAdaptor
+09-Apr-2024 14:23:27.236 INFO [http-nio-8090-exec-2 url: /rest/create-dialog/1.0/storage/quick-create; user: admin] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.atlassian.plugins.rest.doclet.generators.resourcedoc.AtlassianRuntimeWadlGeneratorResourceDocSupport
+09-Apr-2024 14:23:27.301 INFO [http-nio-8090-exec-4 url: /rest/troubleshooting/1.0/check/admin; user: admin] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.sun.jersey.server.wadl.generators.WadlGeneratorApplicationDoc
+09-Apr-2024 14:23:27.301 INFO [http-nio-8090-exec-4 url: /rest/troubleshooting/1.0/check/admin; user: admin] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.atlassian.plugins.rest.doclet.generators.grammars.WadlGrammarsAdaptor
+09-Apr-2024 14:23:27.302 INFO [http-nio-8090-exec-4 url: /rest/troubleshooting/1.0/check/admin; user: admin] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.atlassian.plugins.rest.doclet.generators.resourcedoc.AtlassianRuntimeWadlGeneratorResourceDocSupport
+09-Apr-2024 14:23:27.507 INFO [http-nio-8090-exec-5 url: /rest/wrm/2.0/resources; user: admin] com.sun.jersey.server.impl.application.WebApplicationImpl._initiate Initiating Jersey application, version 'Jersey: 1.19.5-atlassian-9 0633a964d24ac0004ec5c087f3bed4120c3ed16f'
+09-Apr-2024 14:23:27.558 INFO [http-nio-8090-exec-8 url: /rest/analytics/1.0/publish/bulk; user: admin] com.sun.jersey.server.impl.application.WebApplicationImpl._initiate Initiating Jersey application, version 'Jersey: 1.19.5-atlassian-9 0633a964d24ac0004ec5c087f3bed4120c3ed16f'
+09-Apr-2024 14:23:27.854 INFO [http-nio-8090-exec-10 url: /rest/mywork/latest/status/notification/count; user: admin] com.sun.jersey.server.impl.application.WebApplicationImpl._initiate Initiating Jersey application, version 'Jersey: 1.19.5-atlassian-9 0633a964d24ac0004ec5c087f3bed4120c3ed16f'
+09-Apr-2024 14:23:27.959 INFO [http-nio-8090-exec-10 url: /rest/mywork/latest/status/notification/count; user: admin] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.sun.jersey.server.wadl.generators.WadlGeneratorApplicationDoc
+09-Apr-2024 14:23:27.960 INFO [http-nio-8090-exec-10 url: /rest/mywork/latest/status/notification/count; user: admin] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.atlassian.plugins.rest.doclet.generators.grammars.WadlGrammarsAdaptor
+09-Apr-2024 14:23:27.960 INFO [http-nio-8090-exec-10 url: /rest/mywork/latest/status/notification/count; user: admin] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.atlassian.plugins.rest.doclet.generators.resourcedoc.AtlassianRuntimeWadlGeneratorResourceDocSupport
+09-Apr-2024 14:23:28.023 WARNING [http-nio-8090-exec-10 url: /rest/mywork/latest/status/notification/count; user: admin] com.sun.jersey.spi.inject.Errors.processErrorMessages The following warnings have been detected with resource and/or provider classes:
+  WARNING: A sub-resource method, public javax.ws.rs.core.Response com.atlassian.confluence.plugins.hipchat.emoticons.rest.CustomEmoticonResource.create(com.atlassian.plugins.rest.common.multipart.FilePart,com.atlassian.plugins.rest.common.multipart.FilePart,com.atlassian.plugins.rest.common.multipart.FilePart) throws com.atlassian.confluence.plugins.hipchat.emoticons.exception.EmoticonException,java.io.IOException, with URI template, "/", is treated as a resource method
+  WARNING: A sub-resource method, public java.util.Map com.atlassian.confluence.plugins.hipchat.emoticons.rest.CustomEmoticonResource.getCustom(java.lang.String), with URI template, "/", is treated as a resource method
+09-Apr-2024 14:23:30.166 INFO [http-nio-8090-exec-6 url: /rest/experimental/search; user: admin] com.sun.jersey.server.impl.application.WebApplicationImpl._initiate Initiating Jersey application, version 'Jersey: 1.19.5-atlassian-9 0633a964d24ac0004ec5c087f3bed4120c3ed16f'
+09-Apr-2024 14:28:16.297 INFO [http-nio-8090-exec-6 url: /rest/experimental/search; user: admin] com.sun.jersey.server.impl.application.WebApplicationImpl._initiate Initiating Jersey application, version 'Jersey: 1.19.5-atlassian-9 0633a964d24ac0004ec5c087f3bed4120c3ed16f'
+09-Apr-2024 14:28:29.095 INFO [http-nio-8090-exec-7 url: /rest/helptips/1.0/tips; user: admin] com.sun.jersey.server.impl.application.WebApplicationImpl._initiate Initiating Jersey application, version 'Jersey: 1.19.5-atlassian-9 0633a964d24ac0004ec5c087f3bed4120c3ed16f'
+09-Apr-2024 14:28:29.170 INFO [http-nio-8090-exec-7 url: /rest/helptips/1.0/tips; user: admin] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.sun.jersey.server.wadl.generators.WadlGeneratorApplicationDoc
+09-Apr-2024 14:28:29.170 INFO [http-nio-8090-exec-7 url: /rest/helptips/1.0/tips; user: admin] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.atlassian.plugins.rest.doclet.generators.grammars.WadlGrammarsAdaptor
+09-Apr-2024 14:28:29.170 INFO [http-nio-8090-exec-7 url: /rest/helptips/1.0/tips; user: admin] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.atlassian.plugins.rest.doclet.generators.resourcedoc.AtlassianRuntimeWadlGeneratorResourceDocSupport
+09-Apr-2024 14:28:29.203 INFO [http-nio-8090-exec-3 url: /rest/gadgets/1.0/g/messagebundle/und/gadget.common%2Cgadget.activity.stream] com.sun.jersey.server.impl.application.WebApplicationImpl._initiate Initiating Jersey application, version 'Jersey: 1.19.5-atlassian-9 0633a964d24ac0004ec5c087f3bed4120c3ed16f'
+09-Apr-2024 14:28:29.318 INFO [http-nio-8090-exec-10 url: /rest/mywork/latest/status/notification/count; user: admin] com.sun.jersey.server.impl.application.WebApplicationImpl._initiate Initiating Jersey application, version 'Jersey: 1.19.5-atlassian-9 0633a964d24ac0004ec5c087f3bed4120c3ed16f'
+09-Apr-2024 14:28:29.336 INFO [http-nio-8090-exec-4 url: /rest/troubleshooting/1.0/check/admin; user: admin] com.sun.jersey.server.impl.application.WebApplicationImpl._initiate Initiating Jersey application, version 'Jersey: 1.19.5-atlassian-9 0633a964d24ac0004ec5c087f3bed4120c3ed16f'
+09-Apr-2024 14:28:29.411 INFO [http-nio-8090-exec-6 url: /rest/experimental/search; user: admin] com.sun.jersey.server.impl.application.WebApplicationImpl._initiate Initiating Jersey application, version 'Jersey: 1.19.5-atlassian-9 0633a964d24ac0004ec5c087f3bed4120c3ed16f'
+09-Apr-2024 14:28:29.471 INFO [http-nio-8090-exec-9 url: /rest/shortcuts/latest/shortcuts/9012/1950e73439ed3a1509fce6c7092f90e3; user: admin] com.sun.jersey.server.impl.application.WebApplicationImpl._initiate Initiating Jersey application, version 'Jersey: 1.19.5-atlassian-9 0633a964d24ac0004ec5c087f3bed4120c3ed16f'
+09-Apr-2024 14:28:29.516 INFO [http-nio-8090-exec-10 url: /rest/mywork/latest/status/notification/count; user: admin] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.sun.jersey.server.wadl.generators.WadlGeneratorApplicationDoc
+09-Apr-2024 14:28:29.517 INFO [http-nio-8090-exec-10 url: /rest/mywork/latest/status/notification/count; user: admin] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.atlassian.plugins.rest.doclet.generators.grammars.WadlGrammarsAdaptor
+09-Apr-2024 14:28:29.521 INFO [http-nio-8090-exec-10 url: /rest/mywork/latest/status/notification/count; user: admin] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.atlassian.plugins.rest.doclet.generators.resourcedoc.AtlassianRuntimeWadlGeneratorResourceDocSupport
+09-Apr-2024 14:28:29.619 INFO [http-nio-8090-exec-6 url: /rest/experimental/search; user: admin] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.sun.jersey.server.wadl.generators.WadlGeneratorApplicationDoc
+09-Apr-2024 14:28:29.622 INFO [http-nio-8090-exec-6 url: /rest/experimental/search; user: admin] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.atlassian.plugins.rest.doclet.generators.grammars.WadlGrammarsAdaptor
+09-Apr-2024 14:28:29.622 INFO [http-nio-8090-exec-6 url: /rest/experimental/search; user: admin] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.atlassian.plugins.rest.doclet.generators.resourcedoc.AtlassianRuntimeWadlGeneratorResourceDocSupport
+09-Apr-2024 14:28:29.709 INFO [http-nio-8090-exec-9 url: /rest/shortcuts/latest/shortcuts/9012/1950e73439ed3a1509fce6c7092f90e3; user: admin] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.sun.jersey.server.wadl.generators.WadlGeneratorApplicationDoc
+09-Apr-2024 14:28:29.710 INFO [http-nio-8090-exec-9 url: /rest/shortcuts/latest/shortcuts/9012/1950e73439ed3a1509fce6c7092f90e3; user: admin] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.atlassian.plugins.rest.doclet.generators.grammars.WadlGrammarsAdaptor
+09-Apr-2024 14:28:29.710 INFO [http-nio-8090-exec-9 url: /rest/shortcuts/latest/shortcuts/9012/1950e73439ed3a1509fce6c7092f90e3; user: admin] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.atlassian.plugins.rest.doclet.generators.resourcedoc.AtlassianRuntimeWadlGeneratorResourceDocSupport
+09-Apr-2024 14:28:30.041 INFO [http-nio-8090-exec-7 url: /rest/helptips/1.0/tips; user: admin] com.sun.jersey.server.impl.application.WebApplicationImpl._initiate Initiating Jersey application, version 'Jersey: 1.19.5-atlassian-9 0633a964d24ac0004ec5c087f3bed4120c3ed16f'
+09-Apr-2024 14:28:32.380 INFO [http-nio-8090-exec-4 url: /rest/troubleshooting/1.0/check/admin; user: admin] com.sun.jersey.server.impl.application.WebApplicationImpl._initiate Initiating Jersey application, version 'Jersey: 1.19.5-atlassian-9 0633a964d24ac0004ec5c087f3bed4120c3ed16f'
+09-Apr-2024 14:28:32.537 WARNING [http-nio-8090-exec-4 url: /rest/troubleshooting/1.0/check/admin; user: admin] com.sun.jersey.spi.inject.Errors.processErrorMessages The following warnings have been detected with resource and/or provider classes:
+  WARNING: A sub-resource method, public javax.ws.rs.core.Response com.atlassian.migration.agent.rest.MacroAssessmentResource.assessMacros(), with URI template, "/", is treated as a resource method
+  WARNING: A sub-resource method, public javax.ws.rs.core.Response com.atlassian.migration.agent.rest.PlanResource.getAllPlans(), with URI template, "/", is treated as a resource method
+  WARNING: A sub-resource method, public javax.ws.rs.core.Response com.atlassian.migration.agent.rest.PlanResource.createPlan(com.atlassian.migration.agent.dto.PlanDto,java.lang.Boolean), with URI template, "/", is treated as a resource method
+  WARNING: A sub-resource method, public javax.ws.rs.core.Response com.atlassian.migration.agent.rest.PlanResource.updatePlan(com.atlassian.migration.agent.dto.PlanDto), with URI template, "/", is treated as a resource method
+  WARNING: A sub-resource method, public javax.ws.rs.core.Response com.atlassian.migration.agent.rest.InstanceAssessmentResource.getJobProgress(), with URI template, "", is treated as a resource method
+  WARNING: A sub-resource method, public javax.ws.rs.core.Response com.atlassian.migration.agent.rest.RelationsAnalyzerResource.getJobStatus(), with URI template, "/", is treated as a resource method
+  WARNING: A sub-resource method, public javax.ws.rs.core.Response com.atlassian.migration.agent.rest.RelationsAnalyzerResource.scheduleJob(), with URI template, "/", is treated as a resource method
+  WARNING: A sub-resource method, public javax.ws.rs.core.Response com.atlassian.migration.agent.rest.CloudResource.getSites(), with URI template, "/", is treated as a resource method
+  WARNING: A sub-resource method, public javax.ws.rs.core.Response com.atlassian.migration.agent.rest.MigratedResource.getAllMigratedSpaces(), with URI template, "/", is treated as a resource method
+  WARNING: A sub-resource method, public javax.ws.rs.core.Response com.atlassian.migration.agent.rest.AppAssessmentResource.getPluginInfo(), with URI template, "/", is treated as a resource method
+  WARNING: A sub-resource method, public com.atlassian.migration.agent.dto.SpaceSearchResultDto com.atlassian.migration.agent.rest.SpaceCatalogResource.getSpaces(java.lang.String,java.lang.String,java.lang.String,int,java.lang.String,java.lang.Integer,java.lang.String,java.lang.String,java.lang.String,com.atlassian.migration.agent.entity.SortOrder) throws com.atlassian.confluence.search.v2.InvalidSearchException, with URI template, "/", is treated as a resource method
+09-Apr-2024 14:29:14.551 INFO [http-nio-8090-exec-10 url: /rest/mywork/latest/status/notification/count; user: admin] com.sun.jersey.server.impl.application.WebApplicationImpl._initiate Initiating Jersey application, version 'Jersey: 1.19.5-atlassian-9 0633a964d24ac0004ec5c087f3bed4120c3ed16f'
+09-Apr-2024 14:29:16.607 INFO [http-nio-8090-exec-10 url: /rest/mywork/latest/status/notification/count; user: admin] com.sun.jersey.server.impl.application.WebApplicationImpl._initiate Initiating Jersey application, version 'Jersey: 1.19.5-atlassian-9 0633a964d24ac0004ec5c087f3bed4120c3ed16f'
+09-Apr-2024 14:29:16.757 WARNING [http-nio-8090-exec-10 url: /rest/mywork/latest/status/notification/count; user: admin] com.sun.jersey.spi.inject.Errors.processErrorMessages The following warnings have been detected with resource and/or provider classes:
+  WARNING: A HTTP GET method, public javax.ws.rs.core.Response com.atlassian.confluence.tinymceplugin.rest.DraftsResource.getDrafts(int,int), should not consume any entity.
+09-Apr-2024 14:29:26.070 INFO [http-nio-8090-exec-10 url: /rest/mywork/latest/status/notification/count; user: admin] com.sun.jersey.server.impl.application.WebApplicationImpl._initiate Initiating Jersey application, version 'Jersey: 1.19.5-atlassian-9 0633a964d24ac0004ec5c087f3bed4120c3ed16f'
+09-Apr-2024 14:30:54.310 INFO [http-nio-8090-exec-10 url: /rest/mywork/latest/status/notification/count; user: admin] com.sun.jersey.server.impl.application.WebApplicationImpl._initiate Initiating Jersey application, version 'Jersey: 1.19.5-atlassian-9 0633a964d24ac0004ec5c087f3bed4120c3ed16f'
+09-Apr-2024 14:31:50.027 INFO [http-nio-8090-exec-9 url: /rest/shortcuts/latest/shortcuts/9012/1950e73439ed3a1509fce6c7092f90e3; user: admin] com.sun.jersey.server.impl.application.WebApplicationImpl._initiate Initiating Jersey application, version 'Jersey: 1.19.5-atlassian-9 0633a964d24ac0004ec5c087f3bed4120c3ed16f'
+09-Apr-2024 14:31:50.133 INFO [http-nio-8090-exec-9 url: /rest/shortcuts/latest/shortcuts/9012/1950e73439ed3a1509fce6c7092f90e3; user: admin] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.sun.jersey.server.wadl.generators.WadlGeneratorApplicationDoc
+09-Apr-2024 14:31:50.133 INFO [http-nio-8090-exec-9 url: /rest/shortcuts/latest/shortcuts/9012/1950e73439ed3a1509fce6c7092f90e3; user: admin] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.atlassian.plugins.rest.doclet.generators.grammars.WadlGrammarsAdaptor
+09-Apr-2024 14:31:50.134 INFO [http-nio-8090-exec-9 url: /rest/shortcuts/latest/shortcuts/9012/1950e73439ed3a1509fce6c7092f90e3; user: admin] com.sun.jersey.api.wadl.config.WadlGeneratorLoader.loadWadlGenerator Loading wadlGenerator com.atlassian.plugins.rest.doclet.generators.resourcedoc.AtlassianRuntimeWadlGeneratorResourceDocSupport
+09-Apr-2024 15:43:39.920 INFO [main] org.apache.catalina.core.StandardServer.await A valid shutdown command was received via the shutdown port. Stopping the Server instance.
+09-Apr-2024 15:43:39.922 INFO [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8090"]
+09-Apr-2024 15:43:39.922 INFO [main] org.apache.catalina.core.StandardService.stopInternal Stopping service [Tomcat-Standalone]
+09-Apr-2024 15:43:39.924 INFO [Catalina-utility-3] org.apache.catalina.core.ApplicationContext.log Destroying Spring FrameworkServlet 'dispatcher'
+09-Apr-2024 15:43:46.723 WARNING [Catalina-utility-4] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [ROOT] registered the JDBC driver [org.postgresql.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+09-Apr-2024 15:43:46.723 WARNING [Catalina-utility-4] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [ROOT] registered the JDBC driver [net.sourceforge.jtds.jdbc.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+09-Apr-2024 15:43:46.723 WARNING [Catalina-utility-4] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [ROOT] registered the JDBC driver [com.microsoft.sqlserver.jdbc.SQLServerDriver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+09-Apr-2024 15:43:46.723 WARNING [Catalina-utility-4] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [ROOT] registered the JDBC driver [com.github.gquintana.metrics.sql.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+09-Apr-2024 15:43:46.724 WARNING [Catalina-utility-4] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads The web application [ROOT] appears to have started a thread named [BC Entropy Daemon] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base/java.lang.Thread.sleep0(Native Method)
+ java.base/java.lang.Thread.sleep(Thread.java:460)
+ org.bouncycastle.crypto.EntropyDaemon.run(EntropyDaemon.java:51)
+ java.base/java.lang.Thread.run(Thread.java:1589)
+09-Apr-2024 15:43:46.724 WARNING [Catalina-utility-4] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads The web application [ROOT] appears to have started a thread named [ConfluenceSpringScheduler:thread-1] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base/java.util.concurrent.locks.LockSupport.park(LockSupport.java:371)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+ java.base/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3745)
+ java.base/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3690)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1625)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1177)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1070)
+ java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+ java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+ java.base/java.lang.Thread.run(Thread.java:1589)
+09-Apr-2024 15:43:46.724 WARNING [Catalina-utility-4] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads The web application [ROOT] appears to have started a thread named [ConfluenceSpringScheduler:thread-2] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base/java.util.concurrent.locks.LockSupport.park(LockSupport.java:371)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+ java.base/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3745)
+ java.base/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3690)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1625)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1177)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1070)
+ java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+ java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+ java.base/java.lang.Thread.run(Thread.java:1589)
+09-Apr-2024 15:43:46.724 WARNING [Catalina-utility-4] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads The web application [ROOT] appears to have started a thread named [ConfluenceSpringScheduler:thread-3] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base/java.util.concurrent.locks.LockSupport.park(LockSupport.java:371)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+ java.base/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3745)
+ java.base/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3690)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1625)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1177)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1070)
+ java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+ java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+ java.base/java.lang.Thread.run(Thread.java:1589)
+09-Apr-2024 15:43:46.724 WARNING [Catalina-utility-4] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads The web application [ROOT] appears to have started a thread named [ConfluenceSpringScheduler:thread-4] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base/java.util.concurrent.locks.LockSupport.park(LockSupport.java:371)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+ java.base/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3745)
+ java.base/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3690)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1625)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1177)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1070)
+ java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+ java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+ java.base/java.lang.Thread.run(Thread.java:1589)
+09-Apr-2024 15:43:46.724 WARNING [Catalina-utility-4] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads The web application [ROOT] appears to have started a thread named [ConfluenceSpringScheduler:thread-5] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base/java.util.concurrent.locks.LockSupport.park(LockSupport.java:371)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+ java.base/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3745)
+ java.base/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3690)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1625)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1177)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1070)
+ java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+ java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+ java.base/java.lang.Thread.run(Thread.java:1589)
+09-Apr-2024 15:43:46.724 WARNING [Catalina-utility-4] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads The web application [ROOT] appears to have started a thread named [ConfluenceSpringScheduler:thread-6] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base/java.util.concurrent.locks.LockSupport.park(LockSupport.java:371)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+ java.base/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3745)
+ java.base/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3690)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1625)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1177)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1070)
+ java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+ java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+ java.base/java.lang.Thread.run(Thread.java:1589)
+09-Apr-2024 15:43:46.724 WARNING [Catalina-utility-4] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads The web application [ROOT] appears to have started a thread named [ConfluenceSpringScheduler:thread-7] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base/java.util.concurrent.locks.LockSupport.park(LockSupport.java:371)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+ java.base/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3745)
+ java.base/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3690)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1625)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1177)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1070)
+ java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+ java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+ java.base/java.lang.Thread.run(Thread.java:1589)
+09-Apr-2024 15:43:46.724 WARNING [Catalina-utility-4] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads The web application [ROOT] appears to have started a thread named [ConfluenceSpringScheduler:thread-9] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:269)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1674)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1070)
+ java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+ java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+ java.base/java.lang.Thread.run(Thread.java:1589)
+09-Apr-2024 15:43:46.724 WARNING [Catalina-utility-4] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads The web application [ROOT] appears to have started a thread named [ConfluenceSpringScheduler:thread-8] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base/java.util.concurrent.locks.LockSupport.park(LockSupport.java:371)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+ java.base/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3745)
+ java.base/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3690)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1625)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1177)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1070)
+ java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+ java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+ java.base/java.lang.Thread.run(Thread.java:1589)
+09-Apr-2024 15:43:46.724 WARNING [Catalina-utility-4] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads The web application [ROOT] appears to have started a thread named [ConfluenceSpringScheduler:thread-10] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base/java.util.concurrent.locks.LockSupport.park(LockSupport.java:371)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+ java.base/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3745)
+ java.base/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3690)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1625)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1177)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1070)
+ java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+ java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+ java.base/java.lang.Thread.run(Thread.java:1589)
+09-Apr-2024 15:43:46.724 WARNING [Catalina-utility-4] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads The web application [ROOT] appears to have started a thread named [SiteSummaryCalculator:thread-1] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base/java.util.concurrent.locks.LockSupport.park(LockSupport.java:371)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+ java.base/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3745)
+ java.base/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3690)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1625)
+ java.base/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+ java.base/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1070)
+ java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+ java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+ java.base/java.lang.Thread.run(Thread.java:1589)
+09-Apr-2024 15:43:46.724 WARNING [Catalina-utility-4] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads The web application [ROOT] appears to have started a thread named [atlassian-webhooks-scheduler:thread-1] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:269)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1674)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1070)
+ java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+ java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+ java.base/java.lang.Thread.run(Thread.java:1589)
+09-Apr-2024 15:43:46.724 WARNING [Catalina-utility-4] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads The web application [ROOT] appears to have started a thread named [atlassian-instrumentation-jmx:thread-1] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:269)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1674)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1070)
+ java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+ java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+ java.base/java.lang.Thread.run(Thread.java:1589)
+09-Apr-2024 15:43:46.725 WARNING [Catalina-utility-4] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads The web application [ROOT] appears to have started a thread named [JFR Periodic Tasks] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base/java.lang.Object.wait0(Native Method)
+ java.base/java.lang.Object.wait(Object.java:366)
+ jdk.jfr/jdk.jfr.internal.PlatformRecorder.takeNap(PlatformRecorder.java:527)
+ jdk.jfr/jdk.jfr.internal.PlatformRecorder.periodicTask(PlatformRecorder.java:508)
+ jdk.jfr/jdk.jfr.internal.PlatformRecorder.lambda$startDiskMonitor$1(PlatformRecorder.java:447)
+ java.base/java.lang.Thread.run(Thread.java:1589)
+09-Apr-2024 15:43:46.725 WARNING [Catalina-utility-4] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads The web application [ROOT] appears to have started a thread named [Batik CleanerThread] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base/java.util.concurrent.locks.LockSupport.park(LockSupport.java:371)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+ java.base/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3745)
+ java.base/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3690)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1625)
+ java.base/java.lang.ref.ReferenceQueue.await(ReferenceQueue.java:67)
+ java.base/java.lang.ref.ReferenceQueue.remove0(ReferenceQueue.java:158)
+ java.base/java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:234)
+ org.apache.batik.util.CleanerThread.run(CleanerThread.java:106)
+09-Apr-2024 15:43:46.730 INFO [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8090"]
+09-Apr-2024 15:43:46.741 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8090"]

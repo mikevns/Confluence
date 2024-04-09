@@ -1,0 +1,644 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.atlassian.pom</groupId>
+        <artifactId>closedsource-pom</artifactId>
+        <version>6.3.1</version>
+    </parent>
+
+    <groupId>com.atlassian.synchrony</groupId>
+    <artifactId>synchrony-proxy</artifactId>
+    <version>3.1.4</version>
+    <packaging>war</packaging>
+
+    <name>Synchrony Proxy</name>
+    <description>A reverse proxy web app for Synchrony</description>
+    <organization>
+        <name>Atlassian</name>
+        <url>http://atlassian.com</url>
+    </organization>
+
+    <scm>
+        <connection>scm:git:ssh://git@stash.atlassian.com:7997/confserver/synchrony-proxy.git</connection>
+        <developerConnection>scm:git:ssh://git@stash.atlassian.com:7997/confserver/synchrony-proxy.git</developerConnection>
+        <url>https://stash.atlassian.com/projects/CONFSERVER/repos/synchrony-proxy</url>
+        <tag>synchrony-proxy-3.1.4</tag>
+    </scm>
+
+    <properties>
+        <platform.dependencies.version>0.3.11</platform.dependencies.version>
+        <jetty.version>10.0.18</jetty.version>
+        <slf4j.version>2.0.9</slf4j.version>
+        <logback.version>1.3.14</logback.version>
+
+        <cargo.version>1.10.11</cargo.version>
+        <maven-surefire.version>3.2.2</maven-surefire.version>
+        <maven-resources.version>3.3.1</maven-resources.version>
+        <xvfb.enable>true</xvfb.enable>
+        <xvfb.display>:20</xvfb.display>
+        <webdriver.browser>firefox</webdriver.browser>
+
+        <!-- Synchrony Proxy -->
+        <synchrony.proxy.webapp.context>synchrony-proxy</synchrony.proxy.webapp.context>
+
+        <!-- Confluence -->
+        <confluence.version>8.7.1</confluence.version>
+        <confluence.data.version>${confluence.version}</confluence.data.version>
+        <h2.version>1.4.200</h2.version>
+        <confluence.webapp.context>confluence</confluence.webapp.context>
+        <confluence.home>${project.build.directory}/confluence-home</confluence.home>
+        <test.admin.user>admin</test.admin.user>
+        <test.admin.password>admin</test.admin.password>
+        <test.admin.user.name>A. D. Ministrator</test.admin.user.name>
+        <test.admin.user.email>admintest@atlassian.com</test.admin.user.email>
+        <skipTests>false</skipTests>
+
+        <!-- Used by cargo -->
+        <cargo.container.containerid>tomcat9x</cargo.container.containerid>
+        <cargo.tomcat.version>9.0.83-atlassian-hosted</cargo.tomcat.version>
+        <cargo.container.zipurlinstaller.installdir>${project.build.directory}/installs</cargo.container.zipurlinstaller.installdir>
+        <tomcat.cargo.artifact.classifier>windows-x64</tomcat.cargo.artifact.classifier>
+        <cargo.timeout>240000</cargo.timeout>
+        <http.port>8080</http.port>
+        <controller.port>1099</controller.port>
+        <ajp.port>8009</ajp.port>
+        <cargo.run.skip>true</cargo.run.skip>
+
+        <!-- JVM args -->
+        <jvm.args.custom />
+        <jvm.args.extra />
+        <jvm.args.xmx>1g</jvm.args.xmx>
+        <jvm.clustered.args.xmx>1g</jvm.clustered.args.xmx>
+        <jvm.args.confluence.attachment.data.mode>LOCAL_ONLY</jvm.args.confluence.attachment.data.mode>
+        <!-- Taken from https://confluence.atlassian.com/display/CONFKB/How+to+Enable+Garbage+Collection+(GC)+Logging -->
+        <jvm.args.illegal-access>@${project.build.directory}/jpms-args.txt</jvm.args.illegal-access>
+        <jvm.args.gc.common>-XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:-PrintTenuringDistribution -XX:+PrintGCCause -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=5 -XX:GCLogFileSize=2M</jvm.args.gc.common>
+        <jvm.args.gc>-Xloggc:${project.build.directory}/output-gc-%t.log ${jvm.args.gc.common}</jvm.args.gc>
+        <jvm.args.common>-Xmx${jvm.args.xmx} ${jvm.args.illegal-access} -Djava.awt.headless=true -Datlassian.plugins.enable.wait=300 ${jvm.args.custom} ${jvm.args.extra} -XX:+HeapDumpOnOutOfMemoryError -Dconfluence.invalidate.rpc.sessions=true -Dconfluence.disable.mailpolling=true  -Dconfluence.index.manager.lock.timeout=5 -Ddiscovery.test.mode=true -Dconfluence.attachment.data.mode=${jvm.args.confluence.attachment.data.mode} -XX:+IgnoreUnrecognizedVMOptions</jvm.args.common>
+        <jvm.args>${jvm.args.gc} ${jvm.args.common}</jvm.args>
+
+        <surefire.argLine>-Xmx1024m -XX:+IgnoreUnrecognizedVMOptions ${jvm.args.illegal-access}</surefire.argLine>
+
+        <jackson2.version>2.16.0</jackson2.version>
+        <commons-configuration2.version>2.9.0</commons-configuration2.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-bom</artifactId>
+                <version>${jetty.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-bom</artifactId>
+                <version>${slf4j.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.atlassian.platform.dependencies</groupId>
+                <artifactId>platform-system-classpath</artifactId>
+                <version>${platform.dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.atlassian.platform.dependencies</groupId>
+                <artifactId>platform-test-resources</artifactId>
+                <version>${platform.dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.atlassian.confluence</groupId>
+                <artifactId>confluence-plugins-platform-test-pom</artifactId>
+                <version>${confluence.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.atlassian.confluence</groupId>
+                <artifactId>confluence-webapp</artifactId>
+                <version>${confluence.version}</version>
+                <type>war</type>
+            </dependency>
+            <dependency>
+                <groupId>com.atlassian.confluence</groupId>
+                <artifactId>confluence-acceptance-test</artifactId>
+                <version>${confluence.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.atlassian.confluence</groupId>
+                <artifactId>confluence-stateless-rest-test</artifactId>
+                <version>${confluence.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-websocket</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-http</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-proxy</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+
+        <!--despite maven may say that jackson dependency is unused, that's not true :)
+        It is still required for objects serialisation
+        Pls. see https://jira.atlassian.com/browse/CONFSERVER-58522 for more details-->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson2.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jul-to-slf4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+
+        <!-- Confluence dependencies -->
+        <dependency>
+            <groupId>com.atlassian.confluence</groupId>
+            <artifactId>confluence-webapp</artifactId>
+            <type>war</type>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.confluence</groupId>
+            <artifactId>confluence-acceptance-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-configuration2</artifactId>
+            <version>${commons-configuration2.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.confluence</groupId>
+            <artifactId>confluence-stateless-test-runner</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.confluence</groupId>
+            <artifactId>confluence-webdriver-pageobjects</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.selenium</groupId>
+            <artifactId>atlassian-webdriver-core</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.inject</groupId>
+                    <artifactId>javax.inject</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.selenium</groupId>
+            <artifactId>atlassian-pageobjects-elements</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.browsers</groupId>
+            <artifactId>atlassian-browsers-auto</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- This is to avoid "field FIREFOX_24 not found" exceptions -->
+        <dependency>
+            <groupId>net.sourceforge.jwebunit</groupId>
+            <artifactId>jwebunit-htmlunit-plugin</artifactId>
+            <version>3.4-atlassian-6</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>enforce-banned-dependencies</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <bannedDependencies>
+                                    <includes>
+                                        <include>com.atlassian.confluence</include>
+                                    </includes>
+                                </bannedDependencies>
+                            </rules>
+                            <fail>true</fail>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <!--
+                        This execution unpacks the confluence-webapp in order to get access to the jpms-args.txt file,
+                        which we then pass to the cargo command line for testing.
+                        Note that we use the same jpms-args.txt file in confluence-distribution to start Confluence for real.
+                        -->
+                        <id>unpack-webapp-jpms-args</id>
+                        <phase>generate-test-resources</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.atlassian.confluence</groupId>
+                                    <artifactId>confluence-webapp</artifactId>
+                                    <version>${confluence.version}</version>
+                                    <type>war</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}</outputDirectory>
+                                    <includes>**/jpms-args.txt</includes>
+                                    <fileMappers>
+                                        <org.codehaus.plexus.components.io.filemappers.FlattenFileMapper />
+                                    </fileMappers>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <workDirectory>target/war/work</workDirectory>
+                    <overlays>
+                        <overlay>
+                            <groupId>com.atlassian.confluence</groupId>
+                            <artifactId>confluence-webapp</artifactId>
+                            <skip>true</skip>
+                        </overlay>
+                        <overlay>
+                            <!-- empty groupId/artifactId represents the current build -->
+                        </overlay>
+                    </overlays>
+                    <packagingExcludes>src/test/resources/it-test.properties</packagingExcludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${maven-resources.version}</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire.version}</version>
+                <configuration>
+                    <includes>
+                        <include>**/*Tests.java</include>
+                    </includes>
+                    <excludes>
+                        <exclude>**/Abstract*.java</exclude>
+                    </excludes>
+                    <junitArtifactName>junit:junit</junitArtifactName>
+                    <argLine>-Xmx512m</argLine>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven3-plugin</artifactId>
+                <version>${cargo.version}</version>
+                <configuration>
+                    <container>
+                        <containerId>${cargo.container.containerid}</containerId>
+                        <artifactInstaller>
+                            <groupId>org.apache.tomcat</groupId>
+                            <artifactId>apache-tomcat</artifactId>
+                            <version>${cargo.tomcat.version}</version>
+                            <classifier>${tomcat.cargo.artifact.classifier}</classifier>
+                            <extractDir>${cargo.container.zipurlinstaller.installdir}</extractDir>
+                        </artifactInstaller>
+                        <timeout>${cargo.timeout}</timeout>
+                        <!-- temporarily switch to system out logging, to see if we can see synchrony-proxy logging -->
+<!--                        <output>${project.build.directory}/output.log</output>-->
+                        <systemProperties>
+                            <!-- allow os_username -->
+                            <atlassian.allow.insecure.url.parameter.login>true</atlassian.allow.insecure.url.parameter.login>
+                            <confluence.browser.language.enabled>true</confluence.browser.language.enabled>
+                            <LogMessageRecordingAppender.enabled>true</LogMessageRecordingAppender.enabled>
+                            <upm.pac.disable>true</upm.pac.disable>
+                            <confluence.home>${confluence.home}</confluence.home>
+                            <synchrony.proxy.enabled>true</synchrony.proxy.enabled>
+                        </systemProperties>
+                        <dependencies>
+                            <dependency>
+                                <groupId>com.h2database</groupId>
+                                <artifactId>h2</artifactId>
+                            </dependency>
+                        </dependencies>
+                    </container>
+                    <configuration>
+                        <home>${project.build.directory}/${cargo.container.containerid}/container</home>
+                        <properties>
+                            <cargo.servlet.port>${http.port}</cargo.servlet.port>
+                            <cargo.servlet.uriencoding>UTF-8</cargo.servlet.uriencoding>
+                            <cargo.rmi.port>${controller.port}</cargo.rmi.port>
+                            <cargo.tomcat.ajp.port>${ajp.port}</cargo.tomcat.ajp.port>
+                            <cargo.jvmargs>${jvm.args}</cargo.jvmargs>
+                            <cargo.datasource.datasource />
+                            <xvfb.enable>${xvfb.enable}</xvfb.enable>
+                            <xvfb.display>${xvfb.display}</xvfb.display>
+
+                            <!-- sanity tests -->
+                            <confluence.base.url>http://localhost:${http.port}/${confluence.webapp.context}</confluence.base.url>
+                            <confluence.test.user.username>${test.admin.user}</confluence.test.user.username>
+                            <confluence.test.user.password>${test.admin.password}</confluence.test.user.password>
+                            <confluence.test.user.full.name>${test.admin.user.name}</confluence.test.user.full.name>
+                            <confluence.test.user.email>${test.admin.user.email}</confluence.test.user.email>
+                            <confluence.test.user2.username>user</confluence.test.user2.username>
+                            <confluence.test.user2.password>user</confluence.test.user2.password>
+                            <confluence.test.space.key>SMOKE</confluence.test.space.key>
+                            <confluence.capability.signup>false</confluence.capability.signup>
+                            <confluence.capability.copyspace>false</confluence.capability.copyspace>
+                            <confluence.capability.ual>false</confluence.capability.ual>
+                            <confluence.capability.websudo>true</confluence.capability.websudo>
+                            <confluence.capability.adminaccess>true</confluence.capability.adminaccess>
+                            <confluence.capability.htmlmacros>false</confluence.capability.htmlmacros>
+                            <confluence.capability.flushindex>true</confluence.capability.flushindex>
+                            <confluence.capability.skipgadgets>true</confluence.capability.skipgadgets>
+                        </properties>
+                    </configuration>
+                    <deployables>
+                        <deployable>
+                            <groupId>com.atlassian.confluence</groupId>
+                            <artifactId>confluence-webapp</artifactId>
+                            <type>war</type>
+                            <properties>
+                                <context>${confluence.webapp.context}</context>
+                            </properties>
+                            <pingURL>http://localhost:${http.port}/${confluence.webapp.context}</pingURL>
+                            <pingTimeout>240000</pingTimeout>
+                        </deployable>
+                        <deployable>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>${project.artifactId}</artifactId>
+                            <type>war</type>
+                            <properties>
+                                <context>${confluence.webapp.context}/${synchrony.proxy.webapp.context}</context>
+                            </properties>
+                            <pingURL>http://localhost:${http.port}/${confluence.webapp.context}/${synchrony.proxy.webapp.context}/healthcheck</pingURL>
+                            <pingTimeout>240000</pingTimeout>
+                        </deployable>
+                    </deployables>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>start-server</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>start</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${skipTests}</skip>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>run-server</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${cargo.run.skip}</skip>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>stop-server</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${skipTests}</skip>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>${maven-surefire.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.surefire</groupId>
+                        <artifactId>surefire-junit4</artifactId>
+                        <version>${maven-surefire.version}</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <argLine>${surefire.argLine}</argLine>
+                    <trimStackTrace>false</trimStackTrace>
+                    <failIfNoTests>true</failIfNoTests>
+                    <dependenciesToScan>
+                        <dependency>com.atlassian.confluence:confluence-acceptance-test</dependency>
+                        <dependency>com.atlassian.confluence:confluence-stateless-rest-test</dependency>
+                    </dependenciesToScan>
+                    <!-- CONFSRVDEV-24459: This properties file contains Confluence license, which is used to set
+                     up Confluence instance.
+                     If build fails, with exception that says that space cannot be created, most likely it means
+                     that Confluence license is expired, and Confluence runs in read-only mode. If this happens, please
+                     check license expiry, and update the license key in order to fix the build -->
+                    <systemPropertiesFile>src/test/resources/it-test.properties</systemPropertiesFile>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>00_setup</id>
+                        <goals>
+                            <goal>integration-test</goal>
+                        </goals>
+                        <phase>integration-test</phase>
+                        <configuration>
+                            <includes>
+                                <include>com/atlassian/confluence/setup/SetupAcceptanceTest.java</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>50_integration_tests</id>
+                        <goals>
+                            <goal>integration-test</goal>
+                        </goals>
+                        <phase>integration-test</phase>
+                        <configuration>
+                            <includes>
+                                <include>com/atlassian/confluence/stateless/rest/startup/StartupErrorTest.java</include>
+                                <include>com/atlassian/synchrony/proxy/it/SanityEditorTest.java</include>
+                                <include>com/atlassian/synchrony/proxy/it/HealthCheckEndpointAcceptanceTest.java</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>verify</id>
+                        <goals>
+                            <goal>verify</goal>
+                        </goals>
+                        <phase>verify</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.atlassian.drs</groupId>
+                <artifactId>dependency-report-maven-plugin</artifactId>
+                <version>1.5.19</version>
+                <configuration>
+                    <project>synchrony-proxy</project>
+                    <gracefulFailure>true</gracefulFailure>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>upload</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>cargo-run</id>
+            <properties>
+                <cargo.run.skip>false</cargo.run.skip>
+            </properties>
+        </profile>
+        <profile>
+            <id>java-modern</id>
+            <activation>
+                <jdk>[9,]</jdk>
+                <os>
+                    <family>!Windows</family>
+                </os>
+            </activation>
+            <properties>
+                <!-- Java 11 GC log config -->
+                <jvm.args.gc.common />
+                <jvm.args.gc>-Xlog:gc*:file=${project.build.directory}/output-gc-%t.log:tags,time,uptime,level:filecount=5,filesize=2M</jvm.args.gc>
+            </properties>
+        </profile>
+        <profile>
+            <id>java-modern-windows</id>
+            <activation>
+                <jdk>[9,]</jdk>
+                <os>
+                    <family>Windows</family>
+                </os>
+            </activation>
+            <properties>
+                <!-- Java 11 GC log config -->
+                <!-- Java 11 needs escapes for windows paths, but Cargo 1.7.6 strips the quotes, even inside escape sequences -->
+                <jvm.args.gc.common />
+                <jvm.args.gc />
+            </properties>
+        </profile>
+    </profiles>
+</project>

@@ -1,0 +1,1 @@
+define("document",["window"],function(a){return a.document});

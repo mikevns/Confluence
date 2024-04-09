@@ -1,0 +1,68 @@
+<html>
+	<head>
+		<title>$action.getText("heading.create.user")</title>
+	</head>
+	<body>
+        <content tag="selectedWebItem">users</content>
+	    #parse ("/template/includes/actionerrors.vm")
+
+		#if ($actionErrors.size() == 0)
+            <form name="createuserform" action="docreateuser.action" method="post">
+               #form_xsrfToken()
+            #if( $permissionHelper.isConfluenceAdministrator($action.authenticatedUser))
+                <table class="grid">
+                    <th colspan="2"><strong>$action.getText("heading.create.user")</strong></th>
+                    #set($_params = {
+                        "labelContent":"$i18n.getText('username.name')",
+                        "name":"username",
+                        "id":"username",
+                        "value":$action.username,
+                        "size":"40",
+                        "type":"text",
+                        "isDisabled":false,
+                        "errorTexts": $!fieldErrors.get('username')})
+                    $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                        "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+                    #set ($templateParameters = {
+                        "id": "password",
+                        "labelContent": "$i18n.getText('password.name')",
+                        "name": "password",
+                        "size": 40,
+                        "errorTexts": $!fieldErrors.get('password')})
+                    $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.passwordField.soy", $templateParameters)
+                    #set ($templateParameters = {
+                        "id": "confirm",
+                        "labelContent": "$i18n.getText('confirm.name')",
+                        "name": "confirm",
+                        "size": 40,
+                        "errorTexts": $!fieldErrors.get('confirm')})
+                    $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.passwordField.soy", $templateParameters)
+                    #set($_params = {
+                        "labelContent":"$i18n.getText('fullname.name')",
+                        "name":"fullname",
+                        "id":"fullname",
+                        "value":$action.fullname,
+                        "size":"40",
+                        "type":"text",
+                        "isDisabled":false,
+                        "errorTexts": $!fieldErrors.get('fullname')})
+                    $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                        "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+                    #set($_params = {
+                        "labelContent":"$i18n.getText('email.name')",
+                        "name":"email",
+                        "id":"email",
+                        "value":$!action.email,
+                        "size":"40",
+                        "type":"text",
+                        "isDisabled":false,
+                        "errorTexts": $!fieldErrors.get('email')})
+                    $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                        "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+                    #ssubmit("value=getText('create.name')" "align='center'" )
+                </table>
+            #end
+        #end
+        #parse("/breadcrumbs.vm")
+	</body>
+</html>

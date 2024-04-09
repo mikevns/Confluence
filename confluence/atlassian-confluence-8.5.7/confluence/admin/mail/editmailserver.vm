@@ -1,0 +1,228 @@
+#* @vtlvariable name="protocol" type="java.lang.String" *#
+<html>
+	<head>
+		<title>$action.getActionName($action.getClass().getName())</title>
+        <content tag="selectedWebItem">mailservers</content>
+        #requireResource("confluence.web.resources:mailserver")
+	</head>
+
+	<body>
+		#parse ( "/template/includes/actionerrors.vm" )
+
+        #applyDecorator("form-aui")
+            <h2>$action.getText("${protocol}.mail.server.details")</h2>
+
+            #if ($action.actionName == "edit")
+                #decoratorParam("formName" "doeditmailserver")
+                #decoratorParam("submitAction" "doeditmailserver.action")
+            #else
+                #decoratorParam("formName" "docreatemailserver")
+                #decoratorParam("submitAction" "docreatemailserver.action")
+            #end
+
+            #decoratorParam("formStyle" "long-label")
+            #decoratorParam("editMode" "true")
+            #form_xsrfToken()
+
+            #set($_params = {
+                "labelContent":"$i18n.getText('mail.server.name')",
+                "name":"name",
+                "id":"name",
+                "value":$!name,
+                "descriptionContent":"$action.getText('mail.server.name.description')",
+                "isAutofocus":"true",
+                "type": "text",
+                "isDisabled":false,
+                "errorTexts": $!fieldErrors.get('name')})
+            $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+            #if ($protocol == "smtp")
+                #set($_params = {
+                    "labelContent":"$i18n.getText('mail.server.from.address')",
+                    "name":"emailAddress",
+                    "id":"emailAddress",
+                    "value":$!emailAddress,
+                    "descriptionContent":"$action.getText('mail.server.from.address.description')",
+                    "type": "text",
+                    "isDisabled":false,
+                    "errorTexts": $!fieldErrors.get('emailAddress')})
+                $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                    "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+                #set($_params = {
+                    "labelContent":"$i18n.getText('mail.server.from.name')",
+                    "name":"fromName",
+                    "id":"fromName",
+                    "value":$!fromName,
+                    "descriptionContent":"$action.getText('mail.server.from.name.description')",
+                    "type": "text",
+                    "isDisabled":false,
+                    "errorTexts": $!fieldErrors.get('fromName')})
+                $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                    "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+                #set($_params = {
+                    "labelContent":"$i18n.getText('mail.server.subject.prefix')",
+                    "name":"prefix","id":"prefix",
+                    "value":$!prefix,
+                    "descriptionContent":"$action.getText('mail.server.subject.prefix.description')",
+                    "type":"text",
+                    "isDisabled":false,
+                    "errorTexts": $!fieldErrors.get('prefix')})
+                $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                    "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+            #else
+                #set($_params = {
+                    "labelContent":"$i18n.getText('mail.server.to.address')",
+                    "name":"emailAddress",
+                    "id":"emailAddress",
+                    "value":$!emailAddress,
+                    "type":"text",
+                    "isDisabled":false,
+                    "errorTexts": $!fieldErrors.get('emailAddress')})
+                $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                    "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+            #end
+            <h2>$action.getText("mail.server.host")</h2>
+            #if ($protocol == "smtp")
+                <p>$action.getText("smtp.serverdetails.desc")</p>
+            #end
+
+            #set($_params = {
+                "labelContent":"$i18n.getText('mail.server.host')",
+                "name":"hostname",
+                "id":"hostname",
+                "value":$!hostname,
+                "descriptionContent":"$action.getText('mail.server.host.description')",
+                "type": "text",
+                "isDisabled":false,
+                "errorTexts": $!fieldErrors.get('hostname')})
+            $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+            #if ($protocol != 'smtp')
+                #set($incomingProtocols = [])
+                #foreach( $option in $incomingProtocolList )
+                    #set($temp = $incomingProtocols.add({"value": "$!option.value", "key": "$!option.key"}))
+                #end
+                $soyTemplateRendererHelper.getRenderedTemplateHtml("confluence.web.resources:shared-templates", "Confluence.Templates.Select.auiSelect.soy",{
+                    "labelValue": "$i18n.getText('mailserver.protocol')",
+                    "id": "protocol",
+                    "editMode": $editMode,
+                    "name": "protocol",
+                    "listKey": "key",
+                    "listValue": "value",
+                    "value": $protocol,
+                    "list": $incomingProtocols
+                })
+                $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.input.soy", {
+                                                        "type": "hidden",
+                                                        "name": "token",
+                                                        "id": "token",
+                                                        "value": $!token})
+            #end
+            #set($_params = {
+                "labelContent":"$i18n.getText('mail.server.port')",
+                "name":"port",
+                "id":"port",
+                "value":$!port,
+                "descriptionContent":" $action.getText('mail.server.port.description')",
+                "type": "text",
+                "isDisabled":false,
+                "errorTexts": $!fieldErrors.get('port')})
+            $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+            #if ($protocol != 'smtp')
+                #set($authorizations = [])
+                #foreach( $option in $authorizationList )
+                    #set($temp = $authorizations.add({"value": "$!option.value", "key": "$!option.key"}))
+                #end
+                $soyTemplateRendererHelper.getRenderedTemplateHtml("confluence.web.resources:shared-templates", "Confluence.Templates.Select.auiSelect.soy",{
+                    "labelValue": "$i18n.getText('mail.server.authorization')",
+                    "id": "authorization",
+                    "editMode": $editMode,
+                    "name": "authorization",
+                    "listKey": "key",
+                    "listValue": "value",
+                    "value": $authorization,
+                    "list": $authorizations
+                })
+            #end
+        #set($_params = {
+            "labelContent":"$i18n.getText('mail.server.userName')",
+            "name":"userName",
+            "id":"userName",
+            "value":$!userName,
+            "descriptionContent":" $action.getText('mail.server.userName.description')",
+            "type": "text",
+            "isDisabled":false,
+            "errorTexts": $!fieldErrors.get('userName')})
+        $soyTemplateRendererHelper.getRenderedTemplateHtml(
+            "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+            #set ($templateParameters = {
+                "id": "password",
+                "labelContent": "$i18n.getText('mail.server.password')",
+                "name": "password",
+                "value": $!password,
+                "errorTexts": $!fieldErrors.get('password')})
+            $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.passwordField.soy", $templateParameters)
+
+            <p/>
+
+            #if ($protocol == "smtp")
+                <div class="group">
+                    #set ($templateParameters = {
+                        "value": "true",
+                        "type": "checkbox",
+                        "labelContent": "$i18n.getText('mail.server.tls.required')",
+                        "name": "tlsRequired",
+                        "id": "tlsRequired",
+                        "isChecked": $tlsRequired,
+                        "descriptionText": " $action.getText('mail.server.tls.required.description')"})
+                    $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                        "com.atlassian.auiplugin:aui-experimental-soy-templates",
+                        "aui.form.field.soy", $templateParameters)
+                </div>
+
+                <p>$action.getText("common.words.or")</p>
+                <h4>$action.getText("jndi.location")</h4>
+                #set($_params = {
+                    "labelContent":"$i18n.getText('jndi.location')",
+                    "name":"jndiName",
+                    "id":"jndiName",
+                    "value":$!jndiName,
+                    "descriptionContent":" $action.getText('jndi.location.description')",
+                    "type": "text",
+                    "isDisabled":false,
+                    "errorTexts": $!fieldErrors.get('jndiName')})
+                $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                    "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+
+$soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.input.soy", {
+                                        "type": "hidden",
+                                        "name": "protocol",
+                                        "id": "protocol",
+                                        "value": $!protocol})
+            #end
+
+            #if ($action.actionName == "edit")
+$soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.input.soy", {
+                                        "type": "hidden",
+                                        "name": "id",
+                                        "id":"id",
+                                        "value": $!id})
+            #end
+
+            <div class="buttons-container">
+                <div class="buttons">
+                    #ssubmit("name='confirm'" "value='submit.name'" "theme='notable'" "cssClass='aui-button aui-button-primary'")
+                #if ($protocol != "smtp")
+                    #ssubmit("name='authorize'" "value='authorize.name'" "theme='notable'" "cssClass='aui-button'")
+                    #ssubmit("name='testConnection'" "value='test.connection.name'" "theme='notable'" "cssClass='aui-button'")
+                    <span id="testConnection-spinner" class="button-spinner"></span>
+                #end
+                    #ssubmit("name='cancel'" "value='cancel.name'" "theme='notable'" "cssClass='aui-button aui-button-link'")
+                </div>
+            </div>
+        #end
+
+
+    </body>
+</html>

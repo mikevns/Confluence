@@ -1,0 +1,18 @@
+####
+##The type should be specified when called e.g. #decoratorParam("type" "warning")
+##Some types that can be used are warning, info, success and error.
+####
+#set ($id = $params.get("id"))
+#set ($invisible = $params.get("invisible"))
+#set ($title = $params.get("title"))
+#set ($type = $params.get("type"))
+
+<div class="aui-message aui-message-$type $type #if($invisible) hidden #end" #if ($id) id="$!id" #end>
+    #if ($title && $title.length() > 0)
+        <p class="title">
+            <strong>$title</strong>
+        </p>
+    #end
+
+    $body
+</div>

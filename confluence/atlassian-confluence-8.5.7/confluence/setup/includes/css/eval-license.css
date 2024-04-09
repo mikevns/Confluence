@@ -1,0 +1,42 @@
+.internet-required {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.inline-radio-options {
+    margin-top: 20px;
+    margin-left: 50px;
+}
+
+.setup form.aui#importLicenseForm .long-field{
+    width: 573px;
+    max-width: 573px;
+}
+
+.setup form.aui .inline-radio-options .radio {
+    float: left;
+    margin: 0 40px 0 0;
+}
+.setup form.aui label{
+    width: 140px;
+}
+
+.setup form.aui h3 {
+    margin-top: 20px;
+}
+
+.forgot-password {
+    margin-left: 145px;
+}
+
+div.buttons-container > div.checkbox:first-child {
+    margin-bottom: 20px;
+}
+
+#importLicenseForm .loading-spinner{
+    float: right;
+}
+
+#importLicenseForm .import-bundle-plugins-license {
+    margin-top: 25px;
+}

@@ -1,0 +1,14 @@
+.aui.dom-filter-field-form {
+    margin: 0;
+    float: right;
+}
+.aui.dom-filter-field-form input.text {
+    font-size: 14px;
+}
+
+.aui.dom-filter-field-form input.text.blank-search,
+.aui.dom-filter-field-form input.text::placeholder,
+.aui.dom-filter-field-form input.text:-ms-input-placeholder /* IE 10+ */
+{
+    color: #707070;
+}

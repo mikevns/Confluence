@@ -1,0 +1,99 @@
+<fieldset>
+    #requireResource("confluence.web.resources:support-utility")
+    <div class="group">
+        #set( $isDisabledcheckbox = !$editMode)
+        #set ($templateParameters = {
+            "isDisabled":$isDisabledcheckbox,
+            "type": "checkbox",
+            "value": "true",
+            "labelContent": "$i18n.getText('create.support.zip.include.logs')",
+            "name": "supportUtility.includeLogs",
+            "id": "supportUtility.includeLogs",
+            "isChecked": $supportUtility.includeLogs,
+            "descriptionText": "$i18n.getText('create.support.zip.include.logs.desc')"})
+        $soyTemplateRendererHelper.getRenderedTemplateHtml(
+            "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $templateParameters)
+    </div>
+    #if ($supportUtility.tomcatServer)
+        <div class="group">
+            #set( $isDisabledcheckbox = !$editMode)
+            #set ($templateParameters = {
+                "isDisabled":$isDisabledcheckbox,
+                "value": "true",
+                "type": "checkbox",
+                "labelContent": "$i18n.getText('create.support.zip.include.tomcat')",
+                "name": "includeServerLogs",
+                "id": "includeServerLogs",
+                "isChecked": $includeServerLogs,
+                "descriptionText": "$i18n.getText('create.support.zip.include.tomcat.desc')"})
+            $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $templateParameters)
+            #set( $isDisabledcheckbox = !$editMode)
+            #set ($templateParameters = {
+                "isDisabled":$isDisabledcheckbox,
+                "value": "true",
+                "type": "checkbox",
+                "labelContent": "$i18n.getText('create.support.zip.include.tomcat.conf')",
+                "name": "supportUtility.includeTomcatConf",
+                "id": "supportUtility.includeTomcatConf",
+                "isChecked": $supportUtility.includeTomcatConf,
+                "descriptionText": "$i18n.getText('create.support.zip.include.tomcat.conf.desc')"})
+            $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $templateParameters)
+        </div>
+    #else
+        <div class="group">
+            #set( $isDisabledcheckbox = !$editMode)
+            #set ($templateParameters = {
+                "isDisabled":$isDisabledcheckbox,
+                "value": "true",
+                "type": "checkbox",
+                "labelContent": "$i18n.getText('create.support.zip.include.other')",
+                "name": "includeServerLogs",
+                "id": "includeServerLogs",
+                "isChecked": $includeServerLogs,
+                "descriptionText": "$i18n.getText('create.support.zip.include.other.desc')"})
+            $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $templateParameters)
+        </div>
+        #set($_params = {
+            "labelContent":"$i18n.getText('create.support.zip.logs.other.directory')",
+            "name":"serverLogsDirectory",
+            "id":"serverLogsDirectory",
+            "value":$!serverLogsDirectory,
+            "descriptionContent":"$i18n.getText('create.support.zip.logs.other.directory.desc')",
+            "type":"text",
+            "isDisabled":false})
+        $soyTemplateRendererHelper.getRenderedTemplateHtml(
+            "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+    #end
+
+    <div class="group">
+        #set( $isDisabledcheckbox = !$editMode)
+        #set ($templateParameters = {
+            "isDisabled":$isDisabledcheckbox,
+            "value": "true",
+            "type": "checkbox",
+            "labelContent": "$i18n.getText('create.support.zip.include.cfg')",
+            "name": "supportUtility.includeCfgFile",
+            "id": "supportUtility.includeCfgFile",
+            "isChecked": $supportUtility.includeCfgFile,
+            "descriptionText": "$i18n.getText('create.support.zip.include.cfg.desc')"})
+        $soyTemplateRendererHelper.getRenderedTemplateHtml(
+            "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $templateParameters)
+    </div>
+    <div class="group">
+        #set( $isDisabledcheckbox = !$editMode)
+        #set ($templateParameters = {
+            "isDisabled":$isDisabledcheckbox,
+            "value": "true",
+            "type": "checkbox",
+            "labelContent": "$i18n.getText('create.support.zip.include.user.files')",
+            "name": "supportUtility.includeUserFiles",
+            "id": "supportUtility.includeUserFiles",
+            "isChecked": $supportUtility.includeUserFiles,
+            "descriptionText": "$i18n.getText('create.support.zip.include.user.files.desc')"})
+        $soyTemplateRendererHelper.getRenderedTemplateHtml(
+            "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $templateParameters)
+    </div>
+</fieldset>

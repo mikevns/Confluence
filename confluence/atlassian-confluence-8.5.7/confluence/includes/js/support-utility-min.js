@@ -1,0 +1,1 @@
+define("confluence/support-utility",["jquery"],function(a){return{initialize:function(){a("#includeServerLogs").change(function(){a(this).prop("checked")?a("#serverLogsDirectory").parent().fadeIn():a("#serverLogsDirectory").parent().fadeOut()})}}});require("confluence/module-exporter").safeRequire("confluence/support-utility",function(a){require("ajs").toInit(a.initialize)});

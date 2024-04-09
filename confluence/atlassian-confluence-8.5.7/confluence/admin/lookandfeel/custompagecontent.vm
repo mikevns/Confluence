@@ -1,0 +1,12 @@
+<html>
+    <head>
+        <title>$action.getActionName( $action.class.name )</title>
+    </head>
+
+    <body>
+        <content tag="selectedWebItem">custompagecontent</content>
+
+        #parse ("/includes/common-custompagecontent.vm")
+        #parse ("/breadcrumbs.vm")
+    </body>
+</html>

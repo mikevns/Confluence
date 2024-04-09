@@ -1,0 +1,1 @@
+define("confluence-editor/legacy",["confluence/legacy"],function(a){"undefined"===typeof a&&(a={});"undefined"===typeof a.Editor&&(a.Editor={});return a.Editor});

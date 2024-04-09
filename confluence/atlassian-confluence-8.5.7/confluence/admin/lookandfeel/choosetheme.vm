@@ -1,0 +1,21 @@
+<html>
+	<head>
+		<title>$action.getActionName($action.getClass().getName())</title>
+		<meta name="help-path" content="/admin/lookandfeel/help/choosetheme.vm"/>
+	</head>
+
+	<body>
+        <content tag="selectedWebItem">theme</content>
+        <form method="POST" action="dochoosetheme.action" name="choosethemeform" id="choosethemeform">
+            #parse ( "/template/includes/actionerrors.vm" )
+            #parse ("/includes/common-choosetheme.vm")
+            <input type="hidden" name="changesSaved" value="true">
+            #ssubmit("theme='aui'"
+                     "editValue=$i18n.getText('confirm.name')")
+            #form_xsrfToken()
+        </form>
+
+        #parse ( "/breadcrumbs.vm" )
+
+    </body>
+</html>

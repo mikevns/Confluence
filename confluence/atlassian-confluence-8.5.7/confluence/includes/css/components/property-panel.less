@@ -1,0 +1,180 @@
+@import "../colors.less";
+
+/******************************/
+#property-panel {
+    position: absolute;
+    background: none;
+    border: none;
+    padding: 0;
+    border-radius: 3px;
+}
+
+#property-panel .property-panel-arrow {
+    position: absolute;
+    top: -7px;
+    width: 1px;
+    z-index: 3002;
+}
+
+#property-panel .property-panel-arrow::after,
+#property-panel .property-panel-arrow::before {
+    border-color: @adg-N40-jolly-fun-time transparent;
+    border-style: solid;
+    border-width: 0 8px 8px;
+    /*
+    When using a pseudo element such as :before and :after, it must be used in conjunction with a content: property.
+    If the content property is null, the pseudo element will not be rendered (effectively ignored) by the browser.
+    In this case, we want to only render the property panel arrow, but no text. We still have to provide an empty string or the arrow will not be rendered at all.
+    src: http://www.w3.org/TR/CSS21/generate.html#x9
+    */
+    content: "";
+    left: 2px;
+    position: absolute;
+    top: 0;
+}
+
+#property-panel .property-panel-arrow:after {
+    border-bottom-color: @adg-N0-doctor;
+    top: 1px;
+}
+
+#property-panel .property-panel-arrow.property-panel-bottom-arrow:after,
+#property-panel .property-panel-arrow.property-panel-bottom-arrow:before {
+    border-width: 8px 8px 0;
+}
+
+#property-panel .property-panel-arrow.property-panel-bottom-arrow:after {
+    border-top-color: @adg-N0-doctor;;
+    top: -1px;
+}
+/* Property panel buttons*/
+#property-panel .panel-buttons {
+    white-space: nowrap;
+}
+
+#property-panel a.aui-button,
+#property-panel a.aui-button:hover,
+#property-panel a.aui-button:active,
+#property-panel a.aui-button:focus {
+    vertical-align: top;
+    text-decoration: none;
+}
+
+#property-panel a.aui-button {
+    padding-top: 0;
+    border-radius: 0;
+    margin: 0;
+
+    &:not(.last) {
+        margin-right: 2px;
+    }
+}
+
+#property-panel a.aui-button,
+#property-panel a.aui-button span {
+	line-height: 30px;
+}
+
+#property-panel a.selected {
+    background-color: @adg-N600-pet-rock;
+    color: @adg-N0-doctor;
+}
+
+#property-panel #image-size-input {
+    margin-right: 10px;
+}
+
+#property-panel .editable {
+    border-radius: 3px;
+    background: transparent;
+    border: 1px solid @adg-N50-karl;
+    box-sizing: border-box;
+    font-size: 14px;
+    float:left;
+    padding: 4px;
+    text-align: center;
+    height: 30px;
+    width: 60px;
+    cursor: text;
+    -moz-box-sizing: border-box;
+}
+
+#property-panel .editable:active,
+#property-panel .editable:hover,
+#property-panel .editable:focus {
+    border: 1px solid @adg-N70-blanche;
+}
+
+#property-panel a.first {
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+#property-panel a.last {
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    margin: 0 10px 0 0;
+}
+
+#property-panel a span.icon {
+    background-image: url(../../images/icons/property-panel-image.png);
+    display: none;
+    float: left;
+    height: 17px;
+    margin: 5px 0 0 0;
+    width: 16px;
+}
+#property-panel a.editor-resize span.panel-button-text {
+    font-size: 0;
+}
+
+#property-panel a.editor-resize span.icon,
+#property-panel a.image-make-link span.icon {
+    display: inline;
+    background-image: none;
+}
+
+#property-panel a.editor-resize span.icon::before {
+    text-align: center;
+    line-height: 16px;
+    width: 16px;
+}
+
+#property-panel a.editor-resize.resize-small span.icon::before {
+    font-size: 10px;
+}
+
+#property-panel a.editor-resize.resize-medium span.icon::before {
+    font-size: 14px;
+}
+
+#property-panel a.editor-resize.resize-large span.icon::before {
+    font-size: 18px;
+}
+
+/* Cater for disabled buttons in property-panels.
+   For now, copied styles for '.aui-button[aria-disabled="true"]'*/
+#property-panel a.disabled,
+#property-panel a.disabled:active,
+#property-panel a.disabled:hover,
+#property-panel a.disabled:focus {
+    background: #F2F2F2;
+    background: -moz-linear-gradient(top, white 0%, #F2F2F2 100%);
+    background: -webkit-linear-gradient(top, white 0%,#F2F2F2 100%);
+    background: -o-linear-gradient(top, white 0%,#F2F2F2 100%);
+    background: -ms-linear-gradient(top, white 0%,#F2F2F2 100%);
+    background: linear-gradient(top, white 0%,#F2F2F2 100%);
+    border-color: #CCC;
+    box-shadow: none;
+    color: #999;
+    cursor: default;
+    text-shadow: none;
+}
+
+.aui-property-panel {
+    border: 1px solid @adg-N40-jolly-fun-time;
+    background-color: @adg-N0-doctor;
+    border-radius: 3px;
+    padding: 10px;
+    overflow: auto;
+}

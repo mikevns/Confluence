@@ -1,0 +1,1 @@
+define("confluence/trigger",["jquery","window"],function(b,c){return function(a,d){a=new b.Event(a);b(d||c.top.document).trigger(a);return!a.isDefaultPrevented()}});require("confluence/module-exporter").exportModuleAsGlobal("confluence/trigger","AJS.jiraTrigger");

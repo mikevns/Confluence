@@ -1,0 +1,22 @@
+{namespace Confluence.Templates.Export}
+
+/**
+ * @param title Page Title
+ * @param styles Page Styles
+ * @param baseUrl Site base url
+ * @param content Body content
+ */
+{template .withStyles}
+  <html>
+    <head>
+        <title>{$title}</title>
+        <style default-inline-css>{$styles}</style>
+        <base href="{$baseUrl}"/>
+    </head>
+    <body>
+        <div id="Content" style="padding: 5px;">
+        {$content|noAutoescape}
+        </div>
+    </body>
+  </html>
+{/template}

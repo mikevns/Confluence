@@ -1,0 +1,19 @@
+#main #custom-content-header, #main #custom-content-footer {
+    text-align: center;
+}
+
+/*hide the header/footer in the editor*/
+#main.active-richtext #custom-content-header, #main.active-richtext #custom-content-footer {
+    display: none;
+}
+
+/*
+For the textareas in the custompagecontent.action admin screen*/
+form[name="configurecustompagecontent"] .textarea {
+    height: 50px;
+    max-width: 500px;
+}
+
+form[name="configurecustompagecontent"] .field-group {
+    padding-bottom: 20px;
+}

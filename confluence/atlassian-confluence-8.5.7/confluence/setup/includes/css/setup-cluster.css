@@ -1,0 +1,31 @@
+#cluster-address-field {
+    padding-top: 8px;
+}
+
+#cluster-auto-address-hidden {
+    display: none;
+}
+
+#cluster-address-control {
+    padding-top: 5px;
+}
+
+table.network-interface {
+    margin-top: 0;
+}
+
+.network-interface ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.network-interface ul li {
+    margin: 0;
+    padding: 0;
+}
+
+.network-interface td[headers="clustaddr_ipv6"] li {
+    max-width: 315px;
+    word-wrap: break-word;
+}

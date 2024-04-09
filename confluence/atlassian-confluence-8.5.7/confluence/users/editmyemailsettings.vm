@@ -1,0 +1,159 @@
+
+
+<html>
+	<head>
+		<title>$htmlUtil.htmlEncode($pageTitle)</title>
+		#requireResource("confluence.web.resources:aui-forms")
+    </head>
+
+    #applyDecorator("root")
+        #decoratorParam("context" "profile")
+        #decoratorParam("mode"  "settings")
+        #decoratorParam("helper" $action.helper)
+        #decoratorParam("infopanel-width" "200px")
+
+        <body>
+            <div>
+            #if($action.undoSettingsNeeded)
+                #applyDecorator("success")
+                    <span>$undoConfirmationLabel</span>
+                        <a href="${req.contextPath}${action.actionForUndoSetting}&value=$action.undoPreviousValue&undo=true">$i18n.getText('undo.word')</a>
+                #end
+            #end
+            #applyDecorator("form-aui")
+                #decoratorParam("formName" "editemailsettingsform")
+                #decoratorParam("submitAction"  "doeditmyemailsettings.action")
+                #decoratorParam("editAction" "editmyemailsettings.action")
+                #decoratorParam("editMode" "$editMode")
+
+                <h2>$action.getText("title.edit.email.preferences")</h2>
+                <div class="group">
+                    #set( $isDisabledcheckbox = !$editMode)
+                    #set ($templateParameters = {
+                        "isDisabled":$isDisabledcheckbox,
+                        "type": "checkbox",
+                        "value": "true",
+                        "labelContent": "$i18n.getText('watch.my.content')",
+                        "name": "watchMyOwnContent",
+                        "id": "watchMyOwnContent",
+                        "isChecked": $watchMyOwnContent,
+                        "descriptionText": "$action.getText('watch.my.content.desc')"})
+                    $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                        "com.atlassian.auiplugin:aui-experimental-soy-templates",
+                        "aui.form.field.soy", $templateParameters)
+                </div>
+                <div class="group">
+                    #set( $isDisabledcheckbox = !$editMode)
+                    #set ($templateParameters = {
+                        "isDisabled":$isDisabledcheckbox,
+                        "type": "checkbox",
+                        "value": "true",
+                        "labelContent": "$i18n.getText('receive.daily.change.email')",
+                        "name": "notifyByEmail",
+                        "id": "notifyByEmail",
+                        "isChecked": $notifyByEmail,
+                        "descriptionText": "$action.getText('receive.daily.change.email.desc')"})
+                    $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                        "com.atlassian.auiplugin:aui-experimental-soy-templates",
+                        "aui.form.field.soy", $templateParameters)
+                </div>
+                <div class="group">
+                    #set( $isDisabledcheckbox = !$editMode)
+                    #set ($templateParameters = {
+                        "isDisabled":$isDisabledcheckbox,
+                        "type": "checkbox",
+                        "value": "true",
+                        "labelContent": "$i18n.getText('receive.change.emails.for.all.blogs')",
+                        "name": "siteBlogWatchForUser",
+                        "id": "siteBlogWatchForUser",
+                        "isChecked": $siteBlogWatchForUser,
+                        "descriptionText": "$action.getText('receive.change.emails.for.all.blogs.desc')"})
+                    $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                        "com.atlassian.auiplugin:aui-experimental-soy-templates",
+                        "aui.form.field.soy", $templateParameters)
+                </div>
+                <div class="group">
+                    #set( $isDisabledcheckbox = !$editMode)
+                    #set ($templateParameters = {
+                        "isDisabled":$isDisabledcheckbox,
+                        "type": "checkbox",
+                        "value": "true",
+                        "labelContent": "$i18n.getText('receive.change.emails.for.network')",
+                        "name": "watchingNetwork",
+                        "id": "watchingNetwork",
+                        "isChecked": $watchingNetwork,
+                        "descriptionText": "$action.getText('receive.change.emails.for.network.desc')"})
+                    $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                        "com.atlassian.auiplugin:aui-experimental-soy-templates",
+                        "aui.form.field.soy", $templateParameters)
+                </div>
+                <div class="group">
+                    #set( $isDisabledcheckbox = !$editMode)
+                    #set ($templateParameters = {
+                        "isDisabled":$isDisabledcheckbox,
+                        "type": "checkbox",
+                        "value": "true",
+                        "labelContent": "$i18n.getText('receive.change.emails.for.new.followers')",
+                        "name": "notifyOnNewFollowers",
+                        "id": "notifyOnNewFollowers",
+                        "isChecked": $notifyOnNewFollowers,
+                        "descriptionText": "$action.getText('receive.change.emails.for.new.followers.desc')"})
+                    $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                        "com.atlassian.auiplugin:aui-experimental-soy-templates",
+                        "aui.form.field.soy", $templateParameters)
+                </div>
+                <div class="group">
+                    #set( $isDisabledcheckbox = !$editMode)
+                    #set ($templateParameters = {
+                        "isDisabled":$isDisabledcheckbox,
+                        "type": "checkbox",
+                        "value": "true",
+                        "labelContent": "$i18n.getText('notify.for.my.own.actions')",
+                        "name": "notifyForMyOwnActions",
+                        "id": "notifyForMyOwnActions",
+                        "isChecked": $notifyForMyOwnActions,
+                        "descriptionText": "$action.getText('notify.for.my.own.actions.desc')"})
+                    $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                        "com.atlassian.auiplugin:aui-experimental-soy-templates",
+                        "aui.form.field.soy", $templateParameters)
+                </div>
+                <div class="group">
+                    #set( $isDisabledcheckbox = !$editMode)
+                    #set ($templateParameters = {
+                        "isDisabled":$isDisabledcheckbox,
+                        "type": "checkbox",
+                        "value": "true",
+                        "labelContent": "$i18n.getText('email.prefs.show.diff')",
+                        "name": "showDiffInEmailNotifications",
+                        "id": "showDiffInEmailNotifications",
+                        "isChecked": $showDiffInEmailNotifications,
+                        "descriptionText": "$action.getText('email.prefs.show.diff.desc')"})
+                    $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                        "com.atlassian.auiplugin:aui-experimental-soy-templates",
+                        "aui.form.field.soy", $templateParameters)
+                </div>
+
+                #if($action.getText('daily.summary.email.settings.receive') != 'daily.summary.email.settings.receive')
+                    <div class="group">
+                        #set( $isDisabledcheckbox = !$editMode)
+                        #set ($templateParameters = {
+                            "isDisabled":$isDisabledcheckbox,
+                            "type": "checkbox",
+                            "value": "true",
+                            "labelContent": "$i18n.getText('daily.summary.email.settings.receive')",
+                            "name": "receiveRecommendedEmail",
+                            "id": "receiveRecommendedEmail",
+                            "isChecked": $receiveRecommendedEmail,
+                            "descriptionText": "$action.getText('daily.summary.email.settings.receive.desc')"})
+                        $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                            "com.atlassian.auiplugin:aui-experimental-soy-templates",
+                            "aui.form.field.soy", $templateParameters)
+                    </div>
+                #end
+                #form_xsrfToken()
+                #ssubmit("theme='aui'" )
+            #end
+            </div>
+        </body>
+    #end
+</html>

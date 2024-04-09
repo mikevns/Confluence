@@ -1,0 +1,10 @@
+SMAP
+noop__002e__jsp.java
+JSP
+*S JSP
+*F
++ 0 noop.jsp
+noop.jsp
+*L
+1,4:49
+*E

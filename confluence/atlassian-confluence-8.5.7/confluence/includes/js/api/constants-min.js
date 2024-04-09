@@ -1,0 +1,1 @@
+define("confluence/api/constants",["ajs"],function(b){var a={};a.CONTEXT_PATH=b.contextPath();return a});

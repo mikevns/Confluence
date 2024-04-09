@@ -1,0 +1,1 @@
+define("confluence/api/dictionary",[],function(){return function(){var a={};return{get:function(b){return a[b]},put:function(b,c){return a[b]=c},reset:function(){a={}},elements:function(){return a}}}});

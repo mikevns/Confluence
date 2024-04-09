@@ -1,0 +1,108 @@
+<html>
+	<head>
+		<title>$action.getActionName($action.getClass().getName())</title>
+        <meta name="help-path" content="/admin/help/configurecaptcha.vm"/>
+        <content tag="selectedWebItem">configurecaptcha</content>
+    </head>
+    <body>
+    <div class="spam-prevention">
+        #parse ( "/template/includes/actionerrors.vm" )
+
+        #if ($captchaManager.isCaptchaEnabled())
+            <p>$action.getText("captcha.desc.enabled")</p>
+
+            <form class="aui">
+                <fieldset>
+                    <div class="field-group">
+                        <label>$action.getText("captcha.word")</label>
+                        <div class="aui-buttons">
+                            <a class="aui-button" aria-pressed="true">$action.getText("common.words.on.small")</a>
+                            <a class="aui-button"
+                               href="doconfigurecaptcha.action?captchaEnabled=false&#url_xsrfToken()">$action.getText("common.words.off.small")</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        #else
+            <p>$action.getText("captcha.desc.disabled")</p>
+
+            <form class="aui">
+                <fieldset>
+                    <div class="field-group">
+                        <label>$action.getText("captcha.word")</label>
+                        <div class="aui-buttons">
+                            <a class="aui-button"
+                               href="doconfigurecaptcha.action?captchaEnabled=true&#url_xsrfToken()">$action.getText("common.words.on.small")</a>
+                            <a class="aui-button" aria-pressed="true">$action.getText("common.words.off.small")</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        #end
+
+
+        #if ($captchaManager.isCaptchaEnabled())
+            <h3>$action.getText("captcha.exclusions.title")</h3>
+            <p>$action.getText("captcha.exclusions.desc")</p>
+
+            <form class="aui" name="captchaForm" id="captchaForm" method="POST" action="doconfigurecaptcha.action" enctype="multipart/form-data">
+                #form_xsrfToken()
+                <div>
+                    <div>
+                        #set($excludeOptionsList = [])
+                        #foreach( $option in $excludeOptions )
+                            #set($temp = $excludeOptionsList.add({"value": "$!option.value", "key": "$!option.key"}))
+                        #end
+                        $soyTemplateRendererHelper.getRenderedTemplateHtml("confluence.web.resources:shared-templates", "Confluence.Templates.Radiolist.auiRadiolist.soy",{
+                            "labelValue": "$action.getText('captcha.exclude.title')",
+                            "editMode": $editMode,
+                            "name": "exclude",
+                            "value": $exclude,
+                            "list": $excludeOptionsList,
+                            "listKey": "value",
+                            "listValue": "key"
+                        })
+
+                        <div class="userpicker">
+                            #set($groupImageTitle = $action.getText('find.groups'))
+                            $soyTemplateRendererHelper.getRenderedTemplateHtml("confluence.web.resources:shared-templates", "Confluence.Templates.TextFieldPicker.textFieldAndPickerVM.soy", {
+                                "name": "selectedGroups",
+                                "formName": "captchaForm",
+                                "buttonOff": true,
+                                "value": $selectedGroups,
+                                "imgTitle": $groupImageTitle,
+                                "contextPath": $request.contextPath,
+                                "groupSearchActionName": "dosearchgroupsfilterexisting.action",
+                                "errorTexts": $action.fieldErrors.get('selectedGroups'),
+                                "size": "80"})
+                        </div>
+
+                        <div class="buttons-container">
+                            <div class="buttons">
+                                <input class="submit aui-button " type="submit" name="confirm" value="$action.getText('save.name')">
+                            </div>
+                        </div>
+
+                        #if($fieldErrors.get('captchaGroups'))
+                        <div class="errorBox">
+                            <div style="margin-top:5px;">
+                                #fielderror('captchaGroups')
+                                <div class="error" >
+                                    <span class="errorMessage">
+                                        #foreach( $group in $invalidGroups )
+                                            <strong>$group</strong><br>
+                                        #end
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        #end
+                    </div>
+                </div>
+            </form>
+        #end
+    </div>
+
+#parse ( "/breadcrumbs.vm" )
+</body>
+</html>

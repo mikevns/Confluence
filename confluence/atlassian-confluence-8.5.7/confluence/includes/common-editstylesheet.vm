@@ -1,0 +1,39 @@
+#parse ("/template/includes/actionerrors.vm")
+
+<div class="steptitle">$action.getText($decorator.typeNameKey)</div>
+<div>
+    <p style="margin-left: 2em;">$action.getText($defaultDecorator.descriptionKey)</p>
+
+    <form method="POST" action="doeditstylesheet.action" class="aui">
+        #form_xsrfToken()
+        <div class="pageSection">
+            #set($templateParameters = {
+                "type": "textarea",
+                "labelContent": "$i18n.getText('stylesheet.label')",
+                "name": "style",
+                "id": "style",
+                "value": $!style,
+                "rows": "30",
+                "cols": "80",
+                "autofocus": "true",
+                "extraFieldClasses": "monospaceInput max-textarea"})
+            $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $templateParameters)
+            $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.input.soy", {
+                                                    "type": "hidden",
+                                                    "name": "decoratorName",
+                                                    "id": "decoratorName",
+                                                    "value": $!decoratorName})
+            #if ($key)
+            $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.input.soy", {
+                                                    "type": "hidden",
+                                                    "name": "key",
+                                                    "id": "key",
+                                                    "value": $!key})
+            #end
+        </div>
+        #ssubmit("theme='aui'"
+                 "editMode=true"
+                 "submitName=update"
+                 "submitValue=$i18n.getText('update.name')")
+    </form>
+</div>

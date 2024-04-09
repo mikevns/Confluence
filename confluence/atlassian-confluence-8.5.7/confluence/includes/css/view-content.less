@@ -1,0 +1,65 @@
+@import "colors.less";
+
+.wiki-content {
+
+  @confpanel-border-color: @adg-N40-jolly-fun-time;
+
+  .panel {
+    &.conf-macro {
+      border-color: @confpanel-border-color;
+    }
+  }
+
+  blockquote {
+    border-left-color: @confpanel-border-color;
+  }
+
+  .confluence-embedded-file-wrapper {
+    max-width: 100%;
+
+    .confluence-embedded-image {
+      display: block; // for no bottom space
+      margin-left: 2px;
+      margin-right: 2px;
+      max-width: calc(~"100% - 4px");
+
+      // image will push its parent.
+      &[height],
+      &[width] {
+        max-width: none;
+      }
+    }
+
+    &.confluence-embedded-manual-size {
+       max-width: none;
+    }
+  }
+
+  .image-left-wrapper {
+    float: left;
+    margin: 0 10px 10px 0;
+  }
+
+  .image-center-wrapper {
+    display: table; // so don't need width and height information
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .image-right-wrapper {
+    float: right;
+    margin: 0 0 10px 10px;
+  }
+
+  a.new-tab:after {
+    content: '';
+    position: relative;
+    top: 1px;
+    width: 8px;
+    height: 8px;
+    background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOHB4IiBoZWlnaHQ9IjhweCIgdmlld0JveD0iMCAwIDggOCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48Zz48cGF0aCBkPSJNMC43OTI4OTMyMTksNi41MDAwMDAyMSBMMS41MDAwMDAwMSw3LjIwNzEwNjk4IEw2Ljk5OTk5OTc5LDEuNzA3MTA3IEw3LDUuNSBMOC4wMDAwMDAxMyw2LjAwMDAwMDE0IEw3Ljk5OTk5OTk4LDAuOTkwNzc3ODAyIEM3Ljk5OTk5OTk3LDAuNDQzNTg2MjA1IDcuNTQ5MDI0NzgsLTIuMDk5NzU1OTRlLTA3IDcuMDA5MjIxOTksLTEuODc5NjU3MjVlLTA3IEwxLjk5OTk5OTk4LDEuNjI3OTgzOTdlLTA4IEwyLjQ5OTk5OTk2LDAuOTk5OTk5OTY4IEw2LjI5Mjg5MzQ5LDAuOTk5OTk5NzQ2IEwwLjc5Mjg5MzIxOSw2LjUwMDAwMDIxIFoiIGlkPSJvcGVuLW5ldy10YWIiIGZpbGw9IiM3MDcwNzAiPjwvcGF0aD48L2c+PC9zdmc+');
+    display: inline-block;
+    text-decoration: none;
+  }
+
+}

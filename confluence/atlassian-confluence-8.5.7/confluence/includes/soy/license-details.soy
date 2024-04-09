@@ -1,0 +1,76 @@
+{namespace Confluence.Templates.LicenseDetails}
+
+/**
+ * A template for a DC crossgrade license warning dialog
+ * @param crossgradeableApps array: contains the impacted apps
+ * @param evaluation boolean: true if the new DC license is evaluation
+ */
+{template .crossgradeWarningDialog}
+    <section id="apps-crossgrade-warning-dialog"
+             role="dialog"
+             data-aui-modal="true"
+             class="aui-layer aui-dialog2 aui-dialog2-large {$evaluation?'':'warning'}"
+             aria-hidden="true">
+        {if $evaluation}
+            <header class="aui-dialog2-header">
+                <h2 class="aui-dialog2-header-main">{getText('datacenter.plugin.license.warning.dialog.eval.header')}</h2>
+            </header>
+            <div class="aui-dialog2-content">
+                <p>{getText('datacenter.plugin.license.warning.dialog.eval.para1', length($crossgradeableApps))}</p>
+                <p>{getText('datacenter.plugin.license.warning.dialog.eval.para2')}</p>
+                <p><button class="aui-button aui-button-link show-apps">{getText('datacenter.plugin.license.warning.dialog.showApps.link')}</button></p>
+            </div>
+        {else}
+            <header class="aui-dialog2-header">
+                <h2 class="aui-dialog2-header-main">
+                    {call aui.icons.icon}
+                        {param useIconFont: true /}
+                        {param size: 'large' /}
+                        {param icon: 'warning' /}
+                    {/call}
+                    {getText('datacenter.plugin.license.warning.dialog.full.header', length($crossgradeableApps))}
+                </h2>
+            </header>
+            <div class="aui-dialog2-content">
+                <p>{getText('datacenter.plugin.license.warning.dialog.full.para1')}</p>
+                <p>
+                    {getText('datacenter.plugin.license.warning.dialog.full.para2', length($crossgradeableApps))} &nbsp;
+                    <a target="_blank" class="learn-more" href="https://confluence.atlassian.com/x/1liGOw">{getText('learn.more.url.name')}</a>
+                </p>
+                <p><button class="aui-button aui-button-link show-apps">{getText('datacenter.plugin.license.warning.dialog.showApps.link')}</button></p>
+            </div>
+        {/if}
+        <footer class="aui-dialog2-footer">
+            <div class="aui-dialog2-footer-actions">
+                <button class="aui-button aui-button-link cancel">{getText('cancel.name')}</button>
+                <button class="aui-button aui-button-primary confirm">{getText('finish.name')}</button>
+            </div>
+        </footer>
+    </section>
+{/template}
+
+
+/**
+ * A template for DC crossgrade apps list
+ * @param crossgradeableApps array: contains the impacted apps
+ */
+{template .showApps}
+    <html>
+        <head>
+            <title>{getText('datacenter.plugin.license.warning.dialog.showApps.header')}</title>
+        </head>
+        <body style="font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Fira Sans,Droid Sans,Helvetica Neue,sans-serif">
+        <h2>{getText('datacenter.plugin.license.warning.dialog.showApps.header')}</h2>
+        <p>
+            {getText('datacenter.plugin.license.warning.dialog.showApps.para1')}&nbsp;
+            <a target="_blank" class="learn-more" href="https://confluence.atlassian.com/x/1liGOw">{getText('learn.more.url.name')}</a>
+        </p>
+        <p>{getText('datacenter.plugin.license.warning.dialog.showApps.para2', length($crossgradeableApps))}</p>
+        <ul id="app-list">
+            {foreach $app in $crossgradeableApps}
+                <li>{$app}</li>
+            {/foreach}
+        </ul>
+        </body>
+    </html>
+{/template}

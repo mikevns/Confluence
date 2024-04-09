@@ -1,0 +1,1 @@
+define("aui/flag",["aui/flag"],function(a){return a});

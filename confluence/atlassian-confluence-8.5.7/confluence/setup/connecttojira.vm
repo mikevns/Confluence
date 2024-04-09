@@ -1,0 +1,142 @@
+<html>
+	<head>
+		<title>$action.getText("title.setup.jira.connection")</title>
+	</head>
+	<body>
+        #parse ("/setup/analytics-data.vm")
+        #parse ("/setup/setup-button.vm")
+        #parse ( "/template/includes/actionerrors.vm" )
+
+		<p>$action.getText("connecttojira.step.description")</p>
+
+        <form name="connecttojira" method="POST" action="connecttojira.action" class="connecttojira aui max-width">
+
+            <h2>$action.getText("jira.server.location.title")</h2>
+
+            #if ($action.applinkAndCrowdReady)
+                <div class="field-group">
+                    <label id="jiraBaseUrl-label" for="jiraBaseUrl">
+                        $i18n.getText('jira.base.url')
+                    </label>
+                    <input type="text" name="jiraBaseUrl" id="jiraBaseUrl" class="text   long-field" readonly value=$!jiraBaseUrl >
+                    #fielderrorAUI('jiraBaseUrl')
+                    <div class="description">$action.getText('connecttojira.jira.base.url.description')</div>
+                </div>
+            #else
+                <div class="field-group">
+                    <label id="jiraBaseUrl-label" for="jiraBaseUrl">
+                        $i18n.getText('jira.base.url')
+                        <span class="aui-icon icon-required"></span>
+                        <span class="content">$!action.getText('required.field')</span>
+                    </label>
+                    <input type="text" name="jiraBaseUrl" id="jiraBaseUrl" class="text   long-field" value=$!jiraBaseUrl >
+                    #fielderrorAUI('jiraBaseUrl')
+                    <div class="description">$action.getText('connecttojira.jira.base.url.description')</div>
+                </div>
+            #end
+
+            <h2>$action.getText("jira.administrator.login.title")</h2>
+
+            <p class="stepdesc">$action.getText("jira.administrator.login.description")</p>
+
+            #if ($action.applinkAndCrowdReady)
+                <div class="field-group">
+                    <label id="username-label" for="username">
+                        $i18n.getText('admin.username.label')
+                    </label>
+                    <input type="text" name="username" id="username" class="text " readonly value=$!username >
+                    <div class="description">$action.getText('connecttojira.admin.username.description')</div>
+                </div>
+            #else
+                <div class="field-group">
+                    <label id="username-label" for="username">
+                        $i18n.getText('admin.username.label')
+                        <span class="aui-icon icon-required"></span>
+                        <span class="content">$!action.getText('required.field')</span>
+                    </label>
+                    <input type="text" name="username" id="username" class="text " value=$!username >
+                    #fielderrorAUI('username')
+                    <div class="description">$action.getText('connecttojira.admin.username.description')</div>
+                </div>
+            #end
+
+            #if ($action.applinkAndCrowdReady)
+                <div class="field-group">
+                    <label id="password-label" for="password">
+                        $i18n.getText('admin.password.label')
+                        <span class="aui-icon icon-required"></span>
+                    </label>
+                    <input type="password" name="password" id="password" class="password" readonly value=$!password >
+                </div>
+            #else
+                <div class="field-group">
+                    <label id="password-label" for="password">
+                        $i18n.getText('admin.password.label')
+                        <span class="aui-icon icon-required"></span>
+                        <span class="content">$action.getText('required.field')</span>
+                    </label>
+                    <input type="password" name="password" id="password" class="password" value=$!password  >
+                    #fielderrorAUI('password')
+                </div>
+            #end
+
+            <h2>$action.getText("jira.advancedoptions.title")</h2>
+
+            #if($action.applinkAndCrowdReady)
+                <div class="field-group">
+                    <label id="confluenceBaseUrl-label" for="confluenceBaseUrl">
+                        $i18n.getText('confluence.base.url')
+                    </label>
+                    <input type="text" name="confluenceBaseUrl" id="confluenceBaseUrl" class="text " readonly value=$!confluenceBaseUrl >
+                    <div class="description">$action.getText('connecttojira.confluence.base.url.description')</div>
+                </div>
+            #else
+                <div class="field-group">
+                    <label id="confluenceBaseUrl-label" for="confluenceBaseUrl">
+                        $i18n.getText('confluence.base.url')
+                        <span class="aui-icon icon-required"></span>
+                        <span class="content">$!action.getText('required.field')</span>
+                    </label>
+                    <input type="text" name="confluenceBaseUrl" id="confluenceBaseUrl" class="text long-field" value=$!confluenceBaseUrl >
+                    #fielderrorAUI('confluenceBaseUrl')
+                    <div class="description">$action.getText('connecttojira.confluence.base.url.description')</div>
+                </div>
+            #end
+
+            <div class="field-group">
+                <label id="jiraUserGroups-label" for="jiraUserGroups">
+                    $i18n.getText('jira.user.groups')
+                    <span class="aui-icon icon-required"></span>
+                    <span class="content">$!action.getText('required.field')</span>
+                </label>
+                <input type="text" name="jiraUserGroups" id="jiraUserGroups" class="text " value=$!jiraUserGroups >
+                #fielderrorAUI('jiraUserGroups')
+                <div class="description">$action.getText('connecttojira.jira.user.groups.description')</div>
+            </div>
+            <div class="field-group">
+                <label id="jiraAdminGroups-label" for="jiraAdminGroups">
+                    $i18n.getText('jira.admin.groups')
+                    <span class="aui-icon icon-required"></span>
+                    <span class="content">$!action.getText('required.field')</span>
+                </label>
+                <input type="text" name="jiraAdminGroups" id="jiraAdminGroups" class="text " value=$!jiraAdminGroups >
+                #fielderrorAUI('jiraAdminGroups')
+                <div class="description">$action.getText('connecttojira.jira.admin.groups.description')</div>
+            </div>
+
+            #form_xsrfToken()
+            <input type="hidden" name="applinkAndCrowdReady" value=$!action.applinkAndCrowdReady >
+            <input type="hidden" name="crowdApplicationName" value=$!action.crowdApplicationName >
+            <input type="hidden" name="crowdApplicationPassword" value=$!action.crowdApplicationPassword >
+
+            <div class="buttons-container">
+                <div class="buttons">
+                    #setupNextButton(false)
+                    #if (!$action.applinkAndCrowdReady)
+                        <a href="setupusermanagementchoice-start.action" class="cancel aui-button aui-button-link"> $action.getText("return.to.usermanagement.selection")</a>
+                    #end
+                </div>
+            </div>
+        </form>
+	</body>
+</html>

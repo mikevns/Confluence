@@ -1,0 +1,1 @@
+define("confluence/page-links",["jquery"],function(a){return{canonical:function(){return a('head link[rel="canonical"]').attr("href")},shortlink:function(){return a('head link[rel="shortlink"]').attr("href")}}});require("confluence/module-exporter").exportModuleAsGlobal("confluence/page-links","AJS.Meta.Links");

@@ -1,0 +1,1 @@
+define("confluence/edit-space",["jquery","confluence/legacy"],function(a,b){return function(){b.Binder.autocompletePage(a(".edit-space-details"))}});require("confluence/module-exporter").safeRequire("confluence/edit-space",function(a){require("ajs").toInit(a)});

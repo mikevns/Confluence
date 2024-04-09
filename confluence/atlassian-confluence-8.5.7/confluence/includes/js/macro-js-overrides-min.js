@@ -1,0 +1,1 @@
+define("confluence/macro-js-overrides",["confluence/api/dictionary","underscore"],function(f,e){var a=new f;return e.extend(a,{getFunction:function(b,c){var d=a.get(b);if(d&&"function"===typeof d[c])return d[c]},assignFunction:function(b,c){a.put(b,e.extend({},a.get(b),c))}})});

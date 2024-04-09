@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    ## Confluence Front-end Analytics
+    #if($darkFeatures.isDarkFeatureEnabled('confluence.frontend.stats'))
+        #includePluginJavascript("confluence.web.resources:js-reporting", "js-reporting.js")
+        #includePluginJavascript("confluence.web.resources:console-instrumentation", "console-instrumenter.js")
+        <script>
+            (function() {
+                //TODO: get url from config
+                var jsReporting = window.jsReporting = new JsReporting(window, "https://confsrv-frontend-logging--app.ap-southeast-2.dev.atl-paas.net");
+                var consoleInstrumenter = new ConsoleInstrumenter({flushAtCount: 10, flushAtTime: 60000});
+                jsReporting.addInstrumenter("consoleInstrument", consoleInstrumenter);
+            })();
+        </script>
+    #end
+    <title>$title - #siteTitle()</title>
+    #requireResource("confluence.web.resources:print-styles")
+
+    #requireResourcesForContext("admin")
+    #requireResourcesForContext("atl.admin")
+
+    #set($stylesheetAction = "admin")
+    #parse("/decorators/includes/header.vm")
+
+    #infoPanelInit()
+</head>
+<body id="com-atlassian-confluence" class="admin-body $!sitemeshPage.getProperty("page.bodyClass") aui-layout aui-theme-default">
+<div id="full-height-container">
+    #displayGlobalMessages()
+    #parse("/decorators/includes/common-header.vm")
+    <main role="main" id="main">
+        <header id="main-header" class="aui-page-header">
+            <div class="aui-page-header-inner">
+                <div class="aui-page-header-main">
+                    <h1 id="title-heading" class="pagetitle">
+                        <span id="title-text">$i18n.getText("administration.global.menu.label")</span>
+                    </h1>
+                </div>
+            </div>
+        </header>
+        ## The admin sidebar may disclose information about the plugins installed on your instance.
+        ## This permission check is to prevent it from being shown to users without admin privileges, and
+        ## if it is removed, all users will be able to view the admin sidebar regardless of their admin
+        ## status. Please use caution if removing this check.
+        #if ($permissionHelper.isConfluenceAdministrator($action.authenticatedUser))
+            <div class="pagecontent aui-page-panel">
+                <div id="admin-navigation" role="complementary" aria-label=$i18n.getText('nav.main.sidebar')>
+                    #menuMacros_renderLeftNavMenu("admin-menu" "system.admin" $sitemeshPage.getProperty("page.selectedWebItem") false false)
+                </div>
+        #else
+           ## if the user is not an admin, do not render the sidebar, and exclude the pagecontent class which should
+           ## only be applied if the sidebar is present
+           <div class="aui-page-panel">
+        #end
+            <div id="admin-content">
+                #if ($action.getText($title) != "")
+                    <div class="logo-heading-block">
+                       <span class="logoBlock">
+                            #if ($sitemeshPage.getProperty("page.username"))
+                                #set ($tildeUsername = "~$username")
+                                #logoBlock($tildeUsername)
+                            #else
+                                #logoBlock($spaceKey)
+                            #end
+                        </span>
+                        #set ($subtitle = $sitemeshPage.getProperty("page.subtitleDescription"))
+                        #set ($subtitleContent = $sitemeshPage.getProperty("page.subtitleDescriptionContent"))
+                        <div id="admin-heading-container" #if($subtitle)class="with-subtitle"#end>
+                            $!sitemeshPage.getProperty("page.content-navigation")
+                            <h1 class="admin-heading">
+                                #pageTitleLink()
+                            </h1>
+                            #if ($subtitle)
+                                <p class="admin-subtitle">$action.getText($subtitle)</p>
+                            #elseif ($subtitleContent)
+                                <p class="admin-subtitle">$subtitleContent</p>
+                            #end
+                        </div>
+                    </div>
+                #end
+
+                <div id="admin-body">
+                    <div id="admin-body-content" #if ($helpAvailable)class="with-help"#end>
+                        $body
+                    </div>
+                    #if ($helpAvailable)
+                        <div id="helptd">
+                            #infoPanel()
+                        </div>
+                    #end
+                </div>
+            </div>
+            <br class="clear">
+        </div>
+    </main>
+    #set ($showHSQLWarning = true)
+    #set ($showH2Warning = true)
+    #set ($footerContext = {'spaceKey': $!spaceKey})
+    #webPanelForLocation("atl.footer" $footerContext)
+</div>
+</body>
+</html>

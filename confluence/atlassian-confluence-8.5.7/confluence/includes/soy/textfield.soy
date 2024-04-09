@@ -1,0 +1,311 @@
+{namespace Confluence.Templates.TextField}
+
+/**
+ * @param id
+ * @param? name defaults to $id
+ * @param labelContent
+ * @param? value
+ * @param? maxLength
+ * @param? size
+ * @param? autocomplete
+ * @param? placeholderText
+ * @param? isRequired
+ * @param? isDisabled
+ * @param? isAutofocus
+ * @param? descriptionText
+ * @param? descriptionContent
+ * @param? errorTexts
+ * @param? extraClasses
+ * @param? extraFieldClasses
+ * @param? extraAttributes
+ * @param? fieldWidth
+ * @param? validationArguments
+ * @param? tooltipArguments
+ * @param? infoMessage
+ * @param? readOnly
+ * @param? type
+ */
+{template .textField}
+    {call .field data="all"}
+        {param type: $type /}
+    {/call}
+{/template}
+
+/**
+ * Not meant for direct public use.
+ *
+ * This is a generic template for rendering a field-group with a label, input, description, errors, and inline-help.
+ * The $type parameter is heavily used to determine the structure of the rendered HTML, and which of the other
+ * @params are actually used.
+ *
+ * When $type is invalid or not provided, no label or input will be rendered.  Otherwise, $id and $labelContent are required @params.
+ *
+ * @param? type the type of form field to build. Valid values are 'text', 'textarea', 'select', 'value' (for a display-only value), or one the following HTML5 input types: 'password', 'email', 'url', 'tel', 'search', 'file', 'radio', 'checkbox', 'button', 'submit', 'reset'
+ * @param? id id of the input. If a valid type is provided, then $id is required.
+ * @param? name $name defaults to $id if not provided.
+ * @param? value At most one of $value or $options should be specified. $value is for inputs, textareas, and 'value' types.
+ * @param? options At most one of $value or $options should be specified. $options is for 'select' types.
+ * @param? isChecked (only valid for checkboxes or radio buttons)
+ * @param? isDisabled
+ * @param? isAutofocus
+ * @param? maxLength (only valid for text)
+ * @param? size (only valid for text and selects)
+ * @param? isMultiple (only valid for selects)
+ * @param? rows (only valid for textareas)
+ * @param? cols (only valid for textareas)
+ * @param? autocomplete (only valid for text, password and textareas)
+ * @param? placeholderText (only valid for text and textareas)
+ * @param? icon (only valid for text, password and textareas)
+ * @param? labelContent if a valid $type is provided, then $labelContent is required.
+ * @param? isRequired
+ * @param? descriptionText
+ * @param? descriptionContent
+ * @param? errorTexts
+ * @param? extraClasses
+ * @param? extraFieldClasses
+ * @param? extraAttributes
+ * @param? validationArguments
+ * @param? tooltipArguments
+ * @param? infoMessage
+ * @param? fieldWidth one of the values: 'short', 'medium', 'medium-long', 'long' or 'full-width'
+ * @param? readOnly
+ * @param? extraFieldAttributes
+ * @param? inlineText
+ */
+{template .field private="true"}
+    {let $isCheckboxOrRadio: $type == 'checkbox' or $type == 'radio' /}
+    {let $fieldWidthClass: $fieldWidth ? $fieldWidth + '-field ' : '' /}
+    {let $fieldClasses: $fieldWidthClass + ($extraFieldClasses ? $extraFieldClasses : '') /}
+
+    // helper variables to properly compile compoud condition for $hasErrors
+    {let $errorTextsIsList: isList($errorTexts) /}
+    {let $errorTextsIsProbablyNonEmptyString: not $errorTextsIsList and isNonnull($errorTexts) /}
+    {let $errorTextsIsNonEmptyList: $errorTextsIsList and length($errorTexts) > 0 /}
+    //
+    {let $hasErrors: $errorTextsIsProbablyNonEmptyString or $errorTextsIsNonEmptyList /}
+
+    <div class="{if $isCheckboxOrRadio}{$type}{else}field-group{/if}{call aui.renderExtraClasses data="all" /}"
+        {call aui.renderExtraAttributes data="all" /}>
+
+        //checkbox and radio labels go after the input
+        {if $labelContent and not $isCheckboxOrRadio}
+            {call aui.form.label}
+                {param forField : $id /}
+                {param isRequired : $isRequired /}
+                {param content : $labelContent /}
+            {/call}
+        {/if}
+        {switch $type}
+            {case 'textarea'}
+                {call aui.form.textarea}
+                    {param id: $id /}
+                    {param name: $name /}
+                    {param value: $value /}
+                    {param rows: $rows /}
+                    {param cols: $cols /}
+                    {param autocomplete: $autocomplete /}
+                    {param placeholderText: $placeholderText /}
+                    {param isDisabled: $isDisabled ? true : false /}  // this inefficent syntax circumvents a bug in Soy - http://code.google.com/p/closure-templates/issues/detail?id=55
+                    {param isAutofocus: $isAutofocus /}
+                    {param extraClasses: $fieldClasses /}
+                    {param icon: $icon /}
+                    {param validationArguments: $validationArguments /}
+                    {param infoMessage: $infoMessage /}
+                    {param tooltipArguments: $tooltipArguments /}
+                    {param hasDescription: ($infoMessage or $descriptionText or $descriptionContent) ? true : false /}
+                    {param hasErrors: $hasErrors /}
+                {/call}
+            {case 'select'}
+                {call aui.form.select}
+                    {param id: $id /}
+                    {param name: $name /}
+                    {param value: $value /}
+                    {param options: $options /}
+                    {param isMultiple: $isMultiple /}
+                    {param size: $size /}
+                    {param isDisabled: $isDisabled ? true : false /}  // this inefficent syntax circumvents a bug in Soy - http://code.google.com/p/closure-templates/issues/detail?id=55
+                    {param isAutofocus: $isAutofocus /}
+                    {param extraClasses: $fieldClasses /}
+                    {param validationArguments: $validationArguments /}
+                    {param infoMessage: $infoMessage /}
+                    {param tooltipArguments: $tooltipArguments /}
+                    {param hasDescription: ($infoMessage or $descriptionText or $descriptionContent) ? true : false /}
+                    {param hasErrors: $hasErrors /}
+                {/call}
+            {case 'auiSelectField'}
+                {call aui.form.auiSelectField}
+                    {param id: $id /}
+                    {param name: $name /}
+                    {param value: $value /}
+                    {param isRequired: $isRequired /}
+                    {param placeholderText: $placeholderText /}
+                    {param options: $options /}
+                {/call}
+            {case 'value'}
+                {call aui.form.value}
+                    {param id: $id /}
+                    {param content}{$value|escapeHtml}{/param}
+                    {param extraClasses: $fieldClasses /}
+                {/call}
+            {case 'text', 'password', 'email', 'url', 'tel', 'search', 'file', 'radio', 'checkbox', 'button', 'submit', 'reset' }
+                {call .input}
+                    {param id: $id /}
+                    {param name: $name /}
+                    {param type: $type /}
+                    {param value: $value /}
+                    {param maxLength: $maxLength /}
+                    {param size: $size /}
+                    {param autocomplete: $autocomplete /}
+                    {param placeholderText: $placeholderText /}
+                    {param isChecked: $isChecked /}
+                    {param isDisabled: $isDisabled ? true : false /}  // this inefficent syntax circumvents a bug in Soy - http://code.google.com/p/closure-templates/issues/detail?id=55
+                    {param isAutofocus: $isAutofocus /}
+                    {param extraClasses: $fieldClasses /}
+                    {param icon: $icon /}
+                    {param validationArguments: $validationArguments /}
+                    {param infoMessage: $infoMessage /}
+                    {param tooltipArguments: $tooltipArguments /}
+                    {param hasDescription: ($infoMessage or $descriptionText or $descriptionContent) ? true : false /}
+                    {param hasErrors: $hasErrors /}
+                    {param readOnly: $readOnly /}
+                    {param extraFieldAttributes: $extraFieldAttributes /}
+                {/call}
+            // default - no input of any kind. For use displaying checkbox/radio fieldset errors and descriptions
+        {/switch}
+
+        {if $inlineText}
+            {call .inlineText}
+                {param inlineText: $inlineText /}
+            {/call}
+        {/if}
+        //checkbox and radio labels go after the input
+        {if $labelContent and $isCheckboxOrRadio}
+            {call aui.form.label}
+                {param forField : $id /}
+                {param isRequired : $isRequired /}
+                {param content : $labelContent /}
+            {/call}
+        {/if}
+        {if $errorTexts}
+            {call .fieldError}
+                {param id: $id/}
+                {param message: $errorTexts /}
+            {/call}
+        {/if}
+        {if $descriptionText or $descriptionContent}
+            {call aui.form.fieldDescription}
+                {param id: $id/}
+                {param text: $descriptionText /}
+                {param content: $descriptionContent /}
+            {/call}
+        {/if}
+    </div>
+{/template}
+
+/**
+ * @param? inlineText
+ */
+{template .inlineText}
+    <span class="inline-text">
+        {if $inlineText} {$inlineText} {/if}
+    </span>
+{/template}
+
+/**
+ * @param? extraFieldAttributes String: attributename="attributevalue" or object: { "attributename" : "attributevalue" }
+ */
+{template .renderExtraFieldAttributes private="true"}
+    {if hasData() and $extraFieldAttributes}
+        {if isMap($extraFieldAttributes)}
+            {foreach $attr in keys($extraFieldAttributes)} {$attr}="{$extraFieldAttributes[$attr]}"{/foreach}
+        {else}
+            {sp}{$extraFieldAttributes|noAutoescape}
+        {/if}
+    {/if}
+{/template}
+
+/**
+ * @param? id At least one of $id or $name is required.
+ * @param? name At least one of $id or $name is required. $name defaults to $id if not provided.
+ * @param type a valid value for the <input/>'s type attribute. Supported values are 'text', 'password', 'email', 'url', 'tel', 'search', 'file', 'radio', 'checkbox', 'button', 'submit', 'reset'.
+ * @param? value
+ * @param? icon (only valid for text)
+ * @param? maxLength (only valid for text)
+ * @param? size (only valid for text)
+ * @param? autocomplete
+ * @param? placeholderText (only valid for text)
+ * @param? isChecked (only valid for checkboxes or radio buttons)
+ * @param? isDisabled
+ * @param? isAutofocus
+ * @param? extraClasses
+ * @param? validationArguments
+ * @param? tooltipArguments
+ * @param? infoMessage
+ * @param? readOnly
+ */
+{template .input}
+    {let $baseType}
+        {switch $type}
+            {case 'password', 'email', 'url', 'tel', 'search'}
+                text
+            {case 'submit', 'reset'}
+                button
+            {default}
+                {$type}
+        {/switch}
+    {/let}
+    <input
+        {sp}class="{$baseType}{call aui.renderExtraClasses data="all" /}{if $icon and $baseType == 'text'} aui-field-has-icon{/if}"
+        {sp}type="{$type}"
+        {sp}name="{if $name}{$name}{else}{$id}{/if}"
+        {if $id} id="{$id}"{/if}
+        {if $value} value="{$value}"{/if}
+        {if ($type == 'checkbox' or $type == 'radio') and $isChecked} checked="checked"{/if}
+        {if ($baseType == 'text' and $type != 'password') and $maxLength} maxlength="{$maxLength}"{/if}
+        {if ($baseType == 'text' and $type != 'password') and $size} size="{$size}"{/if}
+        {if ($baseType == 'text') and $placeholderText} placeholder="{$placeholderText}"{/if}
+        {if ($baseType == 'text') and $autocomplete} autocomplete="{$autocomplete}"{/if}
+        {if $isDisabled} disabled="disabled"{/if}
+        {if $isAutofocus} autofocus{/if}
+        {if $readOnly} readonly="readonly"{/if}
+        {call .renderExtraFieldAttributes data="all" /}
+        {call aui.form.renderValidationArguments data="all"/}
+        {call aui.form.renderInfoMessage data="all"/}
+        {call aui.form.renderFieldComponentAttribute data="all"/}
+        {call aui.form.renderTooltipArguments data="all" /}
+    />
+    {if $icon and ($baseType == 'text')}
+        {call aui.icons.icon}
+            {param icon: $icon /}
+            {param useIconFont: true /}
+            {param size: 'small' /}
+        {/call}
+    {/if}
+{/template}
+
+/**
+ * @param message
+ * @param? id
+ * @param? extraClasses
+ */
+{template .fieldError}
+    // helper variables to properly compile compoud condition for the `if` statement
+    {let $messageIsList: isList($message) /}
+    {let $messageIsProbablyNonEmptyString: not $messageIsList and isNonnull($message) /}
+    {let $messageIsNonEmptyList: $messageIsList and length($message) > 0 /}
+    //
+
+    {if $messageIsProbablyNonEmptyString or $messageIsNonEmptyList}
+        <div class="error{call aui.renderExtraClasses data="all" /}" role="alert" {if $id}id="{$id}-errors"{/if}>
+            <ul>
+                {if $messageIsList}
+                    {foreach $error in $message}
+                        <li>{$error}</li>
+                    {/foreach}
+                {else}
+                    <li>{$message}</li>
+                {/if}
+            </ul>
+        </div>
+    {/if}
+{/template}

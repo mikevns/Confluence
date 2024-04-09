@@ -1,0 +1,34 @@
+<sitemesh>
+
+	<!--
+	  decorators.xml contains both the decorator mappings and exclusion list for convenience, but that means we need to
+	  tell sitemesh about it twice, one for the decorators and one for the exclusions
+	-->
+	<property name="decorators-file" value="/WEB-INF/decorators.xml" />
+	<excludes file="${decorators-file}" />
+
+	<page-parsers>
+		<parser content-type="text/html" class="com.opensymphony.module.sitemesh.parser.HTMLPageParser" />
+	</page-parsers>
+
+	<decorator-mappers>
+        <mapper class="com.atlassian.confluence.setup.sitemesh.PluginDecoratorMapper" />
+
+        <mapper class="com.atlassian.confluence.setup.sitemesh.ConfluenceSpaceDecoratorMapper" />
+
+		<mapper class="com.opensymphony.module.sitemesh.mapper.PageDecoratorMapper">
+			<param name="property.1" value="meta.decorator" />
+			<param name="property.2" value="decorator" />
+		</mapper>
+
+		<mapper class="com.opensymphony.module.sitemesh.mapper.PrintableDecoratorMapper">
+			<param name="decorator" value="printable" />
+			<param name="parameter.name" value="printable" />
+			<param name="parameter.value" value="true" />
+		</mapper>
+
+		<mapper class="com.opensymphony.module.sitemesh.mapper.ConfigDecoratorMapper">
+			<param name="config" value="${decorators-file}" />
+		</mapper>
+	</decorator-mappers>
+</sitemesh>

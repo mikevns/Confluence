@@ -1,0 +1,34 @@
+#parse ("/template/includes/actionerrors.vm")
+
+#if ($actionErrors.size() == 0)
+<p>$action.getText($defaultDecorator.descriptionKey)</p>
+        <form name="editdecorator" method="POST" action="storedecorator.action" class="aui">
+            #form_xsrfToken()
+            #set($templateParameters = {
+                "type": "textarea",
+                "labelContent": "$i18n.getText('decorator.label')",
+                "name": "content",
+                "id": "'textarea-content'",
+                "value": $!content,
+                "rows": "50",
+                "cols": "100",
+                "extraFieldClasses": "monospaceInput max-textarea"})
+            $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $templateParameters)
+            $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.input.soy", {
+                                                    "type": "hidden",
+                                                    "name": "decoratorName",
+                                                    "id": "decoratorName",
+                                                    "value": $!decoratorName})
+            #if ($key)
+                $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.input.soy", {
+                                                        "type": "hidden",
+                                                        "name": "key",
+                                                        "id": "key",
+                                                        "value": $!key})
+            #end
+            #ssubmit("theme='aui'"
+                     "editMode=true"
+                     "submitName=update"
+                     "submitValue=$i18n.getText('update.name')")
+        </form>
+#end

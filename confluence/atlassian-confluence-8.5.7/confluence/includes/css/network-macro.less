@@ -1,0 +1,96 @@
+.network-macro {
+  &.follow-tiny {
+    .tabletitle {
+      border: none;
+      color: #333;
+      font-weight: normal;
+
+      .subtitle{
+        color: #666;
+      }
+    }
+
+    .userLogo {
+      height: 24px;
+      width: 24px;
+    }
+  }
+
+  form.follow-user {
+    margin: 10px 0;
+
+    span.container {
+      color: black;
+      display: inline-block;
+      font-weight: normal;
+      position: relative;
+    }
+  }
+
+  ol.autocompleter {
+    border: 1px solid #CCC;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    left: 0;
+    margin: 0 !important;
+    max-width: 248px;
+    top: 1.6em;
+    width: auto !important; // Need to override plugin setting this value using inline styles.
+
+    li {
+      padding: 3px 10px;
+    }
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+
+    li {
+      display: inline;
+    }
+  }
+
+  .avatars li .userLogoLink {
+    text-decoration: none; // IE7 fix.
+  }
+
+  .description {
+    color: #666;
+    margin: 5px 0;
+  }
+
+  .follow-dashboard {
+    padding-top: 10px;
+
+    .avatars {
+      width: 100%; // Dashboard panel can be variable size.
+    }
+  }
+
+  .follow-user-box {
+    color: #666;
+    width: 150px;
+  }
+
+  .follow-user-result {
+    color: #666;
+    display: none;
+    padding-top: 8px;
+
+    div {
+      padding-left: 20px;
+    }
+
+    img {
+      margin-left: -20px;
+      margin-top: -2px;
+    }
+  }
+
+  .userLogo {
+    height: 36px;
+    width: 36px;
+    -ms-interpolation-mode: bicubic;
+  }
+}

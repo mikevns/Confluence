@@ -1,0 +1,23 @@
+{namespace Confluence.Templates.LegacyDrafts}
+
+/**
+ * Renders the modal dialog to view the source of a legacy draft
+ */
+{template .render}
+    <section role="dialog" id="legacy-draft-dialog" class="aui-layer aui-dialog2 aui-dialog2-xlarge"
+                         aria-hidden="true">
+        <header class="aui-dialog2-header">
+            <h2 class="aui-dialog2-header-main"></h2>
+            <a class="aui-dialog2-header-close">
+                <span class="aui-icon aui-icon-small aui-iconfont-close-dialog">{getText('close.hint')}</span>
+            </a>
+        </header>
+        <div class="aui-dialog2-content wiki-content legacy-draft-container"></div>
+        <footer class="aui-dialog2-footer">
+            <div class="aui-dialog2-footer-actions">
+                <button class="aui-button aui-button-link close">{getText('close.name')}</button>
+            </div>
+            <div class="aui-dialog2-footer-hint legacy-draft-hint">{getText('legacy.draft.hint')}</div>
+        </footer>
+    </section>
+{/template}

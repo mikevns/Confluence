@@ -1,0 +1,84 @@
+<html>
+    <head>
+        <title>$action.getText("title.administrators")</title>
+    </head>
+    <body>
+        #parse ( "/template/includes/actionerrors.vm" )
+        #if ($actionErrors.size() == 0)
+            <p>$action.getMessage()</p>
+            #if ($action.isDisplaySupportRequest())
+                #if (!$action.isMailServerAvailable())
+                    <div class="warningMessage">$action.getText("administrators.contact.no.mail.server")</div>
+                #elseif (!$action.isAdminstratorEmailAddresses())
+                    <div class="warningMessage">$action.getText("administrators.contact.no.admin.email.addresses")</div>
+                #else
+                    #applyDecorator("form-aui")
+                        #decoratorParam("formName" "contactadministrators")
+                        #decoratorParam("submitAction"  "$req.contextPath/docontactadministrators.action")
+                        #decoratorParam("editMode" $editMode)
+
+                        #form_xsrfToken()
+                    #set($isDisabled=!$systemAdmin)
+                    #set($_params = {
+                        "labelContent": "$i18n.getText('administrators.contact.to.field')",
+                        "name": "toAddresses",
+                        "id": "toAddresses",
+                        "value": "$htmlUtil.htmlEncode($!toDisplayValue)",
+                        "type": "#if($editMode == true)text#{else}value#end",
+                        "isDisabled": false,
+                        "errorTexts": $!fieldErrors.get('contactAddress'),
+                        "readOnly": "readonly"})
+                    $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                        "confluence.web.resources:shared-templates", "Confluence.Templates.TextField.textField.soy", $_params)
+                    #set($_params = {
+                        "labelContent":"$i18n.getText('administrators.contact.from.field')",
+                        "name":"contactAddress",
+                        "id":"contactAddress",
+                        "value":$!contactAddress,
+                        "type":"#if($editMode == true)text#{else}value#end",
+                        "isDisabled":false,
+                        "errorTexts": $!fieldErrors.get('contactAddress')})
+                    $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                        "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+
+                    #set($_params = {
+                        "labelContent":"$i18n.getText('administrators.contact.subject.field')",
+                        "name":"subject",
+                        "id":"subject",
+                        "value":$!subject,
+                        "size":"100",
+                        "isRequired":true,
+                        "type":"#if($editMode == true)text#{else}value#end",
+                        "isDisabled":false,
+                        "errorTexts": $!fieldErrors.get('subject')})
+                    $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                        "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+                        #set($templateParameters = {
+                            "type": "textarea",
+                            "labelContent": "$i18n.getText('administrators.contact.description.field')",
+                            "name": "description",
+                            "id": "description",
+                            "value": $!description,
+                            "rows": "15",
+                            "cols": "100",
+                            "errorTexts": $action.fieldErrors.get("description"),
+                            "isRequired": "true"})
+                        $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $templateParameters)
+
+                        #if ($captchaManager.showCaptchaForCurrentUser())
+                            #set ($captchaFormParams = { "captchaId": $captchaManager.generateCaptchaId(),
+                                "captchaErrors": $action.fieldErrors.get("captcha")})
+                            $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                                "confluence.web.resources:shared-templates",
+                                "Confluence.Templates.Captcha.form.soy", $captchaFormParams)
+                        #end
+
+                        #ssubmit("theme='aui'"
+                                 "submitValue=$i18n.getText('send.name')")
+                    #end
+                #end
+            #end
+        #end
+        #parse ( "/breadcrumbs.vm" )
+    </body>
+</html>

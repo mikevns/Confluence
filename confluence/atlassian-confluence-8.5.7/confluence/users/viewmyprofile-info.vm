@@ -1,0 +1,73 @@
+<form class="aui">## so the fields get aui form styles.
+
+    <h2 class="first">$action.getText("profile.group.personal")</h2>
+    <fieldset>
+    ## User details -- Full name and Email
+        #set($_params = {
+            "labelContent":"$i18n.getText('fullname.name')",
+            "name":"fullName",
+            "id":"fullName",
+            "value": $!action.fullName,
+            "size":"50",
+            "type":"#if($!action.editMode == true)text#{else}value#end",
+            "readOnly":"readonly"
+            })
+        $soyTemplateRendererHelper.getRenderedTemplateHtml(
+            "confluence.web.resources:shared-templates", "Confluence.Templates.TextField.field.soy", $_params)
+        #set($_params = {
+            "labelContent":"$i18n.getText('email.name')",
+            "name":"email",
+            "id":"email",
+            "value":$!action.email,
+            "size":"50",
+            "type":"#if($!action.editMode == true)text#{else}value#end",
+            "readOnly":"readonly"})
+        $soyTemplateRendererHelper.getRenderedTemplateHtml(
+            "confluence.web.resources:shared-templates", "Confluence.Templates.TextField.field.soy", $_params)
+    ## User details -- Phone, IM, Website, etc.
+        #foreach ($key in $action.getUserDetailsKeys("personal"))
+            #set($val=$!action.getUserProperty($key))
+            #set($keyId="userparam-$key")
+            #set($label_val = $i18n.getText("confluence.user.profile.$key"))
+            <div class="field-group
+                #if ($editMode == false)viewMode#end">
+                <label id="$keyId"-label for="userparam-$key">
+                    $label_val
+                </label>
+                #if ($action.editMode == false)
+                    #if ($statusTextRenderer)
+                        <span id="$!htmlUtil.htmlEncode($keyId)"
+                              class="field-value">$statusTextRenderer.render($val)</span>
+                    #else
+                        <span id="$!htmlUtil.htmlEncode($keyId)" class="field-value">$!htmlUtil.htmlEncode($val)</span>
+                    #end
+                #end
+            </div>
+        #end
+
+    ## NOTE: This is where the "About Me" section would be in edit mode
+    </fieldset>
+    <h2>$action.getText("profile.group.business")</h2>
+    <fieldset>
+    ## Company details -- Position, Department, Location, etc.
+        #foreach ($key in $action.getUserDetailsKeys("business"))
+            #set($val=$!action.getUserProperty($key))
+            #set($keyId="userparam-$key")
+            #set($label_val = $i18n.getText("confluence.user.profile.$key"))
+            <div class="field-group
+                #if ($editMode == false)view#end">
+                <label id="$keyId"-label for="userparam-$key">
+                    $label_val
+                </label>
+                #if ($action.editMode == false)
+                    #if ($statusTextRenderer)
+                        <span id="$!htmlUtil.htmlEncode($keyId)"
+                              class="field-value">$statusTextRenderer.render($val)</span>
+                    #else
+                        <span id="$!htmlUtil.htmlEncode($keyId)" class="field-value">$!htmlUtil.htmlEncode($val)</span>
+                    #end
+                #end
+            </div>
+        #end
+    </fieldset>
+</form>

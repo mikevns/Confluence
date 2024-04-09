@@ -1,0 +1,63 @@
+## View and Edit template for EditorSettingsAction
+##   Expects action properties:
+##      autocompleteDisabled
+##      shortcutsEnabled
+##      linksEnabled
+##      imagesEnabled
+##      usersEnabled
+<html>
+	<head>
+		<title>$htmlUtil.htmlEncode($pageTitle)</title>
+		#requireResource("confluence.web.resources:aui-forms")
+    </head>
+
+    #applyDecorator("root")
+        #decoratorParam("context" "profile")
+        #decoratorParam("mode"  "settings")
+        #decoratorParam("helper" $action.helper)
+        #decoratorParam("infopanel-width" "200px")
+
+        <body>
+            #applyDecorator("form-aui")
+                #decoratorParam("formName" "editeditorsettingsform")
+                #decoratorParam("submitAction"  "doeditmyeditorsettings.action")
+                #decoratorParam("editAction" "editmyeditorsettings.action")
+                #decoratorParam("editMode" "$editMode")
+                #form_xsrfToken()
+
+                <h2>$action.getText("title.edit.editor.preferences")</h2>
+                <fieldset>
+                    <div class="group">
+                        #set( $isDisabledcheckbox = !$editMode)
+                        #set ($templateParameters = {
+                                            "isDisabled": $isDisabledcheckbox,
+                                            "type": "checkbox",
+                                            "value": "true",
+                                            "labelContent": "$i18n.getText('user.editor.preferences.autocomplete.disable')",
+                                            "name": "autocompleteDisabled",
+                                            "id": "autocompleteDisabled",
+                                            "isChecked": $autocompleteDisabled,
+                                            "descriptionText": "$action.getText('user.editor.preferences.autocomplete.disable.desc')"})
+                        $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates",
+                                            "aui.form.field.soy", $templateParameters)
+                    </div>
+                    <div class="group">
+                        #set( $isDisabledcheckbox = !$editMode)
+                        #set ($templateParameters = {
+                                            "isDisabled": $isDisabledcheckbox,
+                                            "type": "checkbox",
+                                            "value": "true",
+                                            "labelContent": "$i18n.getText('user.editor.preferences.autoformat.disable')",
+                                            "name": "autoformatDisabled",
+                                            "id": "autoformatDisabled",
+                                            "isChecked": $autoformatDisabled,
+                                            "descriptionText": "$action.getText('user.editor.preferences.autoformat.disable.desc')"})
+                        $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates",
+                                            "aui.form.field.soy", $templateParameters)
+                    </div>
+                    #ssubmit("theme='aui'" )
+                </fieldset>
+            #end
+        </body>
+    #end
+</html>

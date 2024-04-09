@@ -1,0 +1,18 @@
+<br/>
+<table width = "100%">
+    <tr>
+        <td align="left">
+            Grant browse permission to
+            $soyTemplateRendererHelper.getRenderedTemplateHtml("confluence.web.resources:shared-templates", "Confluence.Templates.Select.notableSelect.soy",{
+                "editMode": $editMode,
+                "name": "selectedGroup",
+                "value": $selectedGroup,
+                "list": $selectableGroups,
+                "headerKey": "",
+                "headerValue": "-- Select Group --"
+            })
+            <input type="submit" value="Add">
+        </td>
+    </tr>
+</table>
+<br/>

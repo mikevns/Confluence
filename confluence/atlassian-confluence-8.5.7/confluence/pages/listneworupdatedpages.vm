@@ -1,0 +1,60 @@
+<html>
+<head>
+    <title>$action.getText("title.new.or.updated.pages.since.last.login")</title>
+</head>
+<body>
+    #parse ( "/template/includes/actionerrors.vm" )
+
+    #if ($actionErrors.size() == 0)
+        #set ($title = $action.getText("new-or-updated-pages-since-last-login"))
+        $soyTemplateRendererHelper.getRenderedTemplateHtml("confluence.web.resources:shared-templates", "Confluence.Templates.Pagelist.generalpagelisttabletitle.soy",{
+            "mytitle": "$title",
+            "baseUrl": $request.contextPath,
+            "staticResourceUrlPrefix": $staticResourceUrlPrefix,
+            "spacekey": $htmlUtil.urlEncode($space.key)
+        })
+        $soyTemplateRendererHelper.getRenderedTemplateHtml("confluence.web.resources:shared-templates", "Confluence.Templates.Pagelist.generalpagelisttable.soy",{
+            "pageList": "$pagesCreatedOrUpdatedSinceLastLogin",
+            "pageListSize": $pagesCreatedOrUpdatedSinceLastLogin.size()
+        })
+        #foreach ($page in $pagesCreatedOrUpdatedSinceLastLogin)
+            #set($fileExtension = "#if($page.type == 'attachment' && $page.fileName)$page.fileName.substring($page.fileName.lastIndexOf('.'))#{else}$page.displayTitle#end")
+            #set($key = "#if($page.type == 'attachment')$page.content.space.key#{else}$page.space.key#end")
+            $soyTemplateRendererHelper.getRenderedTemplateHtml("confluence.web.resources:shared-templates", "Confluence.Templates.Pagelist.generalpagelisttableLoop.soy",{
+                "pageList": "$pagesCreatedOrUpdatedSinceLastLogin",
+                "pageListSize": $pagesCreatedOrUpdatedSinceLastLogin.size(),
+                "previousLoginDate": "$previousLoginDate",
+                "lastModificationDateafter": "$page.lastModificationDate.after($previousLoginDate)",
+                "isNew": $page.isNew(),
+                "lastModificationDate": "$page.lastModificationDate",
+                "page": $page,
+                "baseUrl": "$request.contextPath",
+                "contentUiSupportGetContentTypeI18NKey": "$action.getText($contentUiSupport.getContentTypeI18NKey($page))",
+                "contentUiSupportGetIconCssClass": "$contentUiSupport.getIconCssClass($page)",
+                "htmlEscapeQuotesPageSpaceKey": "$generalUtil.htmlEscapeQuotes($key)",
+                "htmlEscapeQuotesPageTitle": "$generalUtil.htmlEscapeQuotes($page.title)",
+                "htmlEncodePageDisplayTitle": "$htmlUtil.htmlEncode($page.displayTitle)",
+                "pageGetDatePath": "$page.getDatePath()",
+                "htmlEncodeTrimDownStringToWordPageDisplayTitle":"$htmlUtil.htmlEncode($generalUtil.trimDownStringToWord($page.displayTitle))",
+                "displayChangeComments": "$displayChangeComments",
+                "isVersionCommentAvailable": $page.isVersionCommentAvailable(),
+                "getComment": $page.getComment(),
+                "renderedVersionComment": "$page.renderedVersionComment",
+                "urlEncodeUserName": "$htmlUtil.urlEncode($page.lastModifier.name)",
+                "htmlEncodeUserFullName": "$htmlUtil.htmlEncode($page.lastModifier.fullName)",
+                "isUnknownUser": $userHelper.isUnknownUser($page.lastModifier),
+                "isDeletedUser": $userHelper.isDeletedUser($page.lastModifier),
+                "permissionHelperCanView": "$permissionHelper.canView($action.authenticatedUser, $page.lastModifier)",
+                "htmlEncodeUserName": "$htmlUtil.htmlEncode($page.lastModifier.name)",
+                "isInLastDays": $generalUtil.isInLastDays($page.lastModificationDate, 1),
+                "friendlyDateFormatPageLastModificationDate": "$action.formatFriendlyDate($page.lastModificationDate)",
+                "getFormatDateSimplePageLastModificationDate": "$generalUtil.getFormatDateSimple($page.lastModificationDate)",
+                "fileExtension":$fileExtension
+            })
+        #end
+        $soyTemplateRendererHelper.getRenderedTemplateHtml("confluence.web.resources:shared-templates", "Confluence.Templates.Pagelist.tableClose.soy",{})
+    #end
+    #parse ("/breadcrumbs.vm")
+
+</body>
+</html>

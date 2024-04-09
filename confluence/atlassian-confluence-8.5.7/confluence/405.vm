@@ -1,0 +1,26 @@
+<html>
+<head>
+    <title>$i18n.getText("405.title")</title>
+    <meta name="decorator" content="atl.general">
+</head>
+<body>
+<div class="container">
+    <p>$i18n.getText("405.reason")</p>
+
+    <h2>$i18n.getText("405.possible-actions")</h2>
+    <ol>
+        <li>$i18n.getText("405.message.check-url")</li>
+        <li>$i18n.getText("405.message.go-back")</li>
+        #if ($settingsManager.getGlobalSettings().isShowContactAdministratorsForm())
+            <li>
+                $i18n.getText("405.message.get-help.receive-support")
+                <a href="$req.getContextPath()/contactadministrators.action">$i18n.getText("405.message.get-help.administrator")</a>
+                $i18n.getText("405.message.get-help.create-support")
+            </li>
+        #else
+            <li>$i18n.getText("405.message.request-support")</li>
+        #end
+    </ol>
+</div>
+</body>
+</html>

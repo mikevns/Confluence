@@ -1,0 +1,36 @@
+{namespace Confluence.Templates.Captcha}
+
+/**
+ * Renders a CAPTCHA form.
+ *
+ * @param captchaId         ID generated from the CaptchaManager
+ * @param captchaErrors     list of field errors to display
+ */
+{template .form}
+    <div class="captcha field-group">
+        <label id="captcha-response-label" for="captcha-response">
+            <span class="assistive">{getText('login.elevatedsecuritycheck.assistive')}</span>
+        </label>
+        {call Confluence.Templates.Captcha.image}
+            {param captchaId: $captchaId /}
+        {/call}
+        <input type="text" id="captcha-response" name="captchaResponse" value="" class="text" placeholder="{getText('captcha.challenge')}">
+        {if $captchaErrors and length($captchaErrors)}
+            {foreach $error in $captchaErrors}
+                {call aui.message.warning}
+                    {param content: $error /}
+                {/call}
+            {/foreach}
+        {/if}
+    </div>
+{/template}
+
+/**
+ * Renders the CAPTCHA image for a given ID.
+ *
+ * @param captchaId         ID generated from the CaptchaManager
+ */
+{template .image}
+    <img src="{contextPath()}/jcaptcha?id={$captchaId}" class="captcha-image" alt="{getText('captcha.image.alt')}">
+    <input type="hidden" name="captchaId" value="{$captchaId}" placeholder="{getText('captcha.challenge')}">
+{/template}

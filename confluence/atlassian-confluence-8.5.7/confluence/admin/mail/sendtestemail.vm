@@ -1,0 +1,84 @@
+<html>
+    <head>
+        <title>$action.getActionName($action.getClass().getName())</title>
+        <content tag="selectedWebItem">mailservers</content>
+    </head>
+
+    <body>
+        #parse ( "/template/includes/actionerrors.vm" )
+
+        <form method=POST action="dosendtestemail.action" class="aui">
+        #form_xsrfToken()
+            #set($_params = {
+                "labelContent":"$i18n.getText('To')",
+                "name":"to",
+                "id":"to",
+                "value":$!to,
+                "isAutofocus":true,
+                "type":"text",
+                "isDisabled":false,
+                "errorTexts": $!fieldErrors.get('to')})
+            $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+            #set($_params = {
+                "labelContent":"$i18n.getText('Subject')",
+                "name":"subject",
+                "id":"subject",
+                "value":$!subject,
+                "type":"text",
+                "isDisabled":false,
+                "errorTexts": $!fieldErrors.get('subject')})
+            $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+            #set($templist = [])
+            #if ($lists.contains($mimeTypes, 0))
+                #set($templist = $mimeTypes)
+            #else
+                #set($temp = $templist.add($mimeTypes))
+            #end
+            $soyTemplateRendererHelper.getRenderedTemplateHtml("confluence.web.resources:shared-templates", "Confluence.Templates.Select.auiSelect.soy",{
+                "labelValue": "Message Type",
+                "editMode": $editMode,
+                "name": "messageType",
+                "value": $messageType,
+                "listKey": "html",
+                "listValue": "text",
+                "list": $templist
+            })
+            #set($templateParameters = {
+                "type": "textarea",
+                "labelContent": "$i18n.getText('Message')",
+                "name": "message",
+                "id": "message",
+                "value": $!message,
+                "rows": "8",
+                "extraFieldClasses": "long-field"})
+            $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $templateParameters)
+
+            <div class="buttons-container">
+                <div class="buttons">
+                    #ssubmit("name='confirm'" "value='send.name'" "theme='notable'" "cssClass='aui-button'")
+                    #ssubmit("name='cancel'" "value='cancel.name'" "theme='notable'" "cssClass='aui-button aui-button-link'")
+                </div>
+            </div>
+
+            #set($templateParameters = {
+                "type": "textarea",
+                "labelContent": "$i18n.getText('Log')",
+                "name": "log",
+                "id": "log",
+                "value": $!log,
+                "rows": "15",
+                "isDisabled": true,
+                "extraFieldClasses": "long-field"})
+            $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $templateParameters)
+            $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.input.soy", {
+                                                    "type": "hidden",
+                                                    "name": "id",
+                                                    "id": "id",
+                                                    "value":$!id})
+        </form>
+
+        #parse ("/breadcrumbs.vm")
+    </body>
+</html>

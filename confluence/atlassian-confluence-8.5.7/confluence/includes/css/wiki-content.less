@@ -1,0 +1,344 @@
+@import "colors.less";
+
+/* wiki-content.css */
+
+/**
+ * AUI Overrides
+ * see /includes/css/aui-overrides.css
+ */
+.rounded-corners (@radius: 5px) {
+  -moz-border-radius: @radius;
+  -webkit-border-radius: @radius;
+  border-radius: @radius;
+}
+
+.wiki-content {
+  .header, .footer, .cell {
+    margin: 8px 0;
+    box-sizing: border-box;
+    word-wrap: break-word;
+    .rounded-corners;
+  }
+
+  .columnLayout {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    *clear: both;
+
+    .cell {
+      vertical-align: top;
+    }
+    .cell.aside {
+      width: 29.9%;
+    }
+    .cell.sidebars {
+      width: 19.9%;
+    }
+  }
+
+  .cell {
+     display: table-cell;
+     padding: 0 10px;
+  }
+
+  .innerCell {
+    overflow-x: auto;
+  }
+
+  .placeholder {
+    background: #f5f5f5;
+    border: 1px dotted #ccc;
+    color: @mediumGray;
+    font-style: italic;
+    margin: 0;
+    padding: 10px;
+
+    .activation-content {
+      display:none;
+    }
+    .display-content {
+      display: inherit;
+    }
+  }
+
+  li > ul,
+  li > ol,
+  ul > ul,
+  ol > ol {
+    margin-top: 0;
+  }
+
+  ul,
+  ul ul ul ul,
+  ul ul ul ul ul ul ul,
+  ul ul ul ul ul ul ul ul ul ul {
+    list-style-type: disc;
+  }
+
+  ul ul,
+  ul ul ul ul ul,
+  ul ul ul ul ul ul ul ul,
+  ul ul ul ul ul ul ul ul ul ul ul {
+    list-style-type: circle;
+  }
+
+  ul ul ul,
+  ul ul ul ul ul ul,
+  ul ul ul ul ul ul ul ul ul,
+  ul ul ul ul ul ul ul ul ul ul ul ul {
+    list-style-type: square;
+  }
+
+  ol,
+  ol ol ol ol,
+  ol ol ol ol ol ol ol,
+  ol ol ol ol ol ol ol ol ol ol {
+    list-style-type: decimal;
+  }
+
+  ol ol,
+  ol ol ol ol ol,
+  ol ol ol ol ol ol ol ol,
+  ol ol ol ol ol ol ol ol ol ol ol {
+    list-style-type: lower-alpha;
+  }
+
+  ol ol ol,
+  ol ol ol ol ol ol,
+  ol ol ol ol ol ol ol ol ol,
+  ol ol ol ol ol ol ol ol ol ol ol ol {
+    list-style-type: lower-roman;
+  }
+
+  /* these styles are copied from aui-page-typography.css in AUI 5.4. This will retain the heading styles for user
+   * generated content when upgrading to use AUI 5.7 and ADG 2.0. This is brittle because not every property is
+   * explicitly declared here. If AUI 5.8 sets h1 text-transform: uppercase; it will break the default styles */
+  h1 {
+    font-size: 24px;
+    font-weight: normal;
+    line-height: 1.25; /* 30px equiv line-height */
+    margin: 30px 0 0 0;
+  }
+  h2 {
+    font-size: 20px;
+    font-weight: normal;
+    line-height: 1.5; /* 30px equiv line-height */
+    margin: 30px 0 0 0;
+  }
+  h3 {
+    font-size: 16px;
+    line-height: 1.5; /* 24px equiv line-height */
+    margin: 30px 0 0 0;
+  }
+  h4 {
+    font-size: 14px;
+    line-height: 1.42857142857143; /* 20px equiv line-height */
+    margin: 20px 0 0 0;
+  }
+  h5 {
+    color: #5E6C84;
+    font-size: 12px;
+    line-height: 1.66666666666667;
+    margin: 20px 0 0 0;
+    text-transform: uppercase;
+  }
+  h6 {
+    color: #5E6C84;
+    font-size: 12px;
+    line-height: 1.66666666666667;
+    margin: 20px 0 0 0;
+  }
+  h1:first-child,
+  h2:first-child,
+  h3:first-child,
+  h4:first-child,
+  h5:first-child,
+  h6:first-child {
+    margin-top: 0;
+  }
+  /* Nice styles for using subheadings */
+  h1 + h2,
+  h2 + h3,
+  h3 + h4,
+  h4 + h5,
+  h5 + h6 {
+    margin-top: 10px;
+  }
+  /* End styles copied from aui-page-typography.css in AUI 5.4 */
+
+  /* Confluence specific typography overrides on top of AUI 5.4 typography */
+  h3 {
+    font-weight: bold;
+  }
+  h5 {
+    font-size: 14px;
+  }
+  h5, h6 {
+    text-transform: none;
+  }
+  h1 + h1,
+  h2 + h2,
+  h3 + h3,
+  h4 + h4,
+  h5 + h5,
+  h6 + h6 {
+    margin-top: 10px;
+  }
+  /* End Confluence specific typography overrides on top of AUI 5.4 typography */
+
+  .confluence-content-image-border {
+    border: 1px solid black;
+  }
+
+  div.error > span.error {
+    color: #333;
+    padding: 6px 10px;
+    position: relative;
+    background: #fffdf6;
+    border: 1px solid #ffeaae;
+    .rounded-corners;
+  }
+
+/* CONFDEV-6137 Welcome to the world of browser hacks
+ We're targeting IE8 compatibility mode which means IE7
+ hacks. This updates the page-layout to be floated rather
+ than table layout which is not supported in compat mode.
+ These styles are only applied to IE8 compat mode */
+  .columnLayout,
+  .cell,
+  .header,
+  .footer {
+    *display: block;
+    *float: left;
+    *width: 100%;
+  }
+
+  .innerCell {
+    *border: 2px dashed #ccc;
+    *margin: 8px 4px;
+    *padding: 4px 8px;
+  }
+
+  /* Text Placeholders */
+  .text-placeholder {
+    background: #f5f5f5;
+    color: #707070;
+    font-style: italic;
+    min-width: 10px; /* So that it is visible when empty */
+    display: inline-block;
+  }
+
+  .text-placeholder.selected {
+    color: #333
+  }
+}
+
+.contentLayout .innerCell > *:first-child,
+.contentLayout2 {
+  .innerCell > *:first-child {
+    margin-top: 0;
+  }
+}
+
+.contentLayout2 .columnLayout {
+  margin-bottom: 8px;
+}
+
+
+.view .wiki-content .cell:first-child,
+.content-preview .wiki-content .cell:first-child {
+  padding: 0;
+}
+
+/* CONF-23497 - Work around rendering issue in Webkit and IE9. Works fine for IE8 and Firefox. */
+li[style*='text-align: center'],
+li[style*='text-align: right'] {
+  list-style-position: inside;
+}
+
+/* CONFDEV-7754 - Workaround for some unwanted onDemand styling.
+   Remove once JSTDEV-1730 is fixed. See CONFDEV-7799.
+   Will have a side-effect of breaking any footers in themes that
+   do not use the default font-family or font-size.
+   #main selector is to prevent this rule applying within the RTE iframe.
+   */
+#main .wiki-content .footer p, #main .wiki-content .footer a {
+  font-family: arial,sans-serif;
+  font-size: 14px;
+}
+
+.wiki-content .cell,
+.mceContentBody.wiki-content .cell,
+.twoColumns .cell,
+.threeColumns .cell,
+.twoColumns .large,
+.mceContentBody.wiki-content .header,
+.mceContentBody.wiki-content .footer,
+.threeColumns .large {
+  *border: 0;
+  *margin: 0;
+  *padding: 0;
+  *overflow: hidden;
+}
+
+.twoColumns .cell {
+  *width: 49.9%;
+}
+
+.threeColumns .cell {
+  *width: 33.3%;
+}
+
+.twoColumns .large {
+  *width: 69.9%;
+}
+
+.threeColumns .large {
+  *width: 59.9%;
+}
+
+div.aside + div.large,
+div.large + div.aside,
+div.large + div.sidebars,
+.twoColumns div.cell + div.cell,
+.threeColumns div.cell + div.cell + div.cell {
+  *float: right;
+}
+
+/* Page Layouts 2 */
+/* Section types: single, two-equal, two-left-sidebar, two-right-sidebar, three-equal, three-with-sidebars */
+
+.two-equal .normal {
+  *width: 49.9%;
+}
+
+.two-left-sidebar .normal,
+.two-right-sidebar .normal {
+  *width: 69.9%;
+}
+
+.three-equal .cell {
+  *width: 33.3%;
+}
+
+.three-with-sidebars .normal {
+  *width: 59.9%;
+}
+
+.two-equal div.cell + div.cell {
+  *float: right;
+}
+
+.three-equal, .three-with-sidebars {
+  div.cell + div.cell + div.cell {
+    *float: right;
+  }
+}
+
+/* CONFDEV-13804: Temporary workaround, remove once fixed in the plugin (WDAY-1641). */
+#mw-container div.mw-no-notifications div.subheading p {
+  line-height: 24px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}

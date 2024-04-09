@@ -1,0 +1,70 @@
+{namespace Confluence.Templates.Text}
+
+/**
+ * @param labelContent
+ * @param id
+ * @param name
+ * @param editMode
+ * @param valueContent
+ * @param fieldErrors
+ * @param descriptionMessage
+ *
+ */
+{template .textInlineVM}
+    {call aui.form.label}
+        {param content: $labelContent /}
+    {/call}
+    {call aui.form.input data="all"}
+        {param type: $editMode == false ? 'value' : 'text' /}
+        {param id: $id ? $id : $name /}
+    {/call}
+    {if $valueContent}
+        {call .inlineText data="all"}
+            {param inlineText: $valueContent /}
+        {/call}
+    {/if}
+    {call .fieldError}
+        {param message: $fieldErrors /}
+    {/call}
+    {if $descriptionMessage}
+        {call aui.form.fieldDescription data="all"}
+            {param message: $descriptionMessage /}
+        {/call}
+    {/if}
+{/template}
+
+/**
+ * @param? inlineText
+ */
+{template .inlineText}
+    <span class="inline-text">
+        {if $inlineText} {$inlineText} {/if}
+    </span>
+{/template}
+
+/**
+ * @param message
+ * @param? extraClasses
+ * @param? id
+ */
+{template .fieldError}
+    // helper variables to properly compile compoud condition for the `if` statement
+    {let $messageIsList: isList($message) /}
+    {let $messageIsProbablyNonEmptyString: not $messageIsList and isNonnull($message) /}
+    {let $messageIsNonEmptyList: $messageIsList and length($message) > 0 /}
+    //
+
+    {if $messageIsProbablyNonEmptyString or $messageIsNonEmptyList}
+        <div class="error{call aui.renderExtraClasses data="all" /}" role="alert" {if $id}id="{$id}-errors"{/if}>
+            <ul>
+                {if $messageIsList}
+                    {foreach $error in $message}
+                        <li>{$error}</li>
+                    {/foreach}
+                {else}
+                    <li>{$message}</li>
+                {/if}
+            </ul>
+        </div>
+    {/if}
+{/template}

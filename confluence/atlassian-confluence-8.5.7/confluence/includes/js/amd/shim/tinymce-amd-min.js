@@ -1,0 +1,1 @@
+define("tinymce",["confluence-editor/init"],function(){return tinymce});

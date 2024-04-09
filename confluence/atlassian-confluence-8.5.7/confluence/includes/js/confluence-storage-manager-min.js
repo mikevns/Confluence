@@ -1,0 +1,1 @@
+define("confluence/confluence-storage-manager",["ajs"],function(a){return function(b){return a.storageManager("confluence",b)}});require("confluence/module-exporter").exportModuleAsGlobal("confluence/confluence-storage-manager","Confluence.storageManager");

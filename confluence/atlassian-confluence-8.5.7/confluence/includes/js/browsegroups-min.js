@@ -1,0 +1,2 @@
+define("confluence/browsegroups",["jquery"],function(a){return{initialize:function(){var c=a("#create-group-form"),b=a("#switch-button"),d=function(){c.toggle();a("#group-list").toggle()};c.hide();b.toggle(function(){d();b.text(a("#i18n-cancel-add").val());return!1},function(){d();b.text(a("#i18n-add-group").val());a(".error").remove();return!1});a("#cancel-button").click(function(){b.click()});"false"===a("#fielderrors-empty").val()&&b.click()}}});
+require("confluence/module-exporter").safeRequire("confluence/browsegroups",function(a){require("ajs").toInit(a.initialize)});

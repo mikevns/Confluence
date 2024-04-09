@@ -1,0 +1,1 @@
+define("memoir",function(){return memoir});

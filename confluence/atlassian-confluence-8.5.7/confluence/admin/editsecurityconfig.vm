@@ -1,0 +1,316 @@
+#* @vtlvariable name="action" type="com.atlassian.confluence.admin.actions.SecurityConfigurationAction" *#
+<html>
+<head>
+    <title>$action.getText("title.edit.security.config")</title>
+    <content tag="selectedWebItem">securityconfiguration</content>
+</head>
+<body>
+    #requireResource("confluence.web.resources:aui-forms")
+    #requireResource("confluence.sections.admin.generalconfig:resources")
+
+    #parse ( "/template/includes/actionerrors.vm" )
+
+    #if($editMode)
+        #set($formAction="doeditsecurityconfig.action")
+    #else
+        #set($formAction="editsecurityconfig.action")
+    #end
+
+<form method="POST" class="aui long-label" name="editsecurityconfig" action="$formAction">
+    #form_xsrfToken()
+
+    ## Security configurations
+    <h2>
+        $action.getText("sub.title.security")
+        #if(!$editMode)
+            <a href="$req.contextPath/admin/editsecurityconfig.action" class="edit-link aui-button">
+                <span class="aui-icon aui-icon-small aui-iconfont-edit"></span>
+                $action.getText("edit.name")
+            </a>
+        #end
+    </h2>
+    <p>$action.getText("sub.title.security.description")</p>
+
+    <div class="group">
+        #set( $externalUserManagementDescription = "$i18n.getText('external.user.management.description') #doc('help.disabling.built-in.user.management' $i18n.getText('more.about.user.management'))")
+        #set( $isDisabledcheckbox = !($systemAdmin && $editMode))
+        #set ($templateParameters = {
+            "isDisabled": $isDisabledcheckbox,
+            "value": "true",
+            "type": "checkbox",
+            "labelContent": "$i18n.getText('ext.user.management')",
+            "name": "externalUserManagement",
+            "id": "externalUserManagement",
+            "isChecked": $externalUserManagement,
+            "descriptionContent": $externalUserManagementDescription})
+        $soyTemplateRendererHelper.getRenderedTemplateHtml(
+            "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $templateParameters)
+    </div>
+
+    <div class="group">
+        #set( $isDisabledcheckbox = !($systemAdmin && $editMode))
+        #set ($templateParameters = {
+            "isDisabled": $isDisabledcheckbox,
+            "value": "true",
+            "type": "checkbox",
+            "labelContent": "$i18n.getText('users.addwildcards')",
+            "name": "addWildcardsToUserAndGroupSearches",
+            "id": "addWildcardsToUserAndGroupSearches",
+            "isChecked": $addWildcardsToUserAndGroupSearches})
+        $soyTemplateRendererHelper.getRenderedTemplateHtml(
+            "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $templateParameters)
+    </div>
+
+    <div class="group">
+        #set( $nofollowExternalLinksDescription ="$i18n.getText('hide.external.links.description') #doc(
+            'help.managing.external.referrers' $i18n.getText('more.about.external.links'))")
+        #set( $isDisabledcheckbox = !$editMode)
+        #set ($templateParameters = {
+            "isDisabled": $isDisabledcheckbox,
+            "value": "true",
+            "type": "checkbox",
+            "labelContent": "$i18n.getText('nofollow.external.links')",
+            "name": "nofollowExternalLinks",
+            "id": "nofollowExternalLinks",
+            "isChecked": $nofollowExternalLinks,
+            "descriptionContent": $nofollowExternalLinksDescription})
+        $soyTemplateRendererHelper.getRenderedTemplateHtml(
+            "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $templateParameters)
+    </div>
+
+    <div class="group">
+        #set( $isDisabledcheckbox = !$editMode)
+        #set ($templateParameters = {
+            "isDisabled": $isDisabledcheckbox,
+            "value": "true",
+            "type": "checkbox",
+            "labelContent": "$i18n.getText('allow.remoteapi.anonymous')",
+            "name": "allowRemoteApiAnonymous",
+            "id": "allowRemoteApiAnonymous",
+            "isChecked": $allowRemoteApiAnonymous,
+            "descriptionContent": "$i18n.getText('remote.api.anonymous.access.description')"})
+        $soyTemplateRendererHelper.getRenderedTemplateHtml(
+            "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $templateParameters)
+    </div>
+
+    <div class="group">
+        #set( $isDisabledcheckbox = !($systemAdmin && $editMode))
+        #set ($templateParameters = {
+            "isDisabled": $isDisabledcheckbox,
+            "value": "true",
+            "type": "checkbox",
+            "labelContent": "$i18n.getText('enable.space.styles')",
+            "name": "enableSpaceStyles",
+            "id": "enableSpaceStyles",
+            "isChecked": $enableSpaceStyles})
+        $soyTemplateRendererHelper.getRenderedTemplateHtml(
+            "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $templateParameters)
+    </div>
+    <div class="group">
+        #set( $isDisabledcheckbox = !($systemAdmin && $editMode))
+        #set ($templateParameters = {
+            "isDisabled": $isDisabledcheckbox,
+            "value": "true",
+            "type": "checkbox",
+            "labelContent": "$i18n.getText('sys.info.500')",
+            "name": "showSystemInfoIn500Page",
+            "id": "showSystemInfoIn500Page",
+            "isChecked": $showSystemInfoIn500Page})
+        $soyTemplateRendererHelper.getRenderedTemplateHtml(
+            "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $templateParameters)
+    </div>
+    #set($emailAddressVisibilityTypesList = [])
+    #foreach( $option in $emailAddressVisibilityTypes )
+        #set($temp = $emailAddressVisibilityTypesList.add({"value": "$!option.value", "key": "$!option.key"}))
+    #end
+    $soyTemplateRendererHelper.getRenderedTemplateHtml("confluence.web.resources:shared-templates", "Confluence.Templates.Select.auiSelect.soy",{
+        "labelValue": "$i18n.getText('email.address.visibility')",
+        "editMode": $editMode,
+        "name": "emailAddressVisibility",
+        "listKey": "key",
+        "listValue": "value",
+        "value": $emailAddressVisibility,
+        "list": $emailAddressVisibilityTypesList
+    })
+    #set($isDisabled = !($systemAdmin && $editMode))
+    #set($_params = {
+        "labelContent": "$i18n.getText('rss.max.items')",
+        "name": "maxRssItems",
+        "id": "maxRssItems",
+        "value": $!maxRssItems,
+        "isDisabled": $isDisabled,
+        "descriptionContent": "$i18n.getText('rss.max.items.description')",
+        "type": "#if($editMode == true)text#{else}value#end",
+        "errorTexts": $fieldErrors.get('maxRssItems'),
+        "extraFieldClasses": "short-field"})
+    $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+    #set($isDisabled = !($systemAdmin && $editMode))
+    #set($_params = {
+        "labelContent": "$i18n.getText('rss.max.time')",
+        "name": "rssTimeout",
+        "id": "rssTimeout",
+        "value": $!rssTimeout,
+        "isDisabled": $isDisabled,
+        "descriptionContent": "$i18n.getText('rss.max.time.description')",
+        "type": "#if($editMode == true)text#{else}value#end",
+        "errorTexts": $fieldErrors.get('rssTimeout'),
+        "inlineText": "$!i18n.getText('core.dateutils.seconds')",
+        "extraFieldClasses": "short-field"})
+    $soyTemplateRendererHelper.getRenderedTemplateHtml(
+        "confluence.web.resources:shared-templates", "Confluence.Templates.TextField.textField.soy", $_params)
+    #set($isDisabled = !($systemAdmin && $editMode))
+    #set($_params = {"labelContent":"$i18n.getText('page.render.max.time')",
+        "name": "pageTimeout",
+        "id": "pageTimeout",
+        "value": $!pageTimeout,
+        "isDisabled": $isDisabled,
+        "descriptionContent": "$i18n.getText('page.render.max.time.description')",
+        "type": "#if($editMode == true)text#{else}value#end",
+        "errorTexts": $!fieldErrors.get('pageTimeout'),
+        "extraFieldClasses": "short-field",
+        "inlineText": "$i18n.getText('core.dateutils.seconds')"})
+    $soyTemplateRendererHelper.getRenderedTemplateHtml(
+        "confluence.web.resources:shared-templates", "Confluence.Templates.TextField.field.soy", $_params)
+
+    <fieldset class="group">
+        #if (!$editMode || ($editMode && $action.passConfirmationConfigurable))
+            <legend><span>$action.getText("login.elevatedsecurity.use.captcha")</span></legend>
+            #set( $isDisabledcheckbox = !$editMode)
+            #set ($templateParameters = {"id":"enableElevatedSecurityCheck",
+                "value": "true",
+                "name": "enableElevatedSecurityCheck",
+                "isDisabled": $isDisabledcheckbox,
+                "isChecked": $enableElevatedSecurityCheck,
+                "labelContent":"$i18n.getText('enable.name')",
+                "type": "checkbox"})
+            $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $templateParameters)
+            #if($editMode && $action.passConfirmationConfigurable)
+                #set($_params = {
+                    "id": "loginAttemptsThreshold",
+                    "labelContent": "$i18n.getText('')",
+                    "name": "loginAttemptsThreshold",
+                    "value": $!loginAttemptsThreshold,
+                    "type": "#if($editMode == true)text#{else}value#end",
+                    "isDisabled": false,
+                    "errorTexts": $!fieldErrors.get('loginAttemptsThreshold'),
+                    "extraFieldClasses": "short-field",
+                    "inlineText": "$action.getText('login.elevatedsecurity.loginAttemptsThreshold.form')"})
+                $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                    "confluence.web.resources:shared-templates", "Confluence.Templates.TextField.textField.soy", $_params)
+            #elseif (!$editMode)
+                #if (!$action.passConfirmationConfigurable)
+                    $action.getText('password.confirmation.disabled')
+                #elseif($action.enableElevatedSecurityCheck)
+                    <label>
+                        #if ($action.enableElevatedSecurityCheck && $action.loginAttemptsThreshold >= 0)
+                            #if($action.loginAttemptsThreshold == 0)
+                                ($action.getText('login.elevatedsecurity.loginAttemptsThreshold.label.always'))
+                            #elseif($action.loginAttemptsThreshold == 1)
+                                ($action.getText('login.elevatedsecurity.loginAttemptsThreshold.label.singular'))
+                            #else
+                                ($action.getText('login.elevatedsecurity.loginAttemptsThreshold.label.plural', [$action.loginAttemptsThreshold]))
+                            #end
+                        #end
+                    </label>
+                #end
+            #end
+        #end
+    </fieldset>
+    <fieldset class="group">
+        #if (!$editMode || ($editMode && $action.passConfirmationConfigurable))
+            <legend><span>$action.getText("websudo.enabled")</span></legend>
+            #set( $isDisabledcheckbox = !$editMode)
+            #set ($templateParameters = {"id":"webSudoEnabled",
+                "value": "true",
+                "name": "webSudoEnabled",
+                "isDisabled": $isDisabledcheckbox,
+                "isChecked": $webSudoEnabled,
+                "labelContent": "$i18n.getText('enable.name')",
+                "type": "checkbox"})
+            $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $templateParameters)
+            #if($editMode)
+                #set($_params = {
+                    "id": "webSudoTimeout",
+                    "labelContent": "$i18n.getText('')",
+                    "name": "webSudoTimeout",
+                    "value": $!webSudoTimeout,
+                    "type": "#if($editMode == true)text#{else}value#end",
+                    "isDisabled": false,
+                    "errorTexts": $!fieldErrors.get('webSudoTimeout'),
+                    "extraFieldClasses": "short-field",
+                    "inlineText": "$action.getText('websudo.timeout.label.input')"})
+                $soyTemplateRendererHelper.getRenderedTemplateHtml("confluence.web.resources:shared-templates", "Confluence.Templates.TextField.textField.soy", $_params)
+            #else
+                #if (!$action.passConfirmationConfigurable)
+                    $action.getText('password.confirmation.disabled')
+                #elseif($action.webSudoEnabled)
+                    <label>
+                        #if ($action.webSudoEnabled && $action.webSudoTimeout >= 0)
+                            #if($action.loginAttemptsThreshold == 1)
+                                ($action.getText('websudo.timeout.label.singular'))
+                            #else
+                                ($action.getText('websudo.timeout.label.plural', [$action.webSudoTimeout]))
+                            #end
+                        #end
+                    </label>
+                #end
+            #end
+         #end
+        <div class="description description-textbox">
+            $i18n.getText('secure.admin.sessions.description')
+         #doc("help.secure.admin.sessions" "$i18n.getText('more.about.secure.admin.sessions')")
+        </div>
+    </fieldset>
+
+    #set( $isDisabled = !($systemAdmin && $editMode))
+    $soyTemplateRendererHelper.getRenderedTemplateHtml("confluence.web.resources:shared-templates", "Confluence.Templates.Radiolist.auiRadiolist.soy",{
+        "labelValue": "$action.getText('attachment.security.level.label')",
+        "editMode": $editMode,
+        "name": "attachmentSecurityLevel",
+        "value": $attachmentSecurityLevel,
+        "list": $attachmentSecurityLevels,
+        "isDisabled": $isDisabled,
+        "listKey": "value",
+        "listValue": "key",
+        "displayValue": $attachmentSecurityLevelDisplay
+    })
+
+    <h2 id="xsrf">
+        $action.getText("sub.title.xsrf")
+        #if(!$editMode)
+            <a href="$req.contextPath/admin/editsecurityconfig.action#xsrf" class="edit-link aui-button">
+                <span class="aui-icon aui-icon-small aui-iconfont-edit"></span>
+                $action.getText("edit.name")
+            </a>
+        #end
+    </h2>
+    <p>$action.getText("sub.title.xsrf.description")</p>
+    <div class="group">
+        #set( $isDisabledcheckbox = !($systemAdmin && $editMode))
+        #set ($templateParameters = {
+            "isDisabled": $isDisabledcheckbox,
+            "value": "true",
+            "type": "checkbox",
+            "labelContent": "$i18n.getText('xsrf.addComments')",
+            "name": "xsrfAddComments",
+            "id": "xsrfAddComments",
+            "isChecked": $xsrfAddComments,
+            "descriptionText": "$i18n.getText('xsrf.addComments.description')"})
+        $soyTemplateRendererHelper.getRenderedTemplateHtml(
+            "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $templateParameters)
+    </div>
+
+    <div class="hidden parameters">
+        <input type="hidden" id="editMode" value="$editMode">
+    </div>
+
+    ## Buttons
+    #if($editMode)
+        #ssubmit("theme='aui'"
+                 "submitValue=$action.getText('update.name')"
+                 "cancelValue=$action.getText('cancel.name')")
+    #end
+</form>
+    #parse("/breadcrumbs.vm")
+</body>
+</html>

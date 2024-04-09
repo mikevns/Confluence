@@ -1,0 +1,20 @@
+<html>
+	<head>
+		<title>$action.getText("restore.data")</title>
+	</head>
+	<body>
+    #parse ("/setup/analytics-data.vm")
+    #parse ("/template/includes/actionerrors.vm")
+    <p>
+    #if ($clusterNodeId)
+        #applyDecorator ("message")
+            #decoratorParam("type" "warning")
+            $i18n.getText('restore.site.synchrony.warning')
+        #end
+    #end
+    #set ($upload-and-restore-form-action = "setup-restore.action")
+    #set ($restore-local-file-form-action = "setup-restore-local.action")
+    #parse ("/importexport/includes/restore-include.vm")
+    </p>
+	</body>
+</html>

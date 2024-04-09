@@ -1,0 +1,1 @@
+define("confluence/table-floating-scrollbar",["jquery"],function(a){return{initialize:function(){var b=a(".wiki-content").find(".table-wrap");b.length&&b.floatingScrollbar()}}});require("confluence/module-exporter").safeRequire("confluence/table-floating-scrollbar",function(a){require("ajs").toInit(a.initialize)});

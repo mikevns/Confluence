@@ -1,0 +1,110 @@
+{namespace Confluence.Templates.Select}
+
+/**
+ * @param? editMode
+ * @param? id
+ * @param? labelValue
+ * @param? hideValue
+ * @param? list
+ * @param? value
+ * @param? comment
+ * @param? isMultiple
+ * @param? isDisabled
+ * @param? size
+ * @param? isAutofocus
+ * @param? descriptionText
+ * @param? descriptionContent
+ * @param? disabled
+ * @param? name
+ * @param? listKey
+ * @param? listValue
+ */
+{template .auiSelect}
+    <div class="field-group {if $editMode == false} viewMode{/if} ">
+        <label for="{if $id} {$id} {/if}">{$labelValue}</label>
+        {if $editMode == false}
+            <span {if $id} id={$id} {/if} class="field-value">
+                {if not $hideValue}
+                    {if $value}
+                        {if $list}
+                            {foreach $item in $list}
+                                {if $item.key == $value}
+                                    {$item.value}
+                                {/if}
+                            {/foreach}
+                        {/if}
+                    {else}
+                        {$list[0].value}
+                    {/if}
+                {/if}
+                {if $comment}
+                    {$comment}
+                {/if}
+            </span>
+        {else}
+            <select{if $id} id="{$id}"{/if} name="{if $name}{$name}{else}{$id}{/if}" class="{$isMultiple ? 'multi-select' : 'select'}{call aui.renderExtraClasses data="all" /}"
+                    {if $size} size="{$size}"{/if}{if $isDisabled} disabled{/if}{if $isAutofocus} autofocus{/if}{if $isMultiple} multiple{/if}
+                    {call aui.renderExtraAttributes data="all" /}
+                    {call aui.form.renderValidationArguments data="all"/}
+                    {call aui.form.renderInfoMessage data="all" /}
+                    {call aui.form.renderFieldComponentAttribute data="all" /}
+                    {call aui.form.renderTooltipArguments data="all" /}
+            >
+                {foreach $option in $list}
+                    {let $itemkey: $listKey ? $option[$listKey] : $option /}
+                    {let $itemvalue: $listValue ? $option[$listValue] : $option /}
+                    {let $itemselect: $isMultiple ? $option.selected : $itemkey == $value /}
+                    <option value="{$itemkey}" {if $itemselect} selected{/if} {if $disabled} disabled{/if}>{$itemvalue}</option>
+                {/foreach}
+            </select>
+        {/if}
+        {if $descriptionText or $descriptionContent}
+            {call aui.form.fieldDescription}
+                {param id: $id/}
+                {param text: $descriptionText /}
+                {param content: $descriptionContent /}
+            {/call}
+        {/if}
+    </div>
+{/template}
+
+/**
+ * @param? disabled
+ * @param? name
+ * @param? id
+ * @param? isMultiple
+ * @param? size
+ * @param? isDisabled
+ * @param? isAutofocus
+ * @param? headerKey
+ * @param? headerValue
+ * @param? emptyOption
+ * @param? list
+ * @param? value
+ * @param? listKey
+ * @param? listValue
+ */
+{template .notableSelect}
+    <span style="padding-left:4px">
+        <select{if $id} id="{$id}"{/if} name="{if $name}{$name}{else}{$id}{/if}" class="{$isMultiple ? 'multi-select' : 'select'}{call aui.renderExtraClasses data="all" /}"
+                {if $size} size="{$size}"{/if}{if $isDisabled} disabled{/if}{if $isAutofocus} autofocus{/if}{if $isMultiple} multiple{/if}
+                {call aui.renderExtraAttributes data="all" /}
+                {call aui.form.renderValidationArguments data="all"/}
+                {call aui.form.renderInfoMessage data="all" /}
+                {call aui.form.renderFieldComponentAttribute data="all" /}
+                {call aui.form.renderTooltipArguments data="all" /}
+        >
+            {if $headerKey and $headerValue}
+                <option value="{$headerKey}" {if $headerKey == $value} selected{/if}{if $disabled} disabled{/if}>{$headerValue}</option>
+            {/if}
+            {if $emptyOption}
+                <option value="" {if $disabled} disabled{/if}></option>
+            {/if}
+            {foreach $option in $list}
+                {let $itemkey: $listKey ? $option[$listKey] : $option /}
+                {let $itemvalue: $listValue ? $option[$listValue] : $option /}
+                <option value="{$itemkey}" {if $itemkey == $value} selected{/if}{if $disabled} disabled{/if}>{$itemvalue}</option>
+            {/foreach}
+        </select>
+    </span>
+{/template}

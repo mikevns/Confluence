@@ -1,0 +1,72 @@
+<html>
+	<head>
+		<title>$action.getText("title.import.pages")</title>
+    </head>
+
+
+    #applyDecorator("root")
+        #decoratorParam("helper" $action.helper)
+        #decoratorParam("context" "space-administration")
+        #decoratorParam("mode"  "view-space-administration")
+        #decoratorParam("help-path" "/spaces/help/importpages.vm")
+
+        <body>
+
+            #applyDecorator ("root")
+                #decoratorParam ("context" "spaceadminpanel")
+                #decoratorParam ("selection" "importpages")
+                #decoratorParam ("title" $action.getActionName($action.getClass().getName()))
+                #decoratorParam ("selectedTab" "admin")
+                #decoratorParam ("selectedSpaceToolsWebItem" "importpages")
+                #decoratorParam("helper" $action.helper)
+
+                <div class="import-pages">
+                    <p>$action.getText('importpages.help.header', [$htmlUtil.htmlEncode($action.getPageImportDirectory())])
+                    <ul>
+                    <li>$action.getText('importpages.page.title.from.filename')
+                    <li>$action.getText('importpages.content.is.entire.body')
+                    </ul>
+                    </p>
+                    <div>
+                            <form method="POST" name="importpagesform" action="doimportpages.action?key=${key}" class="aui">
+                                <fieldset>
+                                    #form_xsrfToken()
+
+                                    #set($_params = {
+                                        "labelContent":"$i18n.getText('directory')",
+                                        "name":"directory",
+                                        "id":"directory",
+                                        "value":$!directory,
+                                        "size":"50",
+                                        "type":"text",
+                                        "isDisabled":false,
+                                        "errorTexts": $!fieldErrors.get('directory')})
+                                    $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                                        "com.atlassian.auiplugin:aui-experimental-soy-templates",
+                                        "aui.form.field.soy", $_params)
+                                    <div class="field-group">
+                                    <div class="checkbox">
+                                        <input class="checkbox" type="checkbox" name="trimExtension" value="true">
+                                        <label>$action.getText('trim-extension')</label>
+                                    </div>
+                                </div>
+                                <div class="field-group">
+                                    <div class="checkbox">
+                                        <input class="checkbox" type="checkbox" name="overwriteExisting" value="true">
+                                        <label>$action.getText('overwrite-existing')</label>
+                                    </div>
+                                </div>
+                                #ssubmit("theme='aui'"
+                                         "editMode=true"
+                                         "submitValue=$action.getText('import.name')"
+                                         "submitName=import"
+                                         "cancelValue=$action.getText('cancel.name')")
+                                </fieldset>
+                            </form>
+                    </div>
+
+                </div>
+            #end
+        </body>
+    #end
+</html>

@@ -1,0 +1,312 @@
+#* @vtlvariable name="action" type="com.atlassian.confluence.admin.actions.GeneralConfigurationAction" *#
+<html>
+	<head>
+		<title>$action.getText("title.general.config")</title>
+        <content tag="selectedWebItem">generalconfiguration</content>
+    </head>
+	<body>
+        #requireResource("confluence.web.resources:aui-forms")
+        #requireResource("confluence.sections.admin.generalconfig:resources")
+
+        #parse ( "/template/includes/actionerrors.vm" )
+
+        #if($editMode)
+            #set($formAction="doeditgeneralconfig.action")
+        #else
+            #set($formAction="editgeneralconfig.action")
+        #end
+
+        <form method="POST" class="aui long-label" name="editgeneralconfig" action="$formAction">
+            #form_xsrfToken()
+
+            ##Site Configuration
+
+            <h2>
+                $action.getText("sub.title.site")
+                #if(!$editMode)
+                    <a href="$req.contextPath/admin/editgeneralconfig.action" class="edit-link aui-button">
+                        <span class="aui-icon aui-icon-small aui-iconfont-edit"></span>
+                        $action.getText("edit.name")
+                    </a>
+                #end
+            </h2>
+            <p>$action.getText("sub.title.site.description")</p>
+            #set($_params = {
+                "labelContent": "$i18n.getText('site.title')",
+                "name": "siteTitle",
+                "id": "siteTitle",
+                "value": $!siteTitle,
+                "descriptionContent": "$i18n.getText('generalconfig.site.title.description')",
+                "type": "#if($editMode == true)text#{else}value#end",
+                "errorTexts": $!fieldErrors.get('siteTitle'),
+                "extraFieldClasses": "long-field"})
+            $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+
+            <div id="urlWarning" class="hidden warning-message">
+                $action.getText("warning.domain.name.match") <a href="$action.getText(
+                'url.confluence.atlassian')/display/CONFKB/Various+issues+Caused+when+Server+Base+URL+does+not+Match+the+URL+used+to+access+Confluence"> $action.getText(
+                "warning.domain.name.match.kb")</a>
+            </div>
+            #set($isDisabled = !($systemAdmin && $editMode))
+            #set( $editbaseurlDescription ="$i18n.getText('server.base.url.description') #doc(
+                'help.configure.server.URL' $action.getText('more.about.server.base.url'))")
+            #set($_params = {
+                "id": "editbaseurl",
+                "labelContent": "$i18n.getText('server.base.url')",
+                "name": "domainName",
+                "value": $!domainName,
+                "isDisabled": $isDisabled,
+                "descriptionContent": $editbaseurlDescription,
+                "isAutofocus": "$action.isEditBaseUrl()",
+                "type": "#if($editMode == true)text#{else}value#end",
+                "errorTexts": $!fieldErrors.get('domainName'),
+                "extraFieldClasses": "long-field"})
+            $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+
+            #if ($editMode)
+                #set ($templateParameters = {
+                    "labelContent": "$i18n.getText('site.custom.contact.admin.message')",
+                    "name": "customContactAdminMessage",
+                    "id": "customContactAdminMessage",
+                    "value": $customContactAdminMessage,
+                    "rows": "5",
+                    "cols": "72",
+                    "errorTexts": $action.fieldErrors.get("customContactAdminMessage"),
+                    "descriptionContent": "$i18n.getText('site.custom.contact.admin.message.description') #hint('input.accepts.wiki.markup')"})
+                $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.textareaField.soy", $templateParameters)
+            #else
+                <div class="field-group">
+                    <label>$action.getText("site.custom.contact.admin.message")</label>
+                    <div>$!action.renderedCustomErrorMessage</div>
+                    <div class="description">
+                        $i18n.getText('site.custom.contact.admin.message.description')
+                    </div>
+                </div>
+            #end
+
+            <div class="group">
+                #set( $isDisabledcheckbox = !$editMode)
+                #set ($templateParameters = {
+                    "isDisabled": $isDisabledcheckbox,
+                    "value": "true",
+                    "type": "checkbox",
+                    "labelContent": "$i18n.getText('site.custom.contact.admin.form')",
+                    "name": "showContactAdministratorsForm",
+                    "id": "showContactAdministratorsForm",
+                    "isChecked": $showContactAdministratorsForm,
+                    "descriptionText": "$i18n.getText('site.custom.contact.admin.form.description')"})
+                $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates",
+                    "aui.form.field.soy", $templateParameters)
+            </div>
+
+            ##Formatting and International Settings
+
+            <h2 id="formatting">
+                $action.getText("sub.title.formatting")
+                #if(!$editMode)
+                    <a href="$req.contextPath/admin/editgeneralconfig.action#formatting" class="edit-link aui-button">
+                        <span class="aui-icon aui-icon-small aui-iconfont-edit"></span>
+                        $action.getText("edit.name")
+                    </a>
+                #end
+            </h2>
+            <p>
+                $i18n.getText("sub.title.formatting.description", [ "$req.contextPath/admin/configurelanguage.action" ])
+                $i18n.getText('formatting.description')
+            </p>
+            $soyTemplateRendererHelper.getRenderedTemplateHtml("confluence.web.resources:shared-templates", "Confluence.Templates.Select.auiSelect.soy",{
+                "labelValue": "$i18n.getText('indexing.language')",
+                "editMode": $editMode,
+                "name": "indexingLanguage",
+                "listKey": "key"
+               ,
+                "listValue": "value",
+                "value": $indexingLanguage,
+                "list": $indexingLanguages
+            })
+            #set($_params = {
+                "labelContent": "$i18n.getText('defaultTimeFormatterPattern')",
+                "name": "defaultTimeFormatterPattern",
+                "id": "defaultTimeFormatterPattern",
+                "value": $!defaultTimeFormatterPattern,
+                "type": "#if($editMode == true)text#{else}value#end",
+                "isDisabled": false,
+                "errorTexts": $!fieldErrors.get('defaultTimeFormatterPattern')})
+            $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+            #set($_params = {
+                "labelContent": "$i18n.getText('defaultDateTimeFormatterPattern')",
+                "name": "defaultDateTimeFormatterPattern",
+                "id": "defaultDateTimeFormatterPattern",
+                "value": $!defaultDateTimeFormatterPattern,
+                "type": "#if($editMode == true)text#{else}value#end",
+                "isDisabled": false,
+                "errorTexts": $!fieldErrors.get('defaultDateTimeFormatterPattern')})
+            $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+            #set($_params = {
+                "labelContent": "$i18n.getText('defaultDateFormatterPattern')",
+                "name": "defaultDateFormatterPattern",
+                "id": "defaultDateFormatterPattern",
+                "value": $!defaultDateFormatterPattern,
+                "type": "#if($editMode == true)text#{else}value#end",
+                "isDisabled": false,
+                "errorTexts": $!fieldErrors.get('defaultDateFormatterPattern')})
+            $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+            #set($_params = {
+                "labelContent": "$i18n.getText('defaultLongNumberFormatterPattern')",
+                "name": "defaultLongNumberFormatterPattern",
+                "id": "defaultLongNumberFormatterPattern",
+                "value": $!defaultLongNumberFormatterPattern,
+                "type": "#if($editMode == true)text#{else}value#end",
+                "isDisabled": false,
+                "errorTexts": $!fieldErrors.get('defaultLongNumberFormatterPattern')})
+            $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+            #set($_params = {
+                "labelContent": "$i18n.getText('defaultDecimalNumberFormatterPattern')",
+                "name": "defaultDecimalNumberFormatterPattern",
+                "id": "defaultDecimalNumberFormatterPattern",
+                "value": $!defaultDecimalNumberFormatterPattern,
+                "type": "#if($editMode == true)text#{else}value#end",
+                "isDisabled": false,
+                "errorTexts": $!fieldErrors.get('defaultDecimalNumberFormatterPattern')})
+            $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+
+            ##Attachment Settings
+
+            <h2 id="attachments">
+                $action.getText("sub.title.attachment")
+                #if(!$editMode)
+                    <a href="$req.contextPath/admin/editgeneralconfig.action#attachments" class="edit-link aui-button">
+                        <span class="aui-icon aui-icon-small aui-iconfont-edit"></span>
+                        $action.getText("edit.name")
+                    </a>
+                #end
+            </h2>
+            #if ($systemAdmin && !$fileSystemAttachmentStorage)
+                <p>
+                    $i18n.getText("sub.title.attachment.description", [ "$req.contextPath/admin/attachmentstoragesetup.action" ])
+                </p>
+            #end
+            #if ($editMode)
+                #set($_params = {
+                    "labelContent": "$i18n.getText('attachment.max.size')",
+                    "name": "attachmentMaxSizeMb",
+                    "id": "attachmentMaxSizeMb",
+                    "value": $!attachmentMaxSizeMbEdit,
+                    "descriptionContent": "$i18n.getText('attachment.maximum.size.description')",
+                    "type": "#if($editMode == true)text#{else}value#end",
+                    "isDisabled": false,
+                    "errorTexts": $!fieldErrors.get('attachmentMaxSizeMb'),
+                    "extraFieldClasses": "short-field",
+                    "inlineText": "$!i18n.getText('attachment.maximum.size.unit')"})
+                $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                    "confluence.web.resources:shared-templates", "Confluence.Templates.TextField.textField.soy", $_params)
+            #else
+                #set($_params = {
+                    "labelContent": "$i18n.getText('attachment.max.size')",
+                    "name": "attachmentMaxSizeMb",
+                    "id": "attachmentMaxSizeMb",
+                    "value": $!attachmentMaxSizeMbNice,
+                    "descriptionContent": "$i18n.getText('attachment.maximum.size.description')",
+                    "type": "value",
+                    "isDisabled": false,
+                    "errorTexts": $!fieldErrors.get('attachmentMaxSizeMb'),
+                    "extraFieldClasses": "short-field"})
+                $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                    "confluence.web.resources:shared-templates", "Confluence.Templates.TextField.textField.soy", $_params)
+            #end
+            #set($_params = {
+                "labelContent": "$i18n.getText('attachment.max.upload')",
+                "name": "maxAttachmentsInUI",
+                "id": "maxAttachmentsInUI",
+                "value": $!maxAttachmentsInUI,
+                "type": "#if($editMode == true)text#{else}value#end",
+                "isDisabled": false,
+                "errorTexts": $!fieldErrors.get('maxAttachmentsInUI'),
+                "extraFieldClasses": "short-field"})
+            $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                "confluence.web.resources:shared-templates", "Confluence.Templates.TextField.textField.soy", $_params)
+
+            ##Connection Timeouts
+            <h2 id="timeouts">
+                $action.getText('timeouts.heading')
+                #if(!$editMode)
+                    <a href="$req.contextPath/admin/editgeneralconfig.action#timeouts" class="edit-link aui-button">
+                        <span class="aui-icon aui-icon-small aui-iconfont-edit"></span>
+                        $action.getText("edit.name")
+                    </a>
+                #end
+            </h2>
+            <div class="group">
+                #set( $isDisabledcheckbox = !($systemAdmin && $editMode))
+                #set ($templateParameters = {
+                    "isDisabled": $isDisabledcheckbox,
+                    "value": "true",
+                    "type": "checkbox",
+                    "labelContent": "$i18n.getText('gzip.response.encoding')",
+                    "name": "gzipResponseEncoding",
+                    "id": "gzipResponseEncoding",
+                    "isChecked": $gzipResponseEncoding})
+                $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates",
+                    "aui.form.field.soy", $templateParameters)
+            </div>
+            <div class="group">
+                #set( $isDisabledcheckbox = !($systemAdmin && $editMode))
+                #set ($templateParameters = {
+                    "isDisabled": $isDisabledcheckbox,
+                    "value": "true",
+                    "type": "checkbox",
+                    "labelContent": "$i18n.getText('timeouts.enabled')",
+                    "name": "connectionsEnabled",
+                    "id": "connectionsEnabled",
+                    "isChecked": $connectionsEnabled})
+                $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates",
+                    "aui.form.field.soy", $templateParameters)
+            </div>
+
+            #set($isDisabled = !($systemAdmin && $editMode))
+            #set($_params = {
+                "id": "connectionTimeouts",
+                "labelContent": "$i18n.getText('timeouts.connectionTimeout')",
+                "name": "connectionTimeout",
+                "value": $!connectionTimeout,
+                "isDisabled": $isDisabled,
+                "type": "#if($editMode == true)text#{else}value#end",
+                "errorTexts": $!fieldErrors.get('connectionTimeout'),
+                "extraFieldClasses": "short-field"})
+            $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+            #set($isDisabled = !($systemAdmin && $editMode))
+            #set($_params = {
+                "id": "socketTimeouts",
+                "labelContent": "$i18n.getText('timeouts.socketTimeout')",
+                "name": "socketTimeout",
+                "value": $!socketTimeout,
+                "isDisabled": $isDisabled,
+                "type": "#if($editMode == true)text#{else}value#end",
+                "errorTexts": $!fieldErrors.get('socketTimeout'),
+                "extraFieldClasses": "short-field"})
+            $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+
+            <div class="hidden parameters">
+                <input type="hidden" id="editMode" value="$editMode">
+            </div>
+
+            ## Buttons
+            #if ($editMode)
+                #ssubmit("theme='aui'"
+                         "submitValue=$action.getText('update.name')"
+                         "cancelValue=$action.getText('cancel.name')")
+            #end
+        </form>
+
+		#parse("/breadcrumbs.vm")
+	</body>
+</html>

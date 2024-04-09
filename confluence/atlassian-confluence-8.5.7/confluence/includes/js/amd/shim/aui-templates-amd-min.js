@@ -1,0 +1,1 @@
+define("aui/templates",function(){return aui});

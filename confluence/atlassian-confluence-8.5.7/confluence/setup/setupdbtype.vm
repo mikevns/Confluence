@@ -1,0 +1,171 @@
+#macro(missingJdbcDriver $databaseValue $databaseTitle)
+    #set ($id = $databaseValue + "-missing-driver-instruction")
+    <div id="$id" class="invisible">
+        <div class="field-group instruction-spacing">
+            <div>
+                <p><b>$action.getText("unbundled.driver.error.title", [$databaseTitle])</b></p>
+                <ol class="jdbc-download-instruction-steps">
+                    <li>$action.getText("unbundled.driver.step1.error", [$databaseTitle])</li>
+                    <li>$action.getText("unbundled.driver.step2.error", [$webRealPath])</li>
+                    <li>$action.getText("unbundled.driver.step3.error")</li>
+                </ol>
+            </div>
+        </div>
+        <div class="field-group form-buttons compact-form-buttons">
+            <a class="aui-button" id="getJdbcDriver" name="getJdbcDriver" href="https://confluence.atlassian.com/x/3p4C">$action.getText('get.unbundled.driver.button', [$databaseTitle])</a>
+        </div>
+    </div>
+#end
+
+<html>
+<head>
+    <link rel="stylesheet" type="text/css"
+          href="confluence-core/confluence-webapp/src/main/webapp/setup/includes/css/setup-select-database-type.css"/>
+    <title>$action.getText("title.setup.dbchoose")</title>
+    #requireResource("com.atlassian.auiplugin:aui-spinner")
+    $webResourceManager.requireResourcesForContext("setup.setup-select-database-type")
+    $webResourceManager.requireResourcesForContext("setup.setup-db")
+</head>
+<body>
+    #parse ("/setup/analytics-data.vm")
+    #parse ("/setup/setup-button.vm")
+    #parse ("/setup/setup-progress-indicator.vm" )
+    #parse ("/template/includes/actionerrors.vm" )
+
+    <div class="setup-hint">$action.getText("setup.step.description.dbchoice")</div>
+
+    <form method="POST" id="setupdbtype" name="setupdbtype" action="setupdbtype.action" class="aui">
+        #form_xsrfToken()
+        <div class="field-group ">
+            <label for="dbConfigInfo-databaseType">$i18n.getText('database.type')</label>
+            <select name="dbConfigInfo.databaseType" id="dbConfigInfo-databaseType" class="select">
+                #foreach( $db in $dbConfigInfo.databases )
+                    <option value="$!htmlUtil.htmlEncode($db.key)"
+                            #if( $tag.contains($dbConfigInfo.databaseType, $db.key) )selected="selected"#end
+                    >$!htmlUtil.htmlEncode($db.value)</option>
+                #end
+            </select>
+        </div>
+
+        #if($missingMySQLDriver)
+            #missingJdbcDriver("mysql" "MySQL")
+        #end
+        #if($missingOracleDriver)
+            #missingJdbcDriver("oracle" "Oracle")
+        #end
+
+        <fieldset class="field-group">
+            <label id="simple-label" for="dbConfigInfo.simple"><span>$action.getText("database.jdbc.form.setup.type")<span></label>
+            <div class="radio">
+                <input class="radio" type="radio" name="dbConfigInfo.simple" id="dbConfigInfo-simple" value="true" #if($dbConfigInfo.simple)checked#end/>
+                <label for="dbConfigInfo-simple">$action.getText("database.jdbc.form.simple")</label>
+            </div>
+            <div class="radio">
+                <input class="radio" type="radio" name="dbConfigInfo.simple" id="dbConfigInfo-customize" value="false" #if($dbConfigInfo.simple == false)checked#end/>
+                <label for="dbConfigInfo-customize">$action.getText("database.jdbc.form.url")</label>
+            </div>
+            <div class="hint"><span>$action.getText("database.jdbc.form.url.hint")</span></div>
+        </fieldset>
+
+        <div class="field-group">
+            <label id="dbConfigInfo-databaseUrl-label" for="dbConfigInfo-databaseUrl">
+            $i18n.getText('database-url')
+            <span class="aui-icon icon-required"></span>
+            <span class="content">$action.getText('required.field')</span>
+            </label>
+            <input type="text" name="dbConfigInfo.databaseUrl" id="dbConfigInfo-databaseUrl" class="text long-field" value=$!dbConfigInfo.databaseUrl >
+            #fielderrorAUI('dbConfigInfo.databaseUrl')
+       </div>
+
+        <div class="field-group" style="display: inline-block;">
+            <label id="dbConfigInfo-hostname-label" for="dbConfigInfo-hostname">
+                $i18n.getText('database.jdbc.form.hostname')
+                <span class="aui-icon icon-required"></span>
+                <span class="content">$action.getText('required.field')</span>
+            </label>
+            <input type="text" name="dbConfigInfo.hostname" id="dbConfigInfo-hostname" class="text   simpleUrl">
+            #fielderrorAUI('dbConfigInfo.hostname')
+         </div>
+        <div class="field-group hint"><span class="simpleUrl">$action.getText("database.jdbc.form.hostname.hint")</span></div>
+
+            <div class="field-group" style="display: inline-block;">
+                <label id="dbConfigInfo-port-label" for="dbConfigInfo-port">
+                    $i18n.getText('database.jdbc.form.port')
+                    <span class="aui-icon icon-required"></span>
+                    <span class="content">$action.getText('required.field')</span>
+                </label>
+                <input type="text" name="dbConfigInfo.port" id="dbConfigInfo-port" class="text   simpleUrl" value=$!dbConfigInfo.port >
+                #fielderrorAUI('dbConfigInfo.port')
+            </div>
+        <div class="field-group hint"><span class="simpleUrl">$action.getText("database.jdbc.form.port.hint")</span></div>
+
+        <div class="field-group" style="display: inline-block;">
+            <label id="dbConfigInfo-databaseName-label" for="dbConfigInfo-databaseName">
+                $i18n.getText('database.jdbc.form.database.name')
+                <span class="aui-icon icon-required"></span>
+                <span class="content">$action.getText('required.field')</span>
+             </label>
+            <input type="text" name="dbConfigInfo.databaseName" id="dbConfigInfo-databaseName" class="text dbSpecific simpleUrl" value=$!dbConfigInfo.databaseName >
+            #fielderrorAUI('dbConfigInfo.databaseName')
+        </div>
+
+        <div class="field-group">
+            <label id="dbConfigInfo-serviceName-label" for="dbConfigInfo-serviceName">
+                $i18n.getText('database.jdbc.form.service.name')
+                <span class="aui-icon icon-required"></span>
+                <span class="content">$action.getText('required.field')</span>
+             </label>
+            <input type="text" name="dbConfigInfo.serviceName" id="dbConfigInfo-serviceName" class="text dbSpecific simpleUrl" value=$!dbConfigInfo.serviceName >
+            #fielderrorAUI('dbConfigInfo.serviceName')
+        </div>
+
+        <div class="field-group">
+            <label id="dbConfigInfo-username-label" for="dbConfigInfo-username">
+                $i18n.getText('database.jdbc.form.username')
+                <span class="aui-icon icon-required"></span>
+                <span class="content">$action.getText('required.field')</span>
+             </label>
+            <input type="text" name="dbConfigInfo.userName" id="dbConfigInfo-username" class="text" value=$!dbConfigInfo.userName >
+            #fielderrorAUI('dbConfigInfo.userName')
+        </div>
+        <div class="field-group" style="display: inline-block;">
+            <label id="dbConfigInfo-password-label" for="dbConfigInfo-password">
+                $i18n.getText('password.name')
+            </label>
+            <input type="password" name="dbConfigInfo.password" id="dbConfigInfo-password" value="" class="password" value=$!dbConfigInfo.password >
+        </div>
+
+        <div class="field-group">
+            <label id="dbConfigInfo-instanceName-label" for="dbConfigInfo-instanceName">
+                $i18n.getText('database.jdbc.form.instance.name')
+                <span class="aui-icon icon-required"></span>
+                <span class="content">$action.getText('required.field')</span>
+             </label>
+            <input type="text" name="dbConfigInfo.instanceName" id="dbConfigInfo-instanceName" class="text dbSpecific simpleUrl" value=$!dbConfigInfo.instanceName >
+            #fielderrorAUI('dbConfigInfo.instanceName')
+        </div>
+
+        <input type="hidden" id="database" name="database" value=""></input>
+
+        <div class="field-group form-buttons compact-form-buttons testConnection">
+            <button class="aui-button" id="testConnection" name="testConnection" type="button">$action.getText('setup.database.test.connection')</button>
+            <div id="setupdb-successMessage" class="success">
+                <span class="custom-icon icon-success"></span><div class="connectionSuccess">$action.getText("setup.database.test.connection.success")</div>
+            </div>
+            <div id="setupdb-spinner" class="button-spinner"></div>
+        </div>
+
+        <div class="buttons-container setup-progress-spinner-container">
+            <div class="buttons">
+                #if ($action.isThisNodeClustered())
+                    #set($backLink = "$req.contextPath/setup/setupdbchoice-start.action?thisNodeClustered=true")
+                #else
+                    #set($backLink = "$req.contextPath/setup/setupdbchoice-start.action")
+                #end
+                #setupNextButton(false)
+                <a href="$backLink" id="backLink" class="aui-button aui-button-link setup-back-button">$action.getText('setup.back')</a>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

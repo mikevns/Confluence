@@ -1,0 +1,50 @@
+<html>
+	<head>
+		<title>$action.getText("title.moinmoin")</title>
+##		<meta name="help-path" content="/importexport/help/restore.vm"/>
+	</head>
+
+	<body>
+		#parse ( "/template/includes/actionerrors.vm" )
+        <p>
+        $action.getText("desc")<p>
+        <div class="functionbox-greyborder"><strong class="bad">WARNING</strong><br>
+        <ul>
+        <li>This importer is very experimental, please let us know of your experiences.
+        <li>Attachments are not currently imported.
+        <li>No users are imported (where are they stored in MoinMoin?)
+        <li>The import process can take a few minutes, please be patient.
+        </ul></div>
+
+        <p>
+		<table class="grid" width=100%>
+			<form method="POST" action="moinmoinimport.action">
+				$soyTemplateRendererHelper.getRenderedTemplateHtml("confluence.web.resources:shared-templates", "Confluence.Templates.Select.auiSelect.soy",{
+                    "labelValue": "$i18n.getText('import.space')",
+                    "editMode": $editMode,
+                    "name": "spaceId",
+                    "value": $spaceId,
+                    "list": $spaces,
+                    "listKey": "id",
+                    "listValue": "name"
+                })
+				#set($_params = {
+					"labelContent":"$i18n.getText('directory')",
+					"name":"directoryPath",
+					"id":"directoryPath",
+					"value":$!directoryPath,
+					"type":"#if($editMode == true)text#{else}value#end",
+					"isDisabled":false})
+				$soyTemplateRendererHelper.getRenderedTemplateHtml(
+					"com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+				<tr>
+				<td colspan="2" align="center">
+						#ssubmit("value=getText('import-action')" "theme='notable'")
+					</td>
+				</tr>
+			</form>
+		</table>
+
+		#parse ( "/breadcrumbs.vm" )
+	</body>
+</html>

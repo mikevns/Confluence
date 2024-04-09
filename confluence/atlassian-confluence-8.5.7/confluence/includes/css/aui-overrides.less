@@ -1,0 +1,425 @@
+@import "colors.less";
+
+/* TODO: Remove this when AUI-4933 is fixed */
+aui-spinner {
+    z-index: auto !important;
+}
+
+.aui-header a.aui-button {
+    line-height: 1.4285714285714;
+    display: inline-block;
+    padding: 4px 10px;
+}
+#editPageLink aui-spinner[size="small"] {
+    margin-left: 7px;
+}
+
+.aui-button-primary[aria-disabled="true"] .aui-icon-wait {
+    background-image: url(data:image/gif;base64,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);
+}
+
+/* Hank sez - way too spacey! */
+#com-atlassian-confluence .tipsy {
+    line-height: 16px;
+}
+
+.aui-navgroup-inner > div:first-child > .aui-nav-heading,
+.aui-navgroup-inner > div:first-child > div:first-child .aui-nav-heading {
+    border-top: 0;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+/* Prevents nasty buttons on iPad */
+.aui-button {
+    -webkit-appearance: none;
+}
+
+/* File uploads look like garbage (and it's the same on the ADG spec) */
+form.aui .field-group .upfile {
+    padding: 0;
+    position: relative;
+    bottom: -4px;
+    font-size: 13px;
+    margin: 0;
+}
+
+/* CONFDEV-13577 Team Calendars portions were covering the Tools menu */
+.aui-dropdown2 {
+    z-index: 1000;
+}
+
+/* CONFDEV-14742: Override aui style because disabled checkboxes are too bright
+   and cause very low contrast in pages like viewsecurityconfig.action */
+form.aui div.checkbox > .checkbox[disabled] + label {
+    color: #707070;
+}
+
+/* CONF-28482: Allow maximum-width textareas for various pages in the space admin */
+form.aui .textarea.max-textarea {
+    width: 100%;
+    max-width: none;
+}
+
+/* The background image is already on the #footer-logo, on mobile having both logos breaks */
+#footer .footer-body {
+    background-image: none;
+}
+
+/* These overides are needed to combat teamcal's jquery-ui datepicker custom styles */
+body .aui-datepicker-dialog .ui-datepicker {
+    position: static;
+}
+
+/* These overides are needed to combat teamcal's jquery-ui datepicker custom styles */
+.aui-datepicker-dialog div.ui-datepicker .ui-datepicker-prev,
+.aui-datepicker-dialog div.ui-datepicker .ui-datepicker-next {
+    background-image: none;
+}
+
+/* These overides are needed to combat confluence-business-blueprints ui jquery-ui custom styles
+ * Must be removed after CONFDEV-31901 is resolved */
+.aui-datepicker-dialog .ui-datepicker td .ui-state-default {
+    background: none;
+    color: inherit;
+}
+
+/* These overides are needed to combat confluence-business-blueprints ui jquery-ui custom styles
+ * Must be removed after CONFDEV-31901 is resolved */
+.aui-datepicker-dialog .ui-datepicker .ui-datepicker-unselectable {
+    opacity: 1;
+}
+
+/* These overides are needed to combat atlassian-streams ui jquery-ui datepicker custom styles*/
+.aui-datepicker-dialog .ui-icon {
+    text-indent: 0;
+}
+
+.aui-datepicker-dialog .ui-datepicker .ui-datepicker-prev span,
+.aui-datepicker-dialog .ui-datepicker .ui-datepicker-next span {
+    background: none;
+    height: auto;
+    width: auto;
+}
+
+.aui-inline-dialog.aui-datepicker-dialog .hasDatepicker .ui-widget-header {
+    background: #f5f5f5;
+}
+
+/* Temporary fix until CQ-1199 is complete */
+.aui-avatar-big img {
+    height: 48px;
+    width: 48px;
+}
+/* Temporary fix for aui-avatar before feature - currently supresses the hover effect */
+.aui-avatar:before{
+    border: none;
+    position: inherit;
+    float: left;
+}
+
+/* Globally downsize the ADG2.0/AUI5.7+ h1 font size because it was deemed too large for Confluence */
+h1 {
+    font-size: 28px;
+    line-height: 1.25;
+}
+
+/* Todo: The headings in the sidebar plugin need to be converted to styled <span>/<div>'s CONFDEV-29899 */
+.ia-quick-links-header-title {
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+/* Override padding on Atlassian Connect edit macro dialog. Should be removed once Connect >= 1.1.15 is in production */
+.ap-aui-dialog2 .aui-dialog2-content {
+    padding: 0;
+}
+
+/* Bring back overflow: hidden property on inline dialog contents that was removed in the latest AUI release
+ * Without an overflow: hidden property, some inline dialogs (date picker, create JIRA issue) are showing vertical
+ * scrollbars. This override should be examined once AUI-3078 is resolved */
+.aui-inline-dialog .aui-inline-dialog-contents, .aui-inline-dialog .contents {
+    overflow: hidden;
+}
+
+/* ACDEV-1661: This is a hot patch for OD-11 for an issue with chromeless connect dialogs.
+ * This code should be removed once ACDEV-1661 is fixed properly by a new version of atlassian-connect */
+.aui-dialog2.aui-layer[aria-hidden="true"].ap-aui-dialog2-chromeless > * {
+    opacity:0;
+    visibility: hidden;
+}
+.aui-dialog2.aui-layer[aria-hidden="false"].ap-aui-dialog2-chromeless > * {
+    opacity: 1;
+    transition: visibility 0.2s, opacity 0.2s;
+    transition-delay: 0s;
+    visibility: visible;
+}
+.aui-dialog2.aui-layer[aria-hidden="false"].ap-aui-dialog2-chromeless {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: opacity, visibility;
+}
+
+/* AUI 5.7 does not contain a aui-button-text which Confluence uses for icon only buttons without padding/margin/border.
+ * These CSS rules are taken from AUI 5.8. AUI 5.8 contains aui-button-text and once Confluence is upgraded to AUI 5.8,
+ * these overrides can be removed. [CONFDEV-28004] */
+.aui-button.aui-button-text,
+.aui-button.aui-button-text:visited {
+    background: transparent;
+    border-color: transparent;
+    color: #3572b0; /*@aui-link-color*/
+    padding: 4px 0; /*@aui-button-padding-y*/
+    text-decoration: none;
+    box-shadow: none;
+}
+
+.aui-button.aui-button-text:focus,
+.aui-button.aui-button-text:hover,
+.aui-button.aui-button-text:active,
+.aui-buttons .aui-button.aui-button-text:focus,
+.aui-buttons .aui-button.aui-button-text:hover,
+.aui-buttons .aui-button.aui-button-text:active,
+.aui-buttons .aui-button.aui-button-text[aria-pressed="true"] {
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    text-decoration: underline;
+}
+
+.aui-button.aui-button-text,
+.aui-button.aui-button-text:visited {
+    border: none;
+    font-size: inherit;
+    height: inherit;
+    line-height: normal;
+    padding: 0;
+}
+
+.aui-button.aui-button-text[disabled],
+.aui-button.aui-button-text[disabled]:hover,
+.aui-button.aui-button-text[disabled]:focus,
+.aui-button.aui-button-text[disabled]:active,
+.aui-button.aui-button-text[aria-disabled="true"],
+.aui-button.aui-button-text[aria-disabled="true"]:hover,
+.aui-button.aui-button-text[aria-disabled="true"]:focus,
+.aui-button.aui-button-text[aria-disabled="true"]:active {
+    background: transparent;
+    border-color: transparent;
+    color: #999; /*@aui-button-default-disabled-text-color*/
+    text-decoration: none;
+}
+
+.aui-button.aui-button-text[disabled] .aui-icon,
+.aui-button.aui-button-text[aria-disabled="true"] .aui-icon {
+    color: #999; /*@aui-button-default-disabled-text-color*/
+}
+
+/* END - These codes should be removed when AUI is upgraded to 5.8 */
+
+/* The date picker dialog has too much padding. This is caused by load ordering issues. Confluence is pulling in
+   Inline Dialog styles, Date picker styles and then Inline Dialog2 styles. The date picker resets the inline dialog
+   padding to 0px, but the Inline Dialog2 styles reset it back to 20px. Using higher specificity to battle the problem
+   This should be removed once https://ecosystem.atlassian.net/browse/AUI-3243 is resolved */
+.aui-inline-dialog.aui-datepicker-dialog .aui-inline-dialog-contents,
+.aui-inline-dialog.aui-datepicker-dialog .contents {
+    padding: 0;
+}
+
+/* Disabled styles clone from aui-button for dialog panel.
+   Should be deleted when Confluence dialogs are migrated from using AUI Dialog to using AUI Dialog 2 */
+.aui-dialog .dialog-button-panel button.button-panel-button {
+    background-color: @adg-B400-pacific-bridge;
+    color: @adg-N0-doctor;
+}
+
+.aui-dialog .dialog-button-panel button.button-panel-button:hover {
+    background-color: @adg-B300-sodium-explosion;
+    color: @adg-N0-doctor;
+}
+
+.aui-dialog .dialog-button-panel button.button-panel-button[disabled],
+.aui-dialog .dialog-button-panel button.button-panel-button[disabled]:hover,
+.aui-dialog .dialog-button-panel button.button-panel-button[disabled]:focus,
+.aui-dialog .dialog-button-panel button.button-panel-button[disabled]:active {
+    background: @adg-N20-grams-hair;
+    border-color: transparent;
+    box-shadow: none;
+    color: @adg-N70-blanche;
+    cursor: default;
+    text-shadow: none;
+}
+
+form.aui .aui-select2-container {
+    max-width: initial;
+}
+/**
+Adding a 'subtle' styled select2 search choice selection. At the moment this is used for negation selections
+in CQL filter fields i.e. selecting '-foo' in a label filter field will find all content with labels != foo
+
+This should be removed once https://ecosystem.atlassian.net/browse/AUI-3502 is resolved */
+.aui-select2-container .select2-choices .select2-search-choice.cql-exclude {
+    border-color: #e9e9e9 !important; /* This is  only  marked !important for now to override styling in current version of UI components */
+    color: #707070;
+    background-color: #f5f5f5;
+}
+
+/*
+   The AUI DatePicker version 1 uses an InlineDialog1 and has no way to add classes to inline dialog, or to bind to the
+   event of the dialog being shown. In short - there's no hook to set a manual z-index when the thing is shown.
+   No z-index means that the picker will be displayed UNDER anything with a z-index, such as the Macro Browser.
+   We override to a large value here because the date picker once shown spawns no further elements - there's no danger
+   of some other desired page element being obscured by it.
+ */
+.aui-datepicker-dialog {
+    z-index: 40000;
+}
+
+/* AUI-3636: AUI Dropdown2 is inheriting styles from aui-layer that shouldn't exist. This is causing layout issues when
+   resizing the browser window vertically while dropdowns are opened. This fix should be removed once the styles have
+   been removed from aui-layer. This is expected to be introduced in AUI 5.8.14. */
+.aui-dropdown2.aui-layer {
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
+}
+
+/* ANL-51: The color of Configure link in the dropdown is overridden in atlassian-nav-link when hovering
+   The root cause is the link text is overridden. When hovering on aui-dropdown item, 'active' css class
+   is no longer used in AUI 5.9 so the attempt to inherit AUI styles fails here. This fix should be removed
+   once atlassian-nav-links fix this issue, and remove all overridden styles. */
+.nav-links a:hover > .nav-link-label,
+.nav-links a:focus > .nav-link-label,
+.nav-links a:hover > .nav-link-description,
+.nav-links a:focus > .nav-link-description,
+.nav-links a:hover > .nav-link-edit,
+.nav-links a:focus > .nav-link-edit{
+    color: inherit; /* inherit from the Dropdown styling */
+}
+/*
+   FIXME CONFSRVDEV-10719: We may not be able to remove this but first-party usages should be
+   updated to use the newer AUI spinner functionality. Usage of this CSS class is deprecated and
+   strongly discouraged for style consistency, resolution and accessibility reasons.
+ */
+.aui-icon-wait {
+    background-image: url(data:image/gif;base64,R0lGODlhEAAQAPMPALu7u5mZmTMzM93d3REREQAAAHd3d1VVVWZmZqqqqoiIiO7u7kRERCIiIgARAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQFBwAPACwAAAAAEAAQAEAEcPDJtyg6dUrFetDTIopMoSyFcxxD1krD8AwCkASDIlPaUDQLR6G1Cy0SgqIkE1IQGMrFAKCcGWSBzwPAnAwarcKQ15MpTMJYd1ZyUDXSDGelBY0qIoBh/ZoYGgELCjoxCRRvIQcGD1kzgSAgAACQDxEAIfkEBQcADwAsAAAAAA8AEAAABF3wyfkMkotOJpscRKJJwtI4Q1MAoxQ0RFBw0xEvhGAVRZZJh4JgMAEQW7TWI4EwGFjKR+CAQECjn8DoN0kwDtvBT8FILAKJgfoo1iAGAPNVY9DGJXNMIHN/HJVqIxEAIfkEBQcADwAsAAAAABAADwAABFrwyfmColgiydpaQiY5x9Ith7hURdIl0wBIhpCAjKIIxaAUPQ0hFQsAC7MJALFSFi4SgC4wyHyuCYNWxH3AuhSEotkNGAALAPqqkigG8MWAjAnM4A8594vPUyIAIfkEBQcADwAsAAAAABAAEAAABF3wySkDvdKsddg+APYIWrcg2DIRQAcU6DJICjIsjBEETLEEBYLqYSDdJoCGiHgZwG4LQCCRECEIBAdoF5hdEIWwgBJqDs7DgcKyRHZl3uUwuhm2AbNNW+LV7yd+FxEAIfkEBQcACAAsAAAAABAADgAABEYQyYmMoVgeWQrP3NYhBCgZBdAFRUkdBIAUguVVo1ZsWFcEGB5GMBkEjiCBL2a5ZAi+m2SAURExwKqPiuCafBkvBSCcmiYRACH5BAUHAA4ALAAAAAAQABAAAARs0MnpAKDYrbSWMp0xZIvBKYrXjNmADOhAKBiQDF5gGcICNAyJTwFYTBaDQ0HAkgwSmAUj0OkMrkZM4HBgKK7YTKDRICAo2clAEIheKc9CISjEVTuEQrJASGcSBQcSUFEUDQUXJBgDBW0Zj34RACH5BAUHAA8ALAAAAAAQABAAAARf8Mn5xqBYgrVC4EEmBcOSfAEjSopJMglmcQlgBYjE5NJgZwjCAbO4YBAJjpIjSiAQh5ayyRAIDKvJIbnIagoFRFdkQDQKC0RBsCIUFAWsT7RwG410R8HiiK0WBwJjFBEAIfkEBQcADgAsAQABAA8ADwAABFrQybEWADXJLUHHAMJxIDAgnrOo2+AOibEMh1LN62gIxphzitRoCDAYNcNN6FBLShao4WzwHDQKvVGhoFAwGgtFgQHENhoB7nCwHRAIC0EyUcC8Zw1ha3NIRgAAIfkEBQcADwAsAAAAABAAEAAABGDwyfnWoljaNYYFV+Zx3hCEGEcuypBtMJBISpClAWLfWODymIFiCJwMDMiZBNAAYFqUAaNQ2E0YBIXGURAMCo1AAsFYBBoIScBJEwgSVcmP0li4FwcHz+FpCCQMPCFINxEAIfkEBQcADgAsAAABABAADwAABFzQyemWXYNqaSXY2vVtw3UNmROM4JQowKKlFOsgRI6ASQ8IhSADFAjAMIMAgSYJtByxyQIhcEoaBcSiwegpDgvAwSBJ0AIHBoCQqIAEi/TCIAABGhLG8MbcKBQgEQAh+QQFBwAPACwAAAEAEAAPAAAEXfDJSd+qeK5RB8fDRRWFspyotAAfQBbfNLCVUSSdKDV89gDAwcFBIBgywMRnkWBgcJUDKSZRIKAPQcGwYByAAYTEEJAAJIGbATEQ+B4ExmK9CDhBd8ThdHw/AmUYEQAh+QQFBwAPACwAAAEADwAPAAAEXvBJQIa8+ILSspdHkXxS9wxF4Q3L2aTBeC0sFjhAtuyLIjAMhYc2GBgaSKGuyNoBDp7czFAgeBIKwC6kWCAMxUSAFjtNCAAFGGF5tCQLAaJnWCTqHoREvQuQJAkyGBEAOw==);
+}
+
+/* CONFDEV-18442 Remove extra space next to site logo in AUI9 */
+.aui-header {
+    .aui-header-logo.aui-header-logo-custom {
+        margin-right: 0;
+
+        .aui-header-logo-text {
+            padding: 10px 0 10px 10px;
+        }
+    }
+    .aui-header-logo.aui-header-logo-confluence {
+        margin-right: 0;
+    }
+}
+
+/* CONFSRVDEV-18498: Fixing misaligned checkboxes in AUI 9 */
+#macro-browser-dialog.aui-popup form.aui:not(.aui-legacy-forms) .checkbox {
+    input:not(:checked) + .aui-form-glyph::before {
+        top: 13px;
+    }
+
+    input:checked + .aui-form-glyph::before {
+        top: 13px;
+    }
+}
+
+/* CONFSRVDEV-18740: icons are underlined in AUI 9 which shouldn't happen */
+.aui-icon {
+    text-decoration: none;
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+/* CONFSRVDEV-18504: fix incorrect top nav dropdown behaviours in AUI 9
+    - top nav dropdown is overlapped by left side nav
+    - CSS bleeding causes menu item colours to be off
+ */
+header#header nav.aui-header {
+    z-index: 11;
+
+    .aui-dropdown2-section {
+        a {
+            color: #172B4D;
+
+            &:focus, &:hover {
+                color: #172B4D;
+                background-color: #EBECF0;
+            }
+        }
+
+        a.aui-dropdown2-trigger.active {
+            background-color: #EBECF0;
+        }
+    }
+}
+
+/* CONFSRVDEV-18451: fix AUI9 issue on Edge 18:
+Current selection in <select> is not visible because
+background-color of <option> is always var(--aui-form-field-focus-bg-color)
+*/
+form.aui:not(.aui-legacy-forms) .multi-select:focus > option,
+form.aui:not(.aui-legacy-forms) .password:focus > option,
+form.aui:not(.aui-legacy-forms) .select:focus > option,
+form.aui:not(.aui-legacy-forms) .text:focus > option,
+form.aui:not(.aui-legacy-forms) .textarea:focus > option {
+    background-color: white;
+}
+
+/* CONFSRVDEV-18751: fix CSS interaction between AUI 9 and Atlaskit causing
+inputs to have strange blue focus ring around the Atlastkit inputs.
+Add ID of container of plugins which utilises Atlaskit here to fix issue.
+*/
+#audit-root,
+#gatekeeper-ui-global-config-root,
+#gatekeeper-ui-space-config-root,
+#retention-rules-root,
+#webhooks-root {
+    input:focus-visible {
+        box-shadow: none;
+    }
+}
+
+/*
+CONFSRVDEV-18753 - Fixes for tab menu focus rings
+:after - AUI 8
+:before - AUI 9
+*/
+#admin-body-content {
+    .aui-tabs li.active-tab a:before {
+        bottom: -2px;
+    }
+
+    .aui-tabs > ul.tabs-menu:before {
+        z-index: 0;
+    }
+
+    .aui-tabs li {
+        z-index: 1;
+    }
+
+    .aui-tabs > ul.tabs-menu {
+        padding: 2px 0px 2px 2px;
+    }
+}
+
+/*
+CONFSRVDEV-18691 - Fix alignment of nav-links
+*/
+header#header nav.aui-header .aui-header-before {
+    margin-right: 0;
+}
+
+/*
+CONFSRVDEV-18933 - Fix datepicker in AUI 9
+*/
+.aui-inline-dialog-contents .ui-datepicker {
+    width: inherit;
+}

@@ -1,0 +1,80 @@
+<html>
+	<head>
+		<title>$action.getText("title.formatting.config")</title>
+		<meta name="help-path" content="/admin/help/formattingconfig.vm"/>
+	</head>
+	<body>
+		#parse ( "/template/includes/actionerrors.vm" )
+
+		#if ($actionErrors.size() == 0)
+		    <div align="center">
+				<table class="grid" width="80%">
+					<form method="POST" action="formattingconfiguration.action">
+						#set($_params = {
+							"labelContent":"$i18n.getText('defaultTimeFormatterPattern')",
+							"name":"defaultTimeFormatterPattern",
+							"id":"defaultTimeFormatterPattern",
+							"value":$!defaultTimeFormatterPattern,
+							"size":"30",
+							"type":"#if($editMode == true)text#{else}value#end",
+							"isDisabled":false,
+							"errorTexts": $fieldErrors.get('defaultTimeFormatterPattern')})
+						$soyTemplateRendererHelper.getRenderedTemplateHtml(
+							"com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+						#set($_params = {
+							"labelContent":"$i18n.getText('defaultDateTimeFormatterPattern')",
+							"name":"defaultDateTimeFormatterPattern","id":"defaultDateTimeFormatterPattern",
+							"value":$!defaultDateTimeFormatterPattern,
+							"size":"30",
+							"type":"#if($editMode == true)text#{else}value#end",
+							"isDisabled":false,
+							"errorTexts": $fieldErrors.get('defaultDateTimeFormatterPattern')})
+						$soyTemplateRendererHelper.getRenderedTemplateHtml(
+							"com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+						#set($_params = {
+							"labelContent":"$i18n.getText('defaultDateFormatterPattern')",
+							"name":"defaultDateFormatterPattern",
+							"id":"defaultDateFormatterPattern",
+							"value":$!defaultDateFormatterPattern,
+							"size":"30",
+							"type":"#if($editMode == true)text#{else}value#end",
+							"isDisabled":false,
+							"errorTexts": $fieldErrors.get('defaultDateFormatterPattern')})
+						$soyTemplateRendererHelper.getRenderedTemplateHtml(
+							"com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+						#set($_params = {
+							"labelContent":"$i18n.getText('defaultLongNumberFormatterPattern')",
+							"name":"defaultLongNumberFormatterPattern",
+							"id":"defaultLongNumberFormatterPattern",
+							"value":$!defaultLongNumberFormatterPattern,
+							"size":"30",
+							"type":"#if($editMode == true)text#{else}value#end",
+							"isDisabled":false,
+							"errorTexts": $fieldErrors.get('defaultLongNumberFormatterPattern')})
+						$soyTemplateRendererHelper.getRenderedTemplateHtml(
+							"com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+						#set($_params = {
+							"labelContent":"$i18n.getText('defaultDecimalNumberFormatterPattern')",
+							"name":"defaultDecimalNumberFormatterPattern",
+							"id":"defaultDecimalNumberFormatterPattern",
+							"value":$!defaultDecimalNumberFormatterPattern,
+							"size":"30",
+							"type":"#if($editMode == true)text#{else}value#end",
+							"isDisabled":false,
+							"errorTexts": $fieldErrors.get('defaultDecimalNumberFormatterPattern')})
+						$soyTemplateRendererHelper.getRenderedTemplateHtml(
+							"com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+						<tr>
+						<td colspan="2" align="center">
+								#ssubmit("name='confirm'" "value='update.name'" "theme='notable'" )
+								#ssubmit("name='cancel'" "value='cancel.name'" "theme='notable'" )
+							</td>
+						</tr>
+					</form>
+				</table>
+			</div>
+		#end
+
+		#parse("/breadcrumbs.vm")
+	</body>
+</html>

@@ -1,0 +1,30 @@
+Notices and Licenses required for redistribution of Aspose.Imaging for Java library
+
+TABLE OF CONTENTS
+
+1. Aspose copyright notice
+2. Thirdparty licenses
+
+NOTICES AND LICENSES
+
+1. Aspose copyright notice
+
+Copyright (c) 2008-2017 Aspose Pty Ltd. All Rights Reserved.
+
+http://www.aspose.com/
+
+This product licensed (https://company.aspose.com/legal/eula) under the terms of the Aspose End User License Agreement.
+
+https://company.aspose.com/legal/copyright-notice
+
+https://company.aspose.com/legal/eula
+
+___________________________________________________________________
+
+2. Third-party licenses
+
+Third-party licensing can be found within the Aspose.Imaging 19.6 license directory.
+
+https://downloads.aspose.com/imaging/java/new-releases/aspose.imaging-for-java-19.6/
+
+___________________________________________________________________

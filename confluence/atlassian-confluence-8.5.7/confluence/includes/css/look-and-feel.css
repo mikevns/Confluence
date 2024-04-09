@@ -1,0 +1,93 @@
+/* Only for space admin */
+
+#space-admin-body .look-and-feel .greyboxfilled,
+#space-tools-body .look-and-feel .greyboxfilled {
+    background: #f5f5f5;
+}
+
+#space-admin-body .look-and-feel .form-block,
+#space-tools-body .look-and-feel .form-block {
+    padding: 20px;
+}
+
+/* End of space admin specific styles */
+
+.look-and-feel .form-block {
+    width: 650px;
+}
+
+.look-and-feel .greyboxfilled {
+    border-radius: 5px;
+}
+
+.look-and-feel .selected {
+    margin-left: 5px;
+}
+
+.look-and-feel .colour-scheme-option td:first-child {
+    width: 40%;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.look-and-feel .colour-scheme-option td:nth-child(2) {
+    width: 26px;
+}
+
+.look-and-feel [id^='change-colour-scheme'] td {
+    width: 26px;
+    padding: 0;
+}
+
+/* The "selected" text and the "select"
+   button should be out of the `td` and
+   on the separate line. */
+
+.look-and-feel .selected {
+    font-style: italic;
+    /* Styles below are just undoing the header
+       type styles applied. They can be removed
+       once the actual headings are h* elements */
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.look-and-feel .buttons-container {
+    margin-left: 10px;
+}
+
+.look-and-feel .color-swatch {
+    width: 24px ;
+    height: 24px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+
+.look-and-feel .colour-input {
+    text-transform: uppercase;
+}
+
+.look-and-feel .colour-image {
+    vertical-align: middle;
+}
+
+.edit-colour-scheme-custom table {
+    border: 0;
+    width: 100%;
+}
+
+/* The following are hacks until we properly change the markup of the theme editor */
+
+.look-and-feel #edit-scheme .buttons-container {
+    padding: 10px 0 0 0;
+}
+
+#edit-scheme-link {
+    margin: 10px 0;
+}
+
+#edit-scheme p {
+    margin-bottom: 10px;
+}
+
+/* End of edit-scheme hacks */

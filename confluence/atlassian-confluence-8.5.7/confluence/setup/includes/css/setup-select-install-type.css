@@ -1,0 +1,17 @@
+.setup-start-form {
+    margin: 10px;
+}
+
+#cluster-logo-message {
+    padding: 74px;
+    margin-top: 0;
+}
+
+#cluster-migration-info {
+    padding: 0 0 20px 145px;
+}
+
+.cluster-welcome-div #action-messages, .cluster-welcome-div #action-messages-notifications {
+    padding: 0 109px;
+}
+

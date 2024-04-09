@@ -1,0 +1,106 @@
+{namespace Confluence.Templates.Radiolist}
+
+/**
+ * @param? list
+ * @param? value
+ * @param? listKey
+ * @param? listValue
+ * @param? description
+ * @param? displayValue
+ * @param? editMode
+ * @param? isDisabled
+ * @param? labelValue
+ * @param? name
+ */
+{template .auiRadiolist}
+    {let $listKey: not $listKey ? 'key' : $listKey /}
+    {let $listValue: not $listValue ? 'value' : $listValue /}
+    {let $displayValue: not $displayValue ? $value : $displayValue /}
+    <fieldset class="group radios">
+        <legend>
+            <span>{$labelValue}</span>
+        </legend>
+        {if $editMode == false}
+            <div class="field-value">
+                {$displayValue}
+            </div>
+        {else}
+            {if $list}
+                {foreach $option in $list}
+                    <div class="radio">
+                        <input type="radio" class="radio" name="{$name}" value="{$option[$listValue]}" id="{$name}.{$option[$listValue]}" {if $option[$listValue] == $value} checked="checked"{/if} {if $isDisabled} disabled="disabled"{/if} />
+                        <label for="{$name}.{$option[$listValue]}">{$option[$listKey]}</label>
+                    </div>
+                {/foreach}
+            {/if}
+        {/if}
+    </fieldset>
+    {if $description}
+        <div class="description description-radio">
+            {$description}
+        </div>
+    {/if}
+{/template}
+
+/**
+ * @param? list
+ * @param? value
+ * @param? labelContent
+ * @param? required
+ * @param? editMode
+ * @param? isDisabled
+ * @param? name
+ * @param? descriptionMessage
+ */
+{template .auii18nConventionRadiolist}
+    <fieldset class="group radios">
+        {call .renderLabel}
+            {param labelContent: $labelContent/}
+            {param required: $required /}
+        {/call}
+        {if $editMode == false}
+            <div class="field-value">
+                {$value}
+            </div>
+        {else}
+            {foreach $obj in $list}
+                {let $option: $obj.option /}
+                <div class="radio">
+                    <input type="radio" class="radio" name="{$name}" value="{$option}" id="{$name}-{$option}" {if $option == $value} checked="checked"{/if} {if $isDisabled} disabled="disabled"{/if} />
+                    <label for="{$name}-{$option}">
+                        {$obj.label}
+                    </label>
+                    {call .renderDescription}
+                        {param descriptionMessage: $obj.labeldescription /}
+                    {/call}
+                </div>
+            {/foreach}
+            {call .renderDescription}
+                {param descriptionMessage: $descriptionMessage /}
+            {/call}
+        {/if}
+    </fieldset>
+{/template}
+
+/**
+ * @param? labelContent
+ * @param? required
+ */
+{template .renderLabel}
+    <legend>
+            <span>
+                {$labelContent}
+                {if $required}
+                    <span class="aui-icon icon-required"></span>
+                    <span class="content">$required</span>
+                {/if}
+            </span>
+    </legend>
+{/template}
+
+/**
+ * @param? descriptionMessage
+ */
+{template .renderDescription}
+        <div class="description">{$descriptionMessage}</div>
+{/template}

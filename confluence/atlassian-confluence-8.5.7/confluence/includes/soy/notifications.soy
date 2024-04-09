@@ -1,0 +1,41 @@
+{namespace Confluence.Templates.Notifications}
+
+/**
+ * Not logged in notification
+ *
+ * @param isUserAuthenticated
+ * @param isExternalUserManagementEnabled
+ * @param loginURL
+ */
+{template .notLoggedIn}
+    {if not $isUserAuthenticated}
+        <div id="anonymous-warning" class="aui-message aui-message-warning closeable">
+            {getText('not.logged.in')|noAutoescape}
+
+            {if not $isExternalUserManagementEnabled}
+                {sp}{getText('may.want.to.log.in', $loginURL)|noAutoescape}
+            {/if}
+        </div>
+    {/if}
+{/template}
+
+/**
+ * AUI messages for collection of message keys and arguments
+ *
+ * @param actionErrors
+ * @param? closeable
+ */
+{template .actionErrors}
+    {if length($actionErrors) > 0}
+        <div class="aui-message aui-message-error {if $closeable}closeable{/if}">
+            <p class="title">{getText('errors.occurred')}</p>
+            <ul>
+                {foreach $errorHtml in $actionErrors}
+                    <li>{$errorHtml|noAutoescape}</li>
+                {/foreach}
+            </ul>
+        </div>
+    {/if}
+    <div id="action-messages-notifications"></div>
+{/template}
+

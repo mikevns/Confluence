@@ -1,0 +1,97 @@
+#* @vtlvariable name="action" type="com.atlassian.confluence.user.actions.SearchUsersAction" *#
+## Used in browseusers.vm
+
+#if ($action.licensedToAddMoreUsers)
+    <div class="user-forms-container">
+        <div id="create-user-form" class="cell">
+            #applyDecorator("form-aui")
+                #decoratorParam("formName" "createuserform")
+                #decoratorParam("submitAction" "docreateuser.action")
+                #decoratorParam("editMode" "true")
+
+                <h2>$i18n.getText('heading.create.user')</h2>
+                #form_xsrfToken()
+                <fieldset>
+                    <legend>$i18n.getText('heading.create.user')</legend>
+                    #set ($requiredText = $i18n.getText('required.field'))
+                    #set($_params = {
+                        "labelContent": "$i18n.getText('username.name')",
+                        "id": "username",
+                        "name": "username",
+                        "value": $!username,
+                        "descriptionContent":"$i18n.getText('username.lowercase')",
+                        "isRequired": "$requiredText",
+                        "isAutofocus": "true",
+                        "type": "text",
+                        "isDisabled": false,
+                        "errorTexts": $!fieldErrors.get('username')})
+                    $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                        "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+                    #set($_params = {
+                        "labelContent": "$i18n.getText('fullname.name')",
+                        "id": "fullname",
+                        "name": "fullName",
+                        "value": $!fullName,
+                        "isRequired": "$requiredText",
+                        "type": "text",
+                        "isDisabled": false,
+                        "errorTexts": $!fieldErrors.get('fullName')})
+                    $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                        "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+                    #set($_params = {
+                        "labelContent":"$i18n.getText('email.name.withdash')",
+                        "id": "email",
+                        "name": "email",
+                        "value": $!email,
+                        "isRequired": "$requiredText",
+                        "type": "text",
+                        "isDisabled": false,
+                        "errorTexts": $!fieldErrors.get('email')})
+                    $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                        "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+                    #if($action.mailServerConfigured)
+                    <div class="group">
+                        #set ($templateParameters = {"isDisabled": false,
+                            "type": "checkbox",
+                            "value": "true",
+                            "labelContent": "$i18n.getText('create.user.form.hint')",
+                            "name": "sendEmail",
+                            "id": "sendEmail",
+                            "isChecked": $action.sendEmailDefault})
+                        $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                            "com.atlassian.auiplugin:aui-experimental-soy-templates",
+                            "aui.form.field.soy", $templateParameters)
+                    </div>
+                    #end
+                    #set ($templateParameters = {"id": "password",
+                        "labelContent": "$i18n.getText('password.name')",
+                        "name": "password",
+                        "value": $!password,
+                        "fieldWidth": "medium",
+                        "isRequired": $requiredText,
+                        "errorTexts": $!fieldErrors.get('password')})
+                    $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.passwordField.soy", $templateParameters)
+                    #set ($templateParameters = {"id": "confirm",
+                        "labelContent": "$i18n.getText('confirm.password')",
+                        "name": "confirm",
+                        "value": $!confirm,
+                        "fieldWidth": "medium",
+                        "isRequired": $requiredText,
+                        "errorTexts": $!fieldErrors.get('confirm')})
+                    $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.passwordField.soy", $templateParameters)
+
+                    <div class="buttons-container">
+                        <div class="buttons">
+                            <input type="submit" class="aui-button aui-button-primary" value="$i18n.getText('add.word')">
+                        </div>
+                    </div>
+                </fieldset>
+            #end
+        </div>
+
+    </div>
+#else
+    <div id="license-error" class="errorBox">
+        $action.licenseErrorHtml
+    </div>
+#end

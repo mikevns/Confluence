@@ -1,0 +1,6 @@
+/* Stop AUI making read-only form values bold on information-heavy forms */
+form.aui.info-dense .field-value {
+    font-weight: 400;
+    max-width: 80em;
+    overflow-wrap: break-word;
+}

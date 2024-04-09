@@ -1,0 +1,132 @@
+#* @vtlvariable name="action" type="com.atlassian.confluence.user.actions.EditUserAction" *#
+<html>
+	<head>
+		<title>$action.getText("title.edit.user") #if ($action.user): $action.user.name #end</title>
+        #requireResource("confluence.web.resources:aui-forms")
+	</head>
+
+	<body>
+        #parse ( "/template/includes/actionerrors.vm" )
+
+       &laquo; <a href="viewuser.action?username=$!generalUtil.doubleUrlEncode($action.user.name)">$action.getText("return.to.view.user")</a><br/>
+            #if ($actionErrors.size() == 0)
+                #applyDecorator("form-aui")
+                    #decoratorParam("formName" "editUser")
+                    #decoratorParam("submitAction"  "doedituser.action?#url_xsrfToken()&userKey=$action.user.key")
+                    #decoratorParam("editMode" "true")
+                    <fieldset>
+                        <h2>$action.getText('title.edit.user'): $action.user.name</h2>
+                        <legend>$action.getText('title.edit.user'): $action.user.name</legend>
+                #if ($action.canRename())
+                    #set($_params = {
+                        "labelContent":"$i18n.getText('username.name')",
+                        "name":"username",
+                        "id":"username",
+                        "value":$username,
+                        "size":"50",
+                        "isRequired":"$action.getText('required.field')",
+                        "type":"text",
+                        "errorTexts": $!fieldErrors.get('username')
+                        })
+                    $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                        "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+                #else
+                    #set($_params = {
+                        "labelContent":"$i18n.getText('username.name')",
+                        "name":"username",
+                        "id":"username",
+                        "value":$!username,
+                        "size":"50",
+                        "type":"text",
+                        "isDisabled":false,
+                        "readOnly":"readonly",
+                        "errorTexts": $!fieldErrors.get('username')})
+                    $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                        "confluence.web.resources:shared-templates", "Confluence.Templates.TextField.textField.soy", $_params)
+                #end
+                #if ($action.canUpdate())
+                    #set($_params = {
+                        "labelContent":"$i18n.getText('fullname.name')",
+                        "name":"fullName",
+                        "id":"fullName",
+                        "value":$!fullName,
+                        "size":"50",
+                        "isRequired":"$action.getText('required.field')",
+                        "type":"text",
+                        "isDisabled":false,
+                        "errorTexts": $!fieldErrors.get('fullName')})
+                    $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                        "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+                    #set($_params = {
+                        "labelContent":"$i18n.getText('email.name')",
+                        "name":"email",
+                        "id":"email",
+                        "value":$!email,
+                        "size":"50",
+                        "isRequired":"$action.getText('required.field')",
+                        "type":"text",
+                        "isDisabled":false,
+                        "errorTexts": $!fieldErrors.get('email')})
+                    $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                        "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+                #else
+                    #set($_params = {
+                        "labelContent":"$i18n.getText('fullname.name')",
+                        "name":"fullName",
+                        "id":"fullName",
+                        "value":$!fullName,
+                        "size":"50",
+                        "isRequired":"$action.getText('required.field')",
+                        "type":"text",
+                        "isDisabled":false,
+                        "readOnly":"readonly"})
+                    $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                        "confluence.web.resources:shared-templates", "Confluence.Templates.TextField.textField.soy", $_params)
+                    #set($_params = {
+                        "labelContent":"$i18n.getText('email.name')",
+                        "name":"email",
+                        "id":"email",
+                        "value":$!email,
+                        "size":"50",
+                        "isRequired":"$action.getText('required.field')",
+                        "type":"text",
+                        "isDisabled":false,
+                        "readOnly":"readonly"})
+                    $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                        "confluence.web.resources:shared-templates", "Confluence.Templates.TextField.textField.soy", $_params)
+                #end
+
+                #foreach ($group in $action.userDetailsGroups)
+                    #foreach ($key in $action.getUserDetailsKeys($group))
+                        #set($label_val = $i18n.getText("confluence.user.profile.$key"))
+                        #set($keyId="userparam-$key")
+                        #set($_params = {
+                            "labelContent":"$label_val",
+                            "name":"userparam-$key",
+                            "id":"userparam-$key",
+                            "value":$!action.getUserProperty($key),
+                            "size":"50",
+                            "type":"text","isDisabled":false,
+                            "errorTexts": $!fieldErrors.get($keyId)})
+                        $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                            "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+                    #end
+                #end
+
+                            #set ($templateParameters = {"value":$personalInformation,
+                                "errorTexts":$action.fieldErrors.get("personalInformation"),
+                                "id": "personalInformation",
+                                "labelContent": "$i18n.getText('personal.info')",
+                                "name": "personalInformation",
+                                "rows": "8",
+                                "cols": "70"})
+                            $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.textareaField.soy", $templateParameters)
+
+                        #ssubmit("theme='aui'" )
+                    </fieldset>
+                #end
+            #end
+
+		#parse ( "/breadcrumbs.vm" )
+	</body>
+</html>

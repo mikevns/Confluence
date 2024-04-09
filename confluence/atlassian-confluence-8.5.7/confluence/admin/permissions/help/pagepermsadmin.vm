@@ -1,0 +1,4 @@
+<p class="stepdesc">
+    $i18n.getText('admin.permissions.help.pagepermsadmin.description', $docBean.getLink("help.pagepermsadmin.rebuild.ancestor.table"),
+        $i18n.getText("help.pagepermsadmin.rebuild.ancestor.table.link"))
+</p>

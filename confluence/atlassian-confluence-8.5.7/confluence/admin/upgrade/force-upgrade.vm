@@ -1,0 +1,26 @@
+#* @vtlvariable name="action" type="com.atlassian.confluence.admin.actions.upgrade.ForceUpgradeAction" *#
+#requireResource("confluence.sections.admin.upgrade:resources")
+<html>
+    <head>
+        <title>$action.getText('title.force.upgrade')</title>
+    </head>
+    <body>
+        #parse ( '/template/includes/actionerrors.vm' )
+        <p>$action.getText('force.upgrade.description')</p>
+        <form method="POST" id="forceUpgradeForm" action="do-force-upgrade.action" class="aui">
+            #form_xsrfToken()
+            $soyTemplateRendererHelper.getRenderedTemplateHtml("confluence.web.resources:shared-templates", "Confluence.Templates.Select.auiSelect.soy",{
+                "labelValue": "$i18n.getText('upgrade.task.to.run')",
+                "id": "upgradeTaskToRun",
+                "editMode": $editMode,
+                "name": "upgradeTaskToRun",
+                "value": $upgradeTaskToRun,
+                "list": $manuallyRunnableUpgradeTasks,
+                "descriptionText": $action.upgradeTaskDescription
+            })
+            #ssubmit("theme='aui'"
+                     "editMode=true"
+                     "submitValue=$i18n.getText('force.upgrade.name')")
+        </form>
+    </body>
+</html>

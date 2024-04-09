@@ -1,0 +1,17 @@
+{namespace Confluence.Templates.SpaceDetails}
+
+
+/**
+ * Template for watch button
+ * @param watch true or false. True if button is to be toggled to watch state. False if button is to be toggled to unwatch state.
+ * @param text watch button text
+ */
+{template .watchButton}
+    <span>
+        {call aui.icons.icon}
+            {param icon: $watch ? 'unwatch' : 'watch' /}
+            {param useIconFont: true /}
+        {/call}
+        {sp}{$text}
+    </span>
+{/template}

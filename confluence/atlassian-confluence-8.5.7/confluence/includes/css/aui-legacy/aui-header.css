@@ -1,0 +1,89 @@
+.aui-header .aui-header-logo-atlassian .aui-header-logo-device {
+  background-image: url("images/brand-images/atlassian/atlassian-horizontal-white.svg");
+  width: 135px;
+}
+.aui-header .aui-header-logo-bamboo .aui-header-logo-device {
+  background-image: url("images/brand-images/products/bamboo-white.svg");
+  width: 102.75px;
+}
+.aui-header .aui-header-logo-bitbucket .aui-header-logo-device,
+.aui-header .aui-header-logo-stash .aui-header-logo-device {
+  background-image: url("images/brand-images/products/bitbucket-white.svg");
+  width: 111.5px;
+}
+.aui-header .aui-header-logo-clover .aui-header-logo-device {
+  background-image: url("images/brand-images/products/clover-white.svg");
+  width: 82.325px;
+}
+.aui-header .aui-header-logo-confluence .aui-header-logo-device {
+  background-image: url("images/brand-images/products/confluence-white.svg");
+  width: 128px;
+  height: 24px;
+  padding: 8px 0;
+}
+.aui-header .aui-header-logo-crowd .aui-header-logo-device {
+  background-image: url("images/brand-images/products/crowd-white.svg");
+  width: 83.75px;
+}
+.aui-header .aui-header-logo-crucible .aui-header-logo-device {
+  background-image: url("images/brand-images/products/crucible-white.svg");
+  width: 97.25px;
+}
+.aui-header .aui-header-logo-fisheye .aui-header-logo-device {
+  background-image: url("images/brand-images/products/fisheye-white.svg");
+  width: 94.5px;
+}
+.aui-header .aui-header-logo-jira .aui-header-logo-device {
+  background-image: url("images/brand-images/products/jira-white.svg");
+  width: 53.25px;
+}
+.aui-header .aui-header-logo-jira.with-core .aui-header-logo-device {
+  background-image: url("images/brand-images/products/jira-with-core-white.svg");
+  width: 52px;
+}
+.aui-header .aui-header-logo-jira.with-software .aui-header-logo-device {
+  background-image: url("images/brand-images/products/jira-with-software-white.svg");
+  width: 51.75px;
+}
+.aui-header .aui-header-logo-jira.with-service-desk .aui-header-logo-device {
+  background-image: url("images/brand-images/products/jira-with-service-desk-white.svg");
+  width: 53.25px;
+}
+.aui-header .aui-header-logo-jira-core .aui-header-logo-device {
+  background-image: url("images/brand-images/products/jira-core-white.svg");
+  width: 99.5px;
+}
+.aui-header .aui-header-logo-jira-software .aui-header-logo-device {
+  background-image: url("images/brand-images/products/jira-software-white.svg");
+  width: 146px;
+}
+.aui-header .aui-header-logo-jira-service-desk .aui-header-logo-device {
+  background-image: url("images/brand-images/products/jira-service-desk-white.svg");
+  width: 176.5px;
+}
+.aui-header .aui-header-logo-answers .aui-header-logo-device,
+.aui-header .aui-header-logo-community .aui-header-logo-device {
+  background-image: url("images/brand-images/programs/atlassian-community-white.svg");
+  width: 201.5312px;
+}
+.aui-header .aui-header-logo-developers .aui-header-logo-device {
+  background-image: url("images/brand-images/programs/atlassian-developer-white.svg");
+  width: 191.0238px;
+}
+.aui-header .aui-header-logo-experts .aui-header-logo-device,
+.aui-header .aui-header-logo-partner-program .aui-header-logo-device {
+  background-image: url("images/brand-images/programs/atlassian-partner-program-white.svg");
+  width: 237.488px;
+}
+.aui-header .aui-header-logo-marketplace .aui-header-logo-device {
+  background-image: url("images/brand-images/programs/atlassian-marketplace-white.svg");
+  width: 207.5506px;
+}
+.aui-header .aui-header-logo-support .aui-header-logo-device {
+  background-image: url("images/brand-images/programs/atlassian-support-white.svg");
+  width: 172.2984px;
+}
+.aui-header .aui-header-logo-university .aui-header-logo-device {
+  background-image: url("images/brand-images/programs/atlassian-university-white.svg");
+  width: 187.504px;
+}

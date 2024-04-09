@@ -1,0 +1,175 @@
+#* @vtlvariable name="action" type="com.atlassian.confluence.admin.actions.ViewOrUpdateLicenseAction" *#
+#* @vtlvariable name="dateFormatter" type="com.atlassian.confluence.core.DateFormatter" *#
+#* @vtlvariable name="confluenceLicense" type="com.atlassian.extras.api.confluence.ConfluenceLicense" *#
+#* @vtlvariable name="userChecker" type="com.atlassian.confluence.util.DefaultUserChecker" *#
+<html>
+<head>
+    <title>$action.getActionName($action.getClass().getName())</title>
+    <meta name="help-path" content="/admin/help/viewlicense.vm"/>
+    #requireResource("confluence.web.resources:licensedetails")
+</head>
+<body>
+<content tag="selectedWebItem">license</content>
+#parse ("/template/includes/actionerrors.vm")
+
+<p>$action.getText("license.page.description.title")</p>
+
+<table class="aui">
+    #if ($confluenceLicense)
+        <tr>
+            <th scope="row">$action.getText("license.organisation")</th>
+            <td><strong id="organisationName">$confluenceLicense.organisation.name</strong></td>
+        </tr>
+        <tr>
+            <th scope="row">$action.getText("license.support.entitlement.number.label")</th>
+            <td><span id="supportEntitlementNumber">$!action.confluenceLicense.supportEntitlementNumber</span></td>
+        </tr>
+        <tr>
+            <th scope="row">$action.getText("server.id")</th>
+            <td>
+                <strong><span id="serverId">$action.sid</span></strong> ($action.getText("server.id.description"))
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">$action.getText("license.type")</th>
+            <td>
+                <strong id="licenseType">
+                    #if ($confluenceLicense.description)
+                    $confluenceLicense.description
+                #else
+                        $confluenceLicense.licenseType.name()
+                    #end
+                </strong>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">$action.getText("license.user.count")</th>
+        #set($tooManyUsers = $userChecker.hasTooManyUsers())
+        #if ($userChecker.isRunning())
+            <td>
+                <div class="aui-message aui-message-info">
+                    <p>$action.getText("license.users.calculating")</p>
+                </div>
+            </td>
+        #else
+            <td #if($tooManyUsers)bgcolor="#ffcccc"#end>
+                #if ($userChecker.unlimitedUserLicense)
+                    #set($maxNumberOfLicensedUsers = $action.getText("license.users.unlimited.lowercase"))
+                #else
+                    #set($maxNumberOfLicensedUsers = $confluenceLicense.maximumNumberOfUsers)
+                #end
+                $action.getText("license.out.of.numbered", [$userChecker.getNumberOfRegisteredUsers(), $maxNumberOfLicensedUsers])
+                (<a href="users/showallusers.action?showUnlicensedUsers=false">$action.getText("license.view.list")</a>)
+
+                #if (!$userChecker.isRunning())
+                    <form method="GET" name="refreshform" action="refreshlicensing.action">
+                    <input id="licenseRefreshButton" class="submit aui-button" type="submit" value="Refresh">
+                    </form>
+                #end
+
+                #if ($tooManyUsers)
+                    <p>$action.getText("license.too.many.users", [
+                        "$req.contextPath/admin/users/browseusers.action?showUnlicensedUsers=false",
+                        $action.getText('url.atlassian'),
+                        $action.getText('url.atlassian.license.upgrade'),
+                        "$action.getText('mailto.sales')?subject=Confluence License Upgrade"
+                        ]) </p>
+                    <p>$action.getText("buy.upgrade", [$action.getText('url.atlassian.license.upgrade')])
+                    $action.getText("license.upgrades", [$action.getText('hitcounter.license.upgrades')])</p>
+                    $action.getText("contact.us", [$action.getText('mailto.sales')])
+                #end
+
+            </td>
+        #end
+        </tr>
+        <tr>
+            <th scope="row">$action.getText("license.datepurchased")</th>
+            <td><strong>$dateFormatter.format($confluenceLicense.purchaseDate)</strong></td>
+        </tr>
+
+        #set($supportPeriodPlaceholder = "license.supportperiod.server")
+        #set($supportEndedPlaceholder = "confluence.support.has.ended.server")
+        #set($supportEndsPlaceholder = "support.ends.on.server")
+        #set($buyRenewalPlaceholder = "buy.renewal.server")
+        #if($confluenceLicense.subscription)
+            #set($supportPeriodPlaceholder = "license.supportperiod.datacenter")
+            #set($supportEndedPlaceholder = "confluence.support.has.ended.datacenter")
+            #set($supportEndsPlaceholder = "support.ends.on.datacenter")
+            #set($buyRenewalPlaceholder = "buy.renewal.datacenter")
+        #end
+
+        <tr #if($confluenceLicense.expired || $action.hasSupportPeriodExpired)bgcolor="#ffcccc"#end>
+            #if ($action.evaluationLicense)
+                <th scope="row">$action.getText("license.expiration")</th>
+                #if ($confluenceLicense.expired)
+                    <td bgcolor="#ffcccc">
+                        $action.getText("evaluation.expired", [$dateFormatter.format($confluenceLicense.expiryDate)])<br/>
+                        <strong>$action.getText("contact.atlassian.to.purchase", [$action.getText("mailto.sales")])</strong>
+                    </td>
+                #else
+                    <td>
+                        $action.getText("evaluation.expires.in", [$dateFormatter.formatDateTime($confluenceLicense.expiryDate)])
+                    </td>
+                #end
+            #else
+                <th scope="row">$action.getText($supportPeriodPlaceholder)</th>
+                <td #if($action.hasSupportPeriodExpired)bgcolor="#ffcccc"#end>
+                    #if ($action.hasSupportPeriodExpired)
+                        $action.getText($supportEndedPlaceholder,[$dateFormatter.format($action.supportPeriodEnd)])
+                        <p>$action.getText($buyRenewalPlaceholder, ["<a href='$action.getText('url.atlassian.license.renew')'> ", "</a>", "<a href='$action.getText('url.atlassian.license.help')'> ", "</a>"])
+                    #else
+                        $action.getText($supportEndsPlaceholder, [$dateFormatter.format($action.supportPeriodEnd)])
+                    #end
+                </td>
+            #end
+        </tr>
+        #if ($!confluenceLicense.partnerName)
+            <tr>
+                <th scope="row">$action.getText("license.partner")</th>
+                <td>
+                    <strong>$!confluenceLicense.partnerName</strong>
+                </td>
+            </tr>
+        #end
+    #else
+        <tr>
+            <td>
+                <p>
+                $action.getText("no.valid.license")
+                </p>
+                <p>
+                $action.getText("enter.key.below", [$action.getText('url.atlassian.software.confluence')])
+                </p>
+            </td>
+        </tr>
+    #end
+</table>
+
+
+
+<h3>$action.getText("license.update")</h3>
+<p>$action.getText("license.update.description.info")</p>
+<form method="POST" action="doupdatelicense.action" id="updateLicenseForm" name="updateLicenseForm" class="aui">
+    #form_xsrfToken()
+    <div class="field-group">
+        <label id="licenseString-label" for="licenseString">
+            $action.getText("license.key")<span class="aui-icon icon-required">(required)</span></label>
+        </label>
+        <textarea
+                id="licenseString"
+                name="licenseString"
+                rows="10"
+                class="textarea long-field"
+                data-aui-validation-field
+                data-aui-validation-when="aui-stop-typing"
+                data-aui-validation-validlicense></textarea>
+        #fielderror('licenseString')
+    </div>
+    #ssubmit("theme='aui'"
+             "editName=update"
+             "editValue=$i18n.getText('update.name')")
+</form>
+
+    #parse("/breadcrumbs.vm")
+</body>
+</html>

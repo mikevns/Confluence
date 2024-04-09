@@ -1,0 +1,126 @@
+{namespace Confluence.Templates.TextFieldPicker}
+
+/**
+ * @param? name
+ * @param? additionalDataAttrs
+ * @param? ariaLabel
+ * @param? buttonLabel
+ * @param? buttonName
+ * @param? buttonOff
+ * @param? errorTexts
+ * @param? fieldClass
+ * @param? id
+ * @param? imgSrc
+ * @param? imgTitle
+ * @param? isRequired
+ * @param? labelContent
+ * @param? linkId
+ * @param? linkText
+ * @param? onFocus
+ * @param? searchAction
+ * @param? size
+ * @param? tagAttributesHtml
+ * @param? textAreaOn
+ * @param? value
+ * @param? windowName
+ * @param? windowProperties
+ * @param? contextPath
+ * @param? formName
+ * @param? groupSearchActionName
+ * @param? showUnlicensedUsers
+ *
+ */
+{template .textFieldAndPickerVM}
+
+    {let $name: not $name ? 'groupsToAdd' : $name /}
+    {let $size: not $size ? '40' : $size /}
+    {let $buttonOff: not $buttonOff ? false : $buttonOff /}
+    {let $buttonLabel: not $buttonLabel ? getText('add.word') : $buttonLabel /}
+    {let $textAreaOn: not $textAreaOn ? 'off' : $textAreaOn /}
+    {let $searchAction: not $searchAction ? 'opengrouppicker.action' : $searchAction /}
+    {let $onFocus: not $onFocus ? '' : $onFocus /}
+    {let $windowProperties: not $windowProperties ? 'status=yes,resizable=yes,top=100,left=200,width=700,height=680,scrollbars=yes' : $windowProperties /}
+    {let $linkId: not $linkId ? 'entitypicker-popup-link' : $linkId /}
+    {let $additionalDataAttrs: not $additionalDataAttrs ? '' : $additionalDataAttrs /}
+    {let $windowName: not $windowName ? 'EntitiesPicker' : $windowName /}
+    {let $tagNameHtml: 'button' /}
+    {let $cssClass: 'userpicker button' /}
+    {let $spanCssClass: 'aui-icon aui-icon-small aui-iconfont-search' /}
+    {let $tagAttributesHtml: not $tagAttributesHtml and $tagNameHtml == 'a' ? 'href=#' : $tagAttributesHtml /}
+    {let $tagAttributesHtml: not $tagAttributesHtml ? '' : $tagAttributesHtml /}
+    {if $errorTexts}
+        {foreach $error in $errorTexts}
+            {call aui.form.fieldError}
+                {param id: $id /}
+                {param message: $error /}
+            {/call}
+        {/foreach}
+    {/if}
+    {if $labelContent}
+        {call aui.form.label}
+            {param forField : $id /}
+            {param isRequired : $isRequired /}
+            {param content : $labelContent /}
+        {/call}
+    {/if}
+
+    <div style="display: initial;">{\n}
+        {if $textAreaOn == 'on'}
+            <textarea name="{$name}" rows="3" cols="40">{$value}</textarea>{\n}
+        {else}
+            <input type="text" id="{$name}" name="{$name}" {if $value} value="{$value}"{/if} size="{$size}"  class="{if $fieldClass}{$fieldClass}{/if} text"
+                   data-none-message="{getText('usersearch.no.results')}" data-dropdown-target="#{$name}-autocomplete-dd"
+                   data-resize-to-input="true" {$additionalDataAttrs} />{\n}
+        {/if}
+
+        {let $url:  $contextPath + '/spaces/'+ $searchAction +'?startIndex=0\u0026key=' + ($groupSearchActionName ? '\u0026actionName=' + $groupSearchActionName :'') + '\u0026existingGroups=' + $value + ($showUnlicensedUsers ? '\u0026showUnlicensedUsers='+$showUnlicensedUsers : '') + '\u0026onPopupSubmit=set' + $name +'TextField'/}
+
+        <{$tagNameHtml ? $tagNameHtml : 'a'}
+                {sp} id='{$linkId}'
+            {sp}{$tagAttributesHtml}
+            {if $cssClass}
+                {sp}class='{$cssClass}'
+            {/if}
+            {if $ariaLabel}
+                {sp}aria-label="$ariaLabel"
+            {/if}
+            {sp}onClick="var picker = window.open('{$url}', '{$windowName}', '{$windowProperties}'); picker.focus(); return false;"
+            >{\n}
+
+            {if $spanCssClass}
+                <span class="{$spanCssClass}">{\n}
+            {/if}
+            {if $imgSrc}
+                <img src="{$imgSrc}" height=16 width=16 border=0 align="absmiddle" {if $imgTitle} title="{$imgTitle}" {/if}/>{\n}
+            {/if}
+            {if $linkText}
+                $linkText
+            {/if}
+            {if $spanCssClass}
+                </span>{\n}
+            {/if}
+        </{$tagNameHtml ? $tagNameHtml : 'a'}>{\n}
+
+        {if not ($textAreaOn == 'on')}
+            {if not $buttonOff}
+                <input name="{$buttonName}" type="submit" value="{$buttonLabel}" class="button"/>{\n}
+            {/if}
+        {/if}
+        <div id="{$name}-autocomplete-dd" class="autocomplete-user-or-group-target"></div>{\n}
+    </div>
+
+    <script type="text/javascript">
+        {literal}
+        function set{/literal}{$name}{literal}TextField(entityNames) {
+            var element = document.forms.{/literal}{$formName}.{$name}{literal};
+            if (entityNames != ""){
+                if (element.value == "")
+                    element.value = entityNames;
+                else
+                    element.value = element.value + ", " + entityNames;
+            }
+        }
+        {/literal}
+    </script>
+
+{/template}

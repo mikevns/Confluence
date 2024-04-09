@@ -1,0 +1,8 @@
+.setup form.aui#licenseform .long-field{
+    width: 573px;
+    max-width: 573px;
+}
+
+.setup form.aui label{
+    width: 140px;
+}

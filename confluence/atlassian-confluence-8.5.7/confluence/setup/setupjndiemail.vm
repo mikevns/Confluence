@@ -1,0 +1,60 @@
+<html>
+	<head>
+		<title>$action.getText("title.setup.jndi.email")</title>
+	</head>
+
+	<body>
+        #parse ("/setup/analytics-data.vm")
+
+        <p>$action.getText("setup.step.description.jndi")</p>
+
+		#parse ( "/template/includes/actionerrors.vm" )
+
+        <form method="POST" action="setupjndiemail.action">
+            <table border="0" width="80%" class="grid">
+                <tr>
+                    <th width="30%">&nbsp;</th>
+                    <th width="70%">&nbsp;</th>
+                </tr>
+
+                <div class="field-group">
+                    <label id="name-label" for="name">
+                        $i18n.getText('mail.server.from.address')
+                    </label>
+                    <input type="text" name="name" id="name" class="text ">
+                </div>
+                <div class="field-group">
+                    <label id="from-label" for="from">
+                        $i18n.getText('mail.server.name')
+                    </label>
+                    <input type="text" name="from" id="from" class="text ">
+                </div>
+                <div class="field-group">
+                    <label id="prefix-label" for="prefix">
+                        $i18n.getText('mail.server.subject.prefix')
+                    </label>
+                    <input type="text" name="prefix" id="prefix" class="text ">
+                </div>
+                <div class="field-group">
+                    <label id="jndiName-label" for="jndiName">
+                        $i18n.getText('mail.server.jndi-name')
+                    </label>
+                    <input type="text" name="jndiName" id="jndiName" class="text ">
+                </div>
+                <div class="field-group">
+                    <label id="userName-label" for="userName">
+                        $i18n.getText('mail.server.userName')
+                    </label>
+                    <input type="text" name="userName" id="userName" class="text ">
+                </div>
+                <div class="field-group" style="display: inline-block;">
+                    <label id="password" for="password">
+                        $i18n.getText('mail.server.password')
+                    </label>
+                    <input type="password" name="password" id="password" value="" class="password">
+                </div>
+                #ssubmit("value=getText('next.name')" "align='center'" )
+            </table>
+        </form>
+	</body>
+</html>

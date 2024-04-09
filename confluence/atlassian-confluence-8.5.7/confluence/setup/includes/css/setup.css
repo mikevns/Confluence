@@ -1,0 +1,551 @@
+#setup-content {
+    position: relative;
+    top: 20px;
+    margin-bottom: 20px;
+}
+
+h1 img {
+    vertical-align: middle;
+    border: none;
+}
+
+pre {
+    padding: 5px 10px;
+}
+
+ul {
+    margin: 0 0 0 1em;
+    padding: 0;
+}
+
+ul li {
+    margin: 0;
+    padding: 0;
+}
+
+#PageContent {
+    text-align: left;
+    background-color: #fff;
+    padding: 10px 10px 6em 10px;
+    margin: 0;
+}
+
+.pageheader {
+    font-size: 24px;
+    padding: 15px 0px 0px 0px;
+}
+
+.page-header-box {
+    border-bottom: 1px solid #DDD;
+    margin-left: 40px;
+    margin-right: 40px;
+    padding-bottom: 10px;
+}
+
+.page-header-box__page-header-title {
+    float: left;
+}
+
+.page-header-box__page-header-actions {
+    margin-top: 15px;
+    float: right;
+    vertical-align: baseline;
+}
+
+.aui-list-truncate {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.setup .setup-admin input[type=text],
+.setup .setup-admin input[type=password] {
+    width: 207px; /* gets the password fields to match the text inputs */
+}
+
+form.aui div.description {
+    font-size: 11px;
+}
+
+form.aui .long-field {
+    width: 500px;
+}
+
+.monospaceInput {
+    font: 10pt monospace;
+}
+
+td.error, td.success {
+    border: 0;
+    display: table-cell;
+    margin: 0;
+    padding: 0;
+}
+
+.panel {
+    background-color: #def;
+    margin: 1em;
+    padding: .1em 1em;
+}
+
+.panel.warning {
+    background-color: #FFFFCE;
+    padding: 14px 10px;
+}
+
+#sysErrPanel {
+    padding: 1px 10px;
+}
+
+p.message {
+    padding: 10px 30px;
+    font-weight: bold;
+    font-size: 130%;
+    border: 1px dashed #369;
+}
+
+p.description {
+    padding: 10px 30px 20px 30px;
+    border: none;
+}
+
+p.topped {
+    padding: 5px 10px 5px 0;
+    margin: 0 0 0 10px;
+    border: none;
+    border-top: 1px solid #036;
+}
+
+span.switch {
+    cursor: pointer;
+    margin-left: 5px;
+    text-decoration: underline;
+}
+
+.aui-layout #footer .footer-body > ul > li.print-only {
+    display: none;
+}
+
+.plugins,
+.plugins li {
+    list-style: none;
+    margin: 0;
+}
+
+.logStatement {
+    font-weight: bold;
+    padding: 4px;
+    margin: 4px;
+    border: 1px #bbb solid;
+}
+
+.logThrowable {
+    font-weight: normal;
+    padding: 4px 10px 4px 4px;
+}
+
+body#fourohfour #searchfield {
+    margin-right: .3em;
+    width: 20em;
+}
+
+body#fourohfour #footer {
+    margin: 0 -10px;
+}
+
+body#fourohfour ul {
+    margin: auto;
+    padding-left: 3em;
+}
+
+#footer p.license, #footer p.license a {
+    background: #036;
+    color: #fff;
+    margin: 0;
+}
+
+#footer-warning {
+    display: block;
+    background-color: #ffffce;
+    border: 1px solid #f0c000;
+    color: #000;
+}
+
+#draftNote {
+    border: 0;
+    vertical-align: top;
+    width: 16px;
+    height: 16px;
+}
+
+#connect-to-jira {
+    padding: 0 1em;
+}
+
+#connect-to-jira .toggle-head {
+    padding-left: 16px;
+    margin-left: -16px;
+    margin-top: 10px;
+    background: url(../../../setup/images/toggle-down.png) no-repeat left 50%;
+    cursor: pointer;
+}
+
+#connect-to-jira .collapsed .toggle-head {
+    background-image: url(../../../setup/images/toggle-right.png);
+}
+
+#connect-to-jira .collapsed .toggle-body {
+    display: none;
+}
+
+#connect-to-jira .field-group {
+    margin: 10px 0 0 0;
+    padding: 5px 0 5px 240px;
+    position: relative;
+}
+
+#connect-to-jira form .buttons {
+    padding-left: 240px;
+}
+
+#connect-to-jira .field-group label {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #666;
+    font-weight: normal;
+    left: 0;
+    margin: 0;
+    padding-right: 10px;
+    position: absolute;
+    text-align: right;
+    width: 240px;
+}
+
+#connect-to-jira .button-group {
+    margin-top: 10px;
+}
+
+td.greenBar,
+td.greenbar,
+td.graybar,
+td.redbar,
+td.darkredbar {
+    font-size: 1em;
+    border: 1px solid #9c9c9c;
+    padding: 0;
+}
+
+td.greenBar,
+td.greenbar {
+    background: #00df00;
+}
+
+td.graybar {
+    background: #808080;
+}
+
+td.redbar {
+    background: #df0000;
+}
+
+td.darkredbar {
+    background: #af0000;
+}
+
+.description {
+    color: #666;
+}
+
+.toggle-head > a {
+    text-decoration: none;
+}
+
+.wait-spinner {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.setup-field-value {
+    color: black;
+    display: inline-block;
+    font-weight: normal;
+    line-height: 1;
+    padding-top: 4px;
+}
+
+.progress-status {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.functionbox {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+
+/**
+ *
+ * New stuff
+ *****************
+ */
+
+.aui-page-header-actions {
+    float: right;
+}
+
+.aui-page-header img {
+    border: none;
+}
+
+.locale-switcher {
+    float: right;
+}
+
+.locale-switcher a {
+    display: inline-block;
+    padding-left: 10px;
+    font-size: 13px;
+}
+
+.locale-switcher img {
+    vertical-align: text-bottom;
+}
+
+.setup form.aui {
+    margin: 0 0 0 0;
+}
+
+.setup form.aui .text[disabled],
+.setup form.aui .password[disabled],
+.setup form.aui .textarea[disabled],
+.setup form.aui .select[disabled],
+.setup form.aui .multi-select[disabled],
+.setup form.aui .radio[disabled],
+.setup form.aui .checkbox[disabled] {
+    border: 0;
+    background: transparent;
+}
+
+.setup #content > .aui-page-header {
+    padding: 20px 0 0 0;
+}
+
+.setup .aui-page-header-main {
+    padding: 10px 0;
+}
+
+#footer .footer-body {
+    min-height: 0;
+    margin-top: 0;
+}
+
+.setupdbchoice-button {
+    margin: 10px 0px 0px 0px;
+}
+
+.setup-logo {
+    display: block;
+    border-bottom: thin solid rgb(204, 204, 204);
+}
+
+.setup-hint {
+    font-size: 14px;
+    padding-bottom: 15px;
+}
+
+.setup .aui-panel {
+    display: inline-block;
+}
+
+.setup-next-button {
+    float: right;
+}
+
+.setup-back-button {
+    float: right;
+    margin-right: 10px !important;
+}
+
+/*
+* setup start
+*/
+.start-setup-button {
+    float: right;
+}
+
+/*
+setupsuccess.vm
+*/
+.setup-success {
+    width: 100%;
+    border-top: 1px solid #ccc;
+    margin-top: 20px;
+    padding-top: 20px;
+}
+
+.setup-success-button {
+    float: right;
+}
+
+#setup-cluster-success-icon {
+    color: #36B37E;
+    margin: auto;
+    display: block;
+    height: 64px;
+    width: 64px;
+    padding-bottom: 20px;
+}
+
+#setup-cluster-success-icon:before {
+    font-size: 64px;
+    top: 0px;
+    padding-top: 20px;
+}
+
+/**
+* Connecto to jira page
+**/
+
+.connecttojira .cancel {
+    float: right
+}
+
+/**
+* Setup data page
+**/
+.setupdata-button {
+    margin-top: 10px;
+}
+
+/**
+* Setup db pages
+**/
+#setup-db-fail-form {
+    margin-top: 10px;
+}
+
+.setup-db-fail-button {
+    float: right;
+    margin-left: 10px;
+}
+
+/**
+* These CSS is to add the radio button and hovering for item selection
+ */
+.setup-start-group .confluence-setup-choice-box {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: table;
+    margin-bottom: 20px;
+    width: 100%;
+    padding-left: 20px;
+    height: 150px;
+}
+
+.setup-start-group .confluence-setup-choice-cell {
+    display: table-cell;
+    padding: 0px 20px 20px 0;
+    vertical-align: middle;
+}
+
+.setup-start-group .confluence-setup-choice-box-header {
+    border: none;
+    padding-bottom: 0;
+    line-height: 1em;
+}
+
+.setup-start-group .confluence-setup-choice-box-description {
+    margin-bottom: 0;
+    padding-left: 36px;
+}
+
+.setup-start-group .confluence-setup-choice-box:hover,
+.setup-start-group .confluence-setup-choice-box.confluence-setup-choice-box-active {
+    background: #E6EFF8;
+    border-color: #CCD9EA;
+}
+
+.setup-start-group .plugin-disabled-icon,
+.setup-start-group .plugin-enabled-icon{
+    padding-top: 30px;
+    padding-right: 10px;
+    width: 24px;
+    float: left;
+}
+
+.setup-start-group .plugin-enabled-icon{
+    display: none;
+}
+
+.setup-start-group .confluence-setup-choice-box-active .plugin-disabled-icon{
+    display: none;
+}
+
+.setup-start-group .confluence-setup-choice-box-active .plugin-enabled-icon{
+    display: block;
+}
+
+.loading-spinner {
+    float: left;
+    margin-top: 5px;
+    margin-right: 10px;
+}
+
+.setup-progress-spinner-container {
+    height: 50px;
+    padding-left: 0px !important;
+}
+
+.clustering-option-header{
+    margin-bottom: 15px;
+}
+
+.clustering-option {
+    margin-bottom: 5px;
+    display: flex;
+}
+
+.clustering-option > input {
+    margin: 3px 8px 3px 0px;
+}
+
+.setup-section-subtitle {
+    margin: 5px 0;
+}
+
+.setup-section-subtitle.join-config-section {
+    margin-bottom: 10px;
+}
+
+#cluster-auto-address {
+    margin: 0 8px 0 8px;
+}
+
+form.aui div.radio input.radio[type=radio].clustering-option {
+    left: 8px;
+}
+
+.aui-page-panel-content {
+    padding: 20px 40px 40px;
+}
+
+.setup-cluster-page-title {
+    margin-bottom: 5px;
+}
+
+form.aui .network-interface-section.field-group {
+    margin: 15px 0;
+}
+
+form.aui div.join-config-radio.radio {
+    padding: 0 0 0 28px;
+}

@@ -1,0 +1,1 @@
+define("raphael",function(){return Raphael});

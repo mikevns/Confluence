@@ -1,0 +1,180 @@
+{namespace Confluence.Templates.Spaces.Permissions}
+
+/**
+ * Displays two tabs, one tab for user search (username, full name, email) and the other for group name search
+ *
+ * @param isUserSearch if true, display the user search tab, otherwise display the group search tab
+ * @param onPopupSubmit javascript callback to execute in the main page when closing the pop up window
+ * @param isSupportsSimpleSearch if simple search, provide one text input for fuzzy match, otherwise provide three for name, username, email
+ * @param emailVisible determine whether or not to show search fields and results matching on email addresses
+ * @param? showUnlicensedUsers whether or not to show unlicensed users in the search results
+ */
+{template .userPicker}
+    {call aui.tabs}
+        {param id: 'tab-navigation' /}
+        {param menuItems: [[
+                'isActive': $isUserSearch,
+                'url': '#user-search-section',
+                'text': getText('user.name')
+            ],
+            [
+                'isActive': not $isUserSearch,
+                'url': '#membership-search-section',
+                'text': getText('membership.name')
+            ]
+        ]
+        /}
+        {param paneContent}
+            {call aui.tabPane}
+                {param isActive: $isUserSearch /}
+                {param id: 'user-search-section' /}
+                {param content}
+                    {call .userSearchForm}
+                        {param onPopupSubmit: $onPopupSubmit /}
+                        {param isSupportsSimpleSearch: $isSupportsSimpleSearch /}
+                        {param emailVisible: $emailVisible /}
+                        {param showUnlicensedUsers: $showUnlicensedUsers /}
+                    {/call}
+                {/param}
+            {/call}
+            {call aui.tabPane}
+                {param isActive: not $isUserSearch /}
+                {param id: 'membership-search-section' /}
+                {param content}
+                    {call .groupSearchForm}
+                        {param onPopupSubmit: $onPopupSubmit /}
+                        {param showUnlicensedUsers: $showUnlicensedUsers /}
+                    {/call}
+                {/param}
+            {/call}
+        {/param}
+    {/call}
+{/template}
+
+/**
+ * If for supports simple search, display one text field where the user can enter text and it will try to match
+ * username, full name, email. If simple search is not supported, user will be presented with three text fields
+ * to provide username, full name or email individually
+ *
+ * @param onPopupSubmit
+ * @param isSupportsSimpleSearch
+ * @param emailVisible
+ * @param? showUnlicensedUsers
+ */
+{template .userSearchForm}
+    {call aui.form.form}
+        {param id: 'searchusers' /}
+        {param action: contextPath() + '/users/userpicker.action' /}
+        {param content}
+            {call aui.form.input}
+                {param type: 'hidden' /}
+                {param name: 'userSearch' /}
+                {param value: 'true' /}
+            {/call}
+            {call aui.form.input}
+                {param type: 'hidden' /}
+                {param name: 'onPopupSubmit' /}
+                {param value: $onPopupSubmit /}
+            {/call}
+            {call aui.form.input}
+                {param type: 'hidden' /}
+                {param name: 'advanced' /}
+                {param value: $isSupportsSimpleSearch == true ? 'true' : 'false' /}
+            {/call}
+            {call aui.form.input}
+                {param type: 'hidden' /}
+                {param name: 'showUnlicensedUsers' /}
+                {param value: $showUnlicensedUsers == true ? 'true' : 'false' /}
+            {/call}
+            {if $isSupportsSimpleSearch == true}
+                {call aui.form.textField}
+                    {param id: 'searchTerm' /}
+                    {param name: 'searchTerm' /}
+                    {param labelContent: getText('userpicker.user.details') /}
+                    {param descriptionText}
+                        {if $emailVisible}
+                            {getText('userpicker.user.desc')}
+                        {else}
+                            {getText('userpicker.user.desc.no.email')}
+                        {/if}
+                    {/param}
+                    {param fieldWidth: 'medium-long' /}
+                    {param isAutofocus: true /}
+                {/call}
+            {else}
+                {call aui.form.fieldset}
+                    {param legendContent: getText('userpicker.user.details') /}
+                    {param content}
+                        {call aui.form.textField}
+                            {param id: 'usernameTerm' /}
+                            {param name: 'usernameTerm' /}
+                            {param labelContent: getText('username.name') /}
+                        {/call}
+                        {call aui.form.textField}
+                            {param id: 'fullnameTerm' /}
+                            {param name: 'fullnameTerm' /}
+                            {param labelContent: getText('fullname.name') /}
+                        {/call}
+                        {if $emailVisible}
+                            {call aui.form.textField}
+                                {param id: 'emailTerm' /}
+                                {param name: 'emailTerm' /}
+                                {param labelContent: getText('email.name.withdash') /}
+                            {/call}
+                        {/if}
+                    {/param}
+                {/call}
+            {/if}
+            {call .submitButton /}
+        {/param}
+    {/call}
+{/template}
+
+/**
+ * @param onPopupSubmit
+ * @param? showUnlicensedUsers
+ */
+{template .groupSearchForm}
+    {call aui.form.form}
+        {param id: 'searchgroup' /}
+        {param action: contextPath() + '/users/userpicker.action' /}
+        {param content}
+            {call aui.form.input}
+                {param type: 'hidden' /}
+                {param name: 'userSearch' /}
+                {param value: 'false' /}
+            {/call}
+            {call aui.form.input}
+                {param type: 'hidden' /}
+                {param name: 'showUnlicensedUsers' /}
+                {param value: $showUnlicensedUsers == true ? 'true' : 'false' /}
+            {/call}
+            {call aui.form.input}
+                {param type: 'hidden' /}
+                {param name: 'onPopupSubmit' /}
+                {param value: $onPopupSubmit /}
+            {/call}
+            {call aui.form.textField}
+                {param id: 'groupTerm' /}
+                {param name: 'groupTerm' /}
+                {param labelContent: getText('userpicker.group.membership') /}
+                {param descriptionText: getText('userpicker.group.desc') /}
+                {param fieldWidth: 'medium-long' /}
+            {/call}
+            {call .submitButton /}
+        {/param}
+    {/call}
+{/template}
+
+/**
+ * The submit button for search form
+ */
+{template .submitButton}
+    {call aui.form.buttons}
+        {param content}
+            {call aui.form.submit}
+                {param text: getText('search.name') /}
+            {/call}
+        {/param}
+    {/call}
+{/template}

@@ -1,0 +1,44 @@
+{namespace Confluence.Templates.Icons}
+
+/**
+ * @deprecated since 5.7, use contentIconFont instead
+ * Display an icon for a given content object
+ *
+ * NOTE: This is the soy equivalent of #contentIcon2 in macros.vm. If you modify this, you should probably also modify
+ *       that.
+ *
+ * @param iconTitle the text representation of the icon (used as tooltip and inline text)
+ * @param iconCss the CSS class for the icon
+ * @param linkColour the link colour
+ * @param linkHref the link target location
+ */
+{template .contentIcon}
+    <a{if $linkColour} {$linkColour}{/if} href="{$linkHref}" class="icon {$iconCss}" title="{$iconTitle}">
+        {$iconTitle}
+    </a>
+{/template}
+
+/**
+ * @since 5.7
+ * Display an icon using retina enabled icon font for a given content object. This replaces .contentIcon template
+ *
+ * @param iconTitle the text representation of the icon (used as tooltip and inline text)
+ * @param iconCss the CSS class for the icon
+ * @param? linkColour the link colour
+ * @param linkHref the link target location
+ */
+{template .contentIconFont}
+    <a{if $linkColour} {$linkColour}{/if} href="{$linkHref}" title="{$iconTitle}">
+        <span class="aui-icon {$iconCss}">{$iconTitle}</span>
+    </a>
+{/template}
+
+/**
+ * Icon span
+ * @param? type
+ * @param? text
+ * @param? additionalClasses
+ */
+{template .iconSpan}
+    <span class="icon{if $type} aui-icon aui-icon-small aui-iconfont-{$type}{/if} {if $additionalClasses}{$additionalClasses}{/if}">{if $text}{$text}{/if}</span>
+{/template}

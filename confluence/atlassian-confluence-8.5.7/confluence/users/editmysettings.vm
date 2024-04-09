@@ -1,0 +1,102 @@
+<html>
+	<head>
+		<title>$htmlUtil.htmlEncode($pageTitle)</title>
+		#requireResource("confluence.web.resources:aui-forms")
+    </head>
+
+    #applyDecorator("root")
+        #decoratorParam("context" "profile")
+        #decoratorParam("mode"  "settings")
+        #decoratorParam("helper" $action.helper)
+        #decoratorParam("infopanel-width" "200px")
+
+        <body>
+            #applyDecorator("form-aui")
+                #decoratorParam("formName" "editsettingsform")
+                #decoratorParam("submitAction"  "doeditmysettings.action")
+                #decoratorParam("editAction" "editmysettings.action")
+                #decoratorParam("editMode" "$editMode")
+
+                <h2>$action.getText("title.edit.general.preferences")</h2>
+
+                <fieldset>
+                    #set($siteHomePagesList = [])
+                    #foreach( $option in $siteHomePages )
+                        #set($temp = $siteHomePagesList.add({"value": "$!option.value", "key": "$!option.key"}))
+                    #end
+                    $soyTemplateRendererHelper.getRenderedTemplateHtml("confluence.web.resources:shared-templates", "Confluence.Templates.Select.auiSelect.soy",{
+                        "labelValue": "$i18n.getText('site.homepage')",
+                        "editMode": $editMode,
+                        "name": "siteHomePage",
+                        "listKey": "key",
+                        "listValue": "value",
+                        "value": $siteHomePage,
+                        "list": $siteHomePagesList
+                    })
+                        #set($languagePacksUrl = "${req.contextPath}/plugins/servlet/upm/marketplace/popular?category=Language+packs&source=user_profile")
+                    $soyTemplateRendererHelper.getRenderedTemplateHtml("confluence.web.resources:shared-templates", "Confluence.Templates.Select.auiSelect.soy",{
+                        "labelValue": "$i18n.getText('language.select')",
+                        "editMode": $editMode,
+                        "name": "preferredUserLocale",
+                        "listKey": "key",
+                        "listValue": "value",
+                        "value": $preferredUserLocale,
+                        "list": $installedLocalePairs,
+                        "descriptionContent": "$i18n.getText('language.setting.desc', [$languagePacksUrl])"
+                    })
+                    #set($availableTimeZonesList = [])
+                    #foreach( $option in $availableTimeZones )
+                        #set($temp = $availableTimeZonesList.add({"value": "$!option.value", "key": "$!option.key"}))
+                    #end
+                    $soyTemplateRendererHelper.getRenderedTemplateHtml("confluence.web.resources:shared-templates", "Confluence.Templates.Select.auiSelect.soy",{
+                        "labelValue": "$i18n.getText('time.zone.select')",
+                        "editMode": $editMode,
+                        "listKey": "key",
+                        "listValue": "value",
+                        "name": "userTimeZone",
+                        "value": $userTimeZone,
+                        "list": $availableTimeZonesList
+                    })
+
+                    <div class="group">
+                        #set( $isDisabledcheckbox = !$editMode)
+                        #set ($templateParameters = {
+                            "isDisabled": $isDisabledcheckbox,
+                            "type": "checkbox",
+                            "value": "true",
+                            "labelContent": "$i18n.getText('keyboard.shortcuts.enabled.label')",
+                            "name": "keyboardShortcutsEnabled",
+                            "id": "keyboardShortcutsEnabled",
+                            "isChecked": $keyboardShortcutsEnabled,
+                            "descriptionText": "$i18n.getText('keyboard.shortcuts.enabled.desc')"})
+                        $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                            "com.atlassian.auiplugin:aui-experimental-soy-templates",
+                            "aui.form.field.soy", $templateParameters)
+                    </div>
+                    #if ($highlightPluginEnabled == true)
+                        <div class="field-group">
+                            $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                                "com.atlassian.auiplugin:aui-experimental-soy-templates",
+                                "aui.form.label.soy", {"content": "$i18n.getText('highlight.popup.enabled.legend')"})
+                            #set( $isDisabledcheckbox = !$editMode)
+                            #set ($templateParameters = {
+                                "isDisabled": $isDisabledcheckbox,
+                                "type": "checkbox",
+                                "value": "true",
+                                "labelContent": "$i18n.getText('highlight.popup.enabled.label')",
+                                "name": "highlightOptionPanelEnabled",
+                                "id": "highlightOptionPanelEnabled",
+                                "isChecked": $highlightOptionPanelEnabled})
+                            $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                                "com.atlassian.auiplugin:aui-experimental-soy-templates",
+                                "aui.form.field.soy", $templateParameters)
+                        </div>
+                    #end
+
+                    #ssubmit("theme='aui'" )
+                </fieldset>
+                #form_xsrfToken()
+            #end
+        </body>
+    #end
+</html>

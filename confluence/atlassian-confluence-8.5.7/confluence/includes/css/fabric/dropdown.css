@@ -1,0 +1,57 @@
+/*
+  Styles to make the existing Dropdown component look more Fabricky.
+
+  Rules for the autocomplete trigger in the Editor are located in editor-content.less in the confluence-editor plugin.
+*/
+
+#autocomplete-dropdown .aui-dropdown.fabric  ol {
+    border: none;
+}
+
+#autocomplete-dropdown .aui-dropdown.fabric ol.top-menu-item {
+    display: none;
+}
+
+#autocomplete-dropdown .aui-dropdown.fabric img {
+    border-radius: 50%;
+    margin-left: 10px;
+    margin-top: 8px;
+    height: 32px;
+    width: 32px;
+}
+
+#autocomplete-dropdown .aui-dropdown.fabric ol li {
+    height: 35px;
+}
+
+#autocomplete-dropdown .aui-dropdown.fabric ol li a {
+    top: 3px;
+}
+
+#autocomplete-dropdown .aui-dropdown.fabric ol li.active,
+#autocomplete-dropdown .aui-dropdown.fabric ol li.active span {
+    background-color: rgb(240, 240, 240);
+    color: #333;
+}
+
+#autocomplete-dropdown .aui-dropdown.fabric li span {
+    padding-left: 50px;
+}
+
+#autocomplete-dropdown .aui-dropdown.fabric + .autocomplete-dropdown-arrow::before,
+#autocomplete-dropdown .aui-dropdown.fabric + .autocomplete-dropdown-arrow::after {
+    /*border-bottom-color: #fff;*/
+    color: #fff;
+    left: 13px;
+}
+
+#autocomplete-dropdown .aui-dropdown.fabric .dropdown-lozenge {
+    color: #707070;
+    font-size: 12px;
+    position: relative;
+    top: -4px;
+}
+
+#autocomplete-dropdown .autocomplete-dropdown-arrow.fabric:after {
+    border-bottom-color: #fff;
+}

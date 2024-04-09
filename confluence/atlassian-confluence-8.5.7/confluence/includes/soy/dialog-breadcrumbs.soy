@@ -1,0 +1,25 @@
+{namespace Confluence.Templates.Dialog}
+
+/**
+ * Renders a breadcrumb item to be displayed in dialogs
+ * @param text the text to display in the span
+ * @param title the title/tooltip of the breadcrumb link
+ * @param className the css class name for the breadcrumb link
+ */
+{template .breadcrumbItem}
+    <li><a class="{$className}" title="{$title}" tabindex="-1"><span>{$text}</span></a></li>
+{/template}
+
+/**
+ * Placeholder for a loading breadcrumb
+ */
+{template .breadcrumbLoading}
+    <li class="loading"><span>{getText('move.page.dialog.breadcrumb.loading')|noAutoescape}</span></li>
+{/template}
+
+/**
+ * Render an error message when displaying breadcrumbs
+ */
+{template .breadcrumbError}
+    <li class="warning last"><span>{getText('move.page.dialog.breadcrumb.error')}</span></li>
+{/template}

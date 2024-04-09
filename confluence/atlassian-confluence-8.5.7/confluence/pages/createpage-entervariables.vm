@@ -1,0 +1,75 @@
+<html>
+    <head>
+        #requireResource("confluence.web.resources:page-templates")
+        <title>$action.getText("page.template.wizard")</title>
+    </head>
+
+    <body>
+        #parse ( "/template/includes/actionerrors.vm" )
+        #applyDecorator("root")
+        #decoratorParam("helper" $action.helper)
+        #decoratorParam("context" "space-pages")
+        #decoratorParam("mode" "create-page")
+
+        <div class="padded">
+            <div class="steptitle" style="margin-top: 10px">$action.getText('pagevariables.step2')</div>
+            <p>$action.getText('text.pagevariables.step2.instructions')</p>
+
+            <div class="smallfont view-template">
+                <div class="wiki-content">$action.renderedTemplateContent</div>
+            </div>
+
+            <form name="filltemplateform" method="POST" action="doenterpagevariables.action">
+                #form_xsrfToken()
+                $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.input.soy", {
+                                                        "type": "hidden",
+                                                        "name": "queryString",
+                                                        "id": "queryString",
+                                                        "value": $!queryString})
+                $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.input.soy", {
+                                                        "type": "hidden",
+                                                        "name": "templateId",
+                                                        "id": "templateId",
+                                                        "value": $!pageTemplate.id})
+                $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.input.soy", {
+                                                        "type": "hidden",
+                                                        "name": "linkCreation",
+                                                        "id": "linkCreation",
+                                                        "value": $!linkCreation})
+                $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.input.soy", {
+                                                        "type": "hidden",
+                                                        "name": "title",
+                                                        "id": "title",
+                                                        "value": $!title})
+                $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.input.soy", {
+                                                        "type": "hidden",
+                                                        "name": "parentPageId",
+                                                        "id": "parentPageId",
+                                                        "value": $!parentPageId})
+                $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.input.soy", {
+                                                        "type": "hidden",
+                                                        "name": "fromPageId",
+                                                        "id": "fromPageId",
+                                                        "value": $!fromPageId})
+                $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.input.soy", {
+                                                        "type": "hidden",
+                                                        "name": "spaceKey",
+                                                        "id": "spaceKey",
+                                                        "value": $!spaceKey})
+
+                <div class="aui-toolbar2" role="toolbar">
+                    <div class="aui-toolbar2-inner">
+                            <input class="aui-button" type="button" value="$action.getText('back.witharrows.name')" onclick="javascript:history.go(-1)">
+                            #ssubmit("name='confirm'" "id=confirm" "value='next.name'" "theme='notable'" "cssClass='aui-button'")
+                    </div>
+                </div>
+            </form>
+
+            #parse ( "/pages/page-breadcrumbs.vm" )
+        </div>
+
+        #end
+    </body>
+</html>
+
+

@@ -1,0 +1,1 @@
+define("confluence/legacy",function(){return Confluence});

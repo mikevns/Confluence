@@ -1,0 +1,50 @@
+@import "colors.less";
+
+/*Style of <time> in both view & editor mode*/
+
+/*Note: Must use a class selector (not ID) as colours will be changed by inline-tasks plugin and thus they
+  must get precedence */
+
+.wiki-content time {
+  padding: 0 6px 1px 5px;
+  margin: 0 1px; /*fix cursor is hidden at beginning of time node in FF and end of time node in Webkit*/
+  background-color: @adg-N30-northeast-snow;
+  color: @adg-N500-mcfanning;
+  border-radius: 3px;
+  white-space: nowrap;
+
+  resize: none;
+  outline: 0 none;
+
+  -webkit-touch-callout: all;
+  -webkit-user-select: all;
+  -khtml-user-select: all;
+  -moz-user-select: all;
+  -ms-user-select: all;
+  user-select: all;
+}
+
+.wiki-content time:focus{
+  outline: 0 none;
+}
+
+/*
+we must use this technique: use pseduo :before
+should not use bg css in time element, because user can set cursor at beginning of time element and type anything,
+but input content is outside of time element
+*/
+.wiki-content time:before{
+  content: "";
+  width: 1.143em; /* 16px */
+  height: 1.143em; /* 16px */
+  padding: 0;
+  margin-right: 5px;
+  display: inline-block;
+  vertical-align: text-bottom;
+  background-size: 1em; /* 14px width/height */
+  /* Combining the below three properties into a single "background" property disallows scaling of the icon */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2397A0AF' fill-rule='evenodd'%3E%3Cpath d='M3 6v7h10V6H3zm9-3h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h1V2a1 1 0 1 1 2 0v1h4V2a1 1 0 0 1 2 0v1z' fill-rule='nonzero'/%3E%3Cpath d='M4 9h2V7H4zm0 3h2v-2H4zm3-3h2V7H7z'/%3E%3C/g%3E%3C/svg%3E");
+}
+

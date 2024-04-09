@@ -1,0 +1,3 @@
+
+<p>$i18n.getText("global.default.language.desc")</p>
+<p>$i18n.getText("download.more.languages", [$i18n.getText("url.atlassian.translations")])</p>

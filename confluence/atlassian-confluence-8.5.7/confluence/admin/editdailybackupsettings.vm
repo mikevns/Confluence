@@ -1,0 +1,134 @@
+#* @vtlvariable name="action" type="com.atlassian.confluence.admin.actions.DailyBackupAdminAction" *#
+<html>
+	<head>
+		<title>$action.getText("daily.backup.action.name")</title>
+        <meta name="help-path" content="/admin/help/dailybackup.vm"/>
+        #requireResource("confluence.web.resources:backupadmin")
+        #requireResource("confluence.web.resources:aui-forms")
+	</head>
+    <content tag="selectedWebItem">dailybackup</content>
+    <content tag="subtitleDescription">daily.backup.subtitle</content>
+	<body>
+		#parse ( "/template/includes/actionerrors.vm" )
+
+        #applyDecorator("form-aui")
+            #decoratorParam("editMode" $editMode)
+            #decoratorParam("formName" "dailybackup")
+            #decoratorParam("submitAction" "doeditdailybackupsettings.action")
+            #decoratorParam("editAction" "editdailybackupsettings.action")
+            #decoratorParam("formStyle" "long-label")
+
+            #form_xsrfToken()
+            <h2>$action.getText("backup.settings.form.heading")</h2>
+
+            #if (!$action.editMode)
+                #applyDecorator ("message")
+                    #decoratorParam("type" "warning")
+                    $action.getText('backup.warning', [$docBean.getLink("help.configuring.daily.backups")])
+            #end
+        #set ($jobActionPath = "$request.contextPath/admin/scheduledjobs/viewscheduledjobs.action")
+        #set($_params = {
+            "labelContent": "$i18n.getText('backup.daily.on')",
+            "name": "dailyBackupStatus",
+            "id": "dailyBackupStatus",
+            "value": "#if($action.backupEnabled)Enabled #else Disabled#end",
+            "descriptionContent": "$action.getText('backup.disable.tip', [$jobActionPath])",
+            "type": "#if($editMode == true)text#{else}value#end",
+            "isDisabled": false})
+        $soyTemplateRendererHelper.getRenderedTemplateHtml(
+            "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+        #set($_params = {
+            "labelContent": "$i18n.getText('backup.file.pattern')",
+            "name": "dailyBackupFilePrefixPreview",
+            "id": "dailyBackupFilePrefixPreview",
+            "value": $!dailyBackupFilePrefixWithDatePattern,
+            "type": "#if($editMode == true)text#{else}value#end",
+            "isDisabled": false})
+        $soyTemplateRendererHelper.getRenderedTemplateHtml(
+            "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+    #end
+        #set($_params = {
+            "labelContent": "$i18n.getText('backup.file.prefix')",
+            "name": "dailyBackupFilePrefix",
+            "id": "dailyBackupFilePrefix",
+            "value": $dailyBackupFilePrefix,
+            "type": "#if($editMode == true)text#{else}value#end",
+            "isDisabled": false})
+        $soyTemplateRendererHelper.getRenderedTemplateHtml(
+            "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+        #set($_params = {
+            "labelContent": "$i18n.getText('backup.file.date.pattern')",
+            "name": "dailyBackupDateFormatPattern",
+            "id": "dailyBackupDateFormatPattern",
+            "value": $!dailyBackupDateFormatPattern,
+            "type": "#if($editMode == true)text#{else}value#end",
+            "isDisabled": false})
+        $soyTemplateRendererHelper.getRenderedTemplateHtml(
+            "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+
+        #if (!$action.customLocationAllowed)
+        #set( $backupDescription ="$action.getText('custom.backup.path.disabled') #doc(
+                'help.configuring.daily.backup.path' $action.getText('custom.backup.path.help'))")
+            #set($_params = {
+                "labelContent": "$i18n.getText('backup.path')",
+                "name": "backup",
+                "id": "backup",
+                "value": $!action.defaultBackupPath,
+                "isDisabled": true,
+                "descriptionContent": $backupDescription,
+                "type": "#if($editMode == true)text#{else}value#end"})
+            $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+        #else
+            #if ($action.editMode)
+            <input type="hidden" id="defaultPath" value="$action.defaultBackupPath"/>
+                $soyTemplateRendererHelper.getRenderedTemplateHtml("confluence.web.resources:shared-templates", "Confluence.Templates.Radiolist.auiRadiolist.soy",{
+                        "labelValue": "$action.getText('backup.path')",
+                        "editMode": $editMode,
+                        "name": "backupOption",
+                        "value": $backupOption,
+                        "list": $backupOptions
+                    })
+                #if ($action.backupOption == 'default')
+                    #set($_params = {
+                        "name": "backupPath",
+                        "id": "backupPath",
+                        "value": $!backupPath,
+                        "descriptionContent": "$action.getText('backup.path.text.description')",
+                        "isDisabled": true,
+                        "type": "text"})
+                    $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                        "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+                #end
+
+            #else
+                #set($_params = {
+                    "labelContent": "$i18n.getText('backup.path')",
+                    "type": "#if($editMode == true)text#{else}value#end",
+                    "isDisabled": false,
+                    "value": $!backupPath})
+                $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                    "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+            #end
+            #end
+        <div class="group">
+            #set( $isDisabledcheckbox = !$editMode)
+            #set ($templateParameters = {
+                "isDisabled": $isDisabledcheckbox,
+                "value": "true",
+                "type": "checkbox",
+                "labelContent": "$i18n.getText('backup.attachments')",
+                "name": "backupAttachments",
+                "id": "backupAttachments",
+                "isChecked": $backupAttachments})
+            $soyTemplateRendererHelper.getRenderedTemplateHtml(
+                "com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $templateParameters)
+        </div>
+
+            #ssubmit("theme='aui'"
+                     "editMode=$action.editMode")
+        #end
+
+		#parse("/breadcrumbs.vm")
+	</body>
+</html>

@@ -1,0 +1,103 @@
+/* PDL menu.css*/
+.content-navigation {
+    float: right;
+    position: relative;
+    margin-top: 1px; /* To align the menu items with the page banner */
+}
+
+.content-navigation .ajs-menu-bar {
+    margin-right: -10px;
+}
+
+/* content-navigation elements are <li>'s */
+.content-navigation .ajs-menu-item,
+.content-navigation .ajs-button {
+    padding-left: 5px;
+}
+
+/* Customisations for navigation menu bar
+   Would like to kill these styles if we ever use icon font in all the places, for now we need to reserve
+   padding in case developers are using a background-image, but they should define their own padding!
+ */
+
+.content-navigation .ajs-menu-bar .ajs-button span,
+.content-navigation .ajs-menu-bar .ajs-menu-item .ajs-menu-title span {
+    padding-left: 21px;
+}
+
+.content-navigation .ajs-menu-bar .ajs-button .aui-form-glyph,
+.content-navigation .ajs-menu-bar .ajs-menu-item .ajs-menu-title .aui-form-glyph {
+    padding-left: 0;
+}
+
+/* These styles reset styles intended to allow for padding if using background-image icons since we are using font icons
+   If we move to only icon font then we can remove these styles, but they override styles needed for developers
+   to use background images
+ */
+.content-navigation .ajs-menu-bar .ajs-button a > span > span.aui-icon,
+.content-navigation .ajs-menu-bar .ajs-menu-item a > span > span.aui-icon {
+    margin-left: -21px;
+    padding-left: 0;
+}
+/* end allows usage of icon-font */
+
+.ajs-menu-bar .ajs-menu-item,
+.ajs-menu-bar .ajs-button {
+    float: left;
+    list-style: none;
+    position: relative;
+}
+
+/* styles copied from old menu.css */
+.ajs-menu-bar,
+.ajs-menu-bar .ajs-drop-down a,
+.ajs-menu-bar .ajs-drop-down a span {
+    display: block;
+    margin: 0;
+    padding: 0 0 0 20px;
+}
+.ajs-menu-bar .ajs-menu-item .trigger span {
+    background-position: 100% 50%;
+    background-repeat: no-repeat;
+}
+
+.ajs-menu-bar .ajs-button span {
+    background-repeat: no-repeat;
+}
+
+.ajs-menu-bar .ajs-drop-down ul,
+.ajs-menu-bar ul.ajs-drop-down {
+    border-top: solid 1px #e1e1e1;
+    margin: 0;
+    padding: 5px 0;
+    position: relative;
+    list-style: none;
+}
+.ajs-menu-bar .ajs-menu-item div.ajs-drop-down a {
+    background-position: .5em 50%;
+    background-repeat: no-repeat;
+    border: none;
+    display: block;
+    line-height: 2;
+    margin: 0;
+    padding: 0 1em 0 28px;
+    position: relative;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.ajs-menu-bar .ajs-drop-down {
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    background-color: #fff; /* system colour - not derived from colour scheme */
+    border: solid 1px #c1c1c1;
+    font-weight: normal;
+    min-width: 192px;
+    padding: 0;
+    position: absolute;
+    left: 0;
+    white-space: nowrap;
+    z-index: 1000;
+}
+
+/*End PDL menu.css*/

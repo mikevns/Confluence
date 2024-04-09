@@ -1,0 +1,18 @@
+{namespace Confluence.Templates.Breadcrumbs}
+
+/**
+ * Renders the breadcrumbs into the editor
+ * @param breadcrumbs a list of breadcrumb objects
+ * @param ellipsisIndex where the ellipsis is positioned in the trail
+ * @param ellipsisLength how many breadcrumbs the ellipsis swallows
+ */
+{template .render}
+    {foreach $breadcrumb in $breadcrumbs}
+        {if index($breadcrumb) == $ellipsisIndex}
+            <li id="ellipsis" title="Show all breadcrumbs"><span><strong>…</strong></span></li>
+        {/if}
+        <li class="{if isFirst($breadcrumb)}first{/if}{if index($breadcrumb) >= $ellipsisIndex and index($breadcrumb) < $ellipsisIndex + $ellipsisLength}hidden-crumb{/if}">
+            <span><a href="{$breadcrumb.url}" target="_blank"> {$breadcrumb.title}</a></span>
+        </li>
+    {/foreach}
+{/template}

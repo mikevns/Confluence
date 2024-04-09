@@ -1,0 +1,105 @@
+<html>
+    <head>
+        <title>$i18n.getText("properties.attachment", ["$htmlUtil.htmlEncode($newFileName)"])#if($page.title) - $page.title#end</title>
+    </head>
+
+    #set ($confPage = $action.page)
+    #set ($labels = $attachment.labels)
+    #set ($labelable = $attachment)
+
+    <content tag="title-text-span">$i18n.getText("properties.attachment", ["$htmlUtil.htmlEncode($newFileName)"])</content>
+
+    <!-- call the page decorator -->
+    #applyDecorator("root")
+        #decoratorParam("helper" $action.helper)
+        #decoratorParam("mode" "view-attachment")
+        #decoratorParam("context" "$action.page.type")
+
+        <body>
+            #requireResource("confluence.web.resources:attachments")
+            <div class="page-metadata">
+                <ul>
+                    <li class="page-metadata-modification-info">
+                        $action.getText('added.on.date.by.user.edited.on.date', [
+                            "#if($attachment.creationDate)$action.dateFormatter.formatDateTime($attachment.creationDate)#{else}
+                                $action.getText('not.available')#end", "#userLink ($attachment.creator)",
+                            "#if($attachment.lastModificationDate)$action.dateFormatter.formatDateTime($attachment.lastModificationDate)#{else}
+                                $action.getText('not.available')#end"])
+                    </li>
+                </ul>
+            </div>
+            <form name="editattachment" method="POST" action="doeditattachment.action?pageId=$page.id&attachmentBean.fileName=$htmlUtil.urlEncode($attachment.fileName)" class="aui">
+                #form_xsrfToken()
+                $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.input.soy", {
+                                                        "type": "hidden",
+                                                        "name": "pageId",
+                                                        "id": "pageId",
+                                                        "value": $!pageId})
+                $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.input.soy", {
+                                                        "type": "hidden",
+                                                        "name": "isFromPageView",
+                                                        "id": "isFromPageView",
+                                                        "value": $!isFromPageView})
+
+                <div class="attachment-field">
+                    #fielderror('rename')
+                    #set($_params = {
+                    "labelContent":"$i18n.getText('file.name')",
+                    "name":"newFileName",
+                    "id":"newFileName",
+                    "value":$!newFileName,
+                    "type":"text",
+                    "isDisabled":false})
+                    $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+                </div>
+
+                <div class="attachment-field">
+                    <div class="field-group">
+                        <label>$action.getText("labels.title")</label>
+                        #parse("/com/atlassian/confluence/plugins/labels/components/labels-content.vm")
+                    </div>
+                </div>
+
+                <div class="attachment-field">
+                    #fielderror ('newComment')
+                    #set($_params = {
+                    "labelContent":"$i18n.getText('new.comment')",
+                    "name":"newComment",
+                    "id":"newComment",
+                    "value":$!newComment,
+                    "type":"text",
+                    "isDisabled":false,
+                    "maxLength":"255"})
+                    $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+                </div>
+
+                <div class="attachment-field">
+                    #fielderror ('newContentType')
+                    #set($_params = {
+                    "labelContent":"$i18n.getText('new.contentType')",
+                    "name":"newContentType",
+                    "id":"newContentType",
+                    "value":$!newContentType,
+                    "type":"text",
+                    "isDisabled":false,
+                    "maxLength":"255"})
+                    $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+                </div>
+
+                <div class="attachment-field">
+                    #fielderror ('move')
+                    #set($_params = {
+                    "labelContent":"$i18n.getText('page.word')",
+                    "name":"newParentPage",
+                    "id":"newParentPage",
+                    "value":$!newParentPage,
+                    "descriptionContent":"$action.getText('move.attachment.desc')",
+                    "type":"text","isDisabled":false, "maxLength":"255"})
+                    $soyTemplateRendererHelper.getRenderedTemplateHtml("com.atlassian.auiplugin:aui-experimental-soy-templates", "aui.form.field.soy", $_params)
+                </div>
+
+                #ssubmit("theme='aui'" "submitValue=$i18n.getText('save.name')" "editMode=true" "tabindex=5")
+            </form>
+        </body>
+    #end
+</html>

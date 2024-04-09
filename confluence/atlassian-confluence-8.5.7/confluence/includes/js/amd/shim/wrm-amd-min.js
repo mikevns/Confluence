@@ -1,0 +1,1 @@
+define("wrm",function(){return WRM});

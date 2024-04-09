@@ -1,0 +1,45 @@
+#* Decorator for Space admin/tools.
+If this decorator is not invoked within an AbstractSpaceAction, a space must be provided by a meta tag named spaceid:
+   <meta name="spaceid" content="123455"/>
+See ConfluenceSitemeshDecorator#findSpaceForDecorating for how that spaceid is used
+*#
+
+#requireResource("confluence.web.resources:master-styles")
+
+## Key of the web-item to highlight in Space Admin
+#set ($spaceAdminSelected = "")
+#if ($sitemeshPage.getProperty("page.space.admin.selected"))
+    #set ($spaceAdminSelected = $sitemeshPage.getProperty("page.space.admin.selected"))
+#end
+
+## Key of the web-item to highlight in Space Tools
+#set ($spacetoolsSelected = $spaceAdminSelected)
+#if ($sitemeshPage.getProperty("page.space.admin.tools.selected"))
+    #set ($spacetoolsSelected = $sitemeshPage.getProperty("page.space.admin.tools.selected"))
+#end
+
+#if ($space)
+    #applyDecorator("main" $title)
+
+        #applyDecorator("space")
+            #decoratorParam("helper" $action.helper)
+            #decoratorParam("mode"  "view-space-administration")
+            #decoratorParam("context" "space-administration")
+
+            #applyDecorator ("spaceadminpanel")
+                #decoratorParam("helper" $action.helper)
+                #decoratorParam ("selection" $spaceAdminSelected)
+                #decoratorParam ("selectedSpaceToolsWebItem" $spacetoolsSelected)
+
+                $body
+            #end
+        #end
+    #end
+#else
+    ## Skip space panels and main header if there is no space in the context.
+    #applyDecorator("main" $title)
+        #decoratorParam("hide-main-header" "true")
+
+        $body
+    #end
+#end

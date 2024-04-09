@@ -1,0 +1,70 @@
+#* @vtlvariable name="action" type="com.atlassian.confluence.setup.actions.SetupAdministrator" *#
+<html>
+<head>
+    <title>$action.getText("title.setup.administrator")</title>
+</head>
+<body>
+    #parse ("/setup/analytics-data.vm")
+    #parse ("/setup/setup-button.vm")
+    #parse ("/template/includes/actionerrors.vm")
+
+	<p>$action.getText("setupadmin.step.description")</p>
+
+    <h2>$action.getText("admin.configure.title")</h2>
+
+    <form name="setupadministratorform" method="POST" action="setupadministrator.action" class="aui">
+        #form_xsrfToken()
+        <div class="field-group">
+            <label id="username-label" for="username">
+                $i18n.getText('username.name')
+                <span class="aui-icon icon-required"></span>
+                <span class="content">$!action.getText('required.field')</span>
+            </label>
+            <input type="text" name="username" id="username" class="text" value="$!username" >
+            #fielderrorAUI('username')
+         </div>
+        <div class="field-group">
+            <label id="fullName-label" for="fullName">
+                $i18n.getText('admin.fullname.name')
+                <span class="aui-icon icon-required"></span>
+                <span class="content">$!action.getText('required.field')</span>
+            </label>
+            <input type="text" name="fullName" id="fullName" class="text" value="$!fullName" >
+            #fielderrorAUI('fullName')
+         </div>
+        <div class="field-group">
+            <label id="email-label" for="email">
+                $i18n.getText('email.name')
+                <span class="aui-icon icon-required"></span>
+                <span class="content">$!action.getText('required.field')</span>
+            </label>
+            <input type="email" name="email" id="email" class="text" value="$!email" >
+            #fielderrorAUI('email')
+         </div>
+        <div class="field-group">
+            <label id="password-label" for="password">
+                Password
+                <span class="aui-icon icon-required"></span>
+                <span class="content">$action.getText('required.field')</span>
+            </label>
+            <input type="password" name="password" id="password" class="password" value="$!password" >
+            #fielderrorAUI('password')
+        </div>
+        <div class="field-group">
+            <label id="confirm-label" for="confirm">
+                Confirm
+                <span class="aui-icon icon-required"></span>
+                <span class="content">$action.getText('required.field')</span>
+            </label>
+            <input type="password" name="confirm" id="confirm" class="password" value="$!confirm" >
+            #fielderrorAUI('confirm')
+        </div>
+
+        <div class="buttons-container">
+            <div class="buttons">
+                #setupNextButton(false)
+            </div>
+        </div>
+    </form>
+</body>
+</html>
